@@ -10,9 +10,12 @@ export const Movie = styled.li`
     transition: .3s;
     max-width: 500px;
     cursor: pointer;
+    outline: 5px solid transparent;
+    outline-offset: -4px;
 
     &:hover {
       filter: brightness(0.8);
+      outline-color: var(--secondary);
 
     }
 
@@ -20,6 +23,11 @@ export const Movie = styled.li`
       width: 35vw;
       
     }
+  
+  }
+
+  p:first-of-type {
+    max-width: 500px;
   
   }
 
