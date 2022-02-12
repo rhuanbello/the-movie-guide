@@ -12,6 +12,7 @@ import {
 import { PieChart } from 'react-minimal-pie-chart';
 
 import { MovieBannerProps } from './interfaces';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export const MovieBanner = ({ movieDetails }: MovieBannerProps) => {
 
@@ -39,7 +40,15 @@ export const MovieBanner = ({ movieDetails }: MovieBannerProps) => {
     <Container>
       <div>
         <a href={homepage} target="_blank">
-          <MoviePoster src={moviePoster} alt={original_title}/>
+          <AnimatePresence>
+            <MoviePoster 
+              as={motion.img}
+              src={moviePoster} 
+              initial={{ y: -20, opacity: 0}}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: .3 }}
+            />
+          </AnimatePresence>  
         </a>
         <MovieInfos>
           <h2>{original_title}</h2>

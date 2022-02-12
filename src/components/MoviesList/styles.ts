@@ -1,15 +1,18 @@
 import styled from 'styled-components'; 
 
-interface ContainerProps {
+interface ContentProps {
   isRecommendation: undefined | boolean;
 
 }
 
-export const Container = styled.ul<ContainerProps>`
+export const Container = styled.ul`
   max-width: 85vw;
   margin: 30px auto;
-  display: grid; 
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+ 
+`
+export const Content = styled.ul<ContentProps>`
+   display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
   gap: 32px;
 
   @media(min-width: 500px) {
@@ -41,8 +44,14 @@ export const Container = styled.ul<ContainerProps>`
 
   }
 
-  
 
 `
 
+export const SectionTitle = styled.h2`
+  color: var(--primary);
+  font-weight: bold;
+  font-size: 24px;
+  margin: 40px 0;
+  
 
+`

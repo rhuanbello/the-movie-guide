@@ -36,6 +36,7 @@ export default function Home() {
       )
       .then(({ data }) => {
         const { results } = data;
+        console.log('popular ->', results)
         handleMoviesList(results);
       })
       .catch((error) => {
@@ -46,7 +47,7 @@ export default function Home() {
 
   const getGenres = () => {
     genreApi
-      .get(`list?api_key=${VITE_API_KEY}&language=pt-BR`)
+      .get(`list?api_key=${VITE_API_KEY}`)
       .then(({ data }) => {
         const { genres } = data;
         setGenres(genres);

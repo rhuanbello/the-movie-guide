@@ -9,10 +9,9 @@ import {
   ButtonContainer, 
   Container, 
   GenreButton, 
-  SearchedOptions, 
-  StyledAutocomplete
 } from './styles';
 import { searchedMovies } from "../../pages/Home/interfaces";
+import { useState } from "react";
 
 export const GenresBanner = ({ 
   genres, 
@@ -40,20 +39,23 @@ export const GenresBanner = ({
 
   const navigate = useNavigate();
 
+  const [backDrop, setBackdrop] = useState('https://image.tmdb.org/t/p/original/c6H7Z4u73ir3cIoCteuhJh7UCAR.jpg')
+
   return (
-    <Container>
+    <Container backDrop={backDrop}>
 
       <div>
-        <h1>Milhões de filmes, séries e pessoas para descobrir. Explore já.</h1>
+        <h1>Track films you've watched. Discover millions of movies.
+          Explore now.</h1>
         <div>
-          <p>FILTRE POR:</p>
+          <p>FILTER BY:</p>
           <ButtonContainer>
             {genres.map((genre) => (
               <GenreButton
                 key={genre.id}
                 style={{
-                  backgroundColor: selectedGenres.some(g => g === genre.id) ? 'var(--orange)' : 'var(--text-light)',
-                  color: selectedGenres.some(g => g === genre.id) ? 'var(--text-light)' : 'var(--text-dark)',
+                  backgroundColor: selectedGenres.some(g => g === genre.id) ? 'var(--primary)' : 'var(--light)',
+                  color: 'var(--dark)',
                 }}
                 onClick={() => {
                   handleSelectedGenres(genre.id);
@@ -68,36 +70,7 @@ export const GenresBanner = ({
                 )}
               </GenreButton>
             ))}
-
           </ButtonContainer>
-          <p>OU BUSQUE POR:</p>
-          <StyledAutocomplete
-            disablePortal
-            freeSolo
-            clearOnEscape
-            options={searchedMovies.sort((a, b) => b.popularity - a.popularity)}
-            noOptionsText={'Nenhum título encontrado.'}
-            getOptionLabel={(item: searchedMovies | any) => item.title}
-            renderOption={(props, item: searchedMovies | any) => (
-              <SearchedOptions {...props} voteAverage={item.vote_average}>
-                <img src={`https://image.tmdb.org/t/p/w200/${item.poster_path}`} alt="" />
-                <span>{item?.title}</span>
-                <span>{item?.vote_average?.toString()?.replace('.', '')}%</span>
-                <span>{item?.release_date?.split('-')[0]}</span>
-              </SearchedOptions>
-            )}
-            renderInput={(params) => (
-              <TextField {...params} 
-                placeholder='Pesquise um título...'
-                onChange={(e) => {
-                  setSearchedTerm(e.target.value)
-                }}
-              />
-            )}
-            onChange={(e, item: any) => {
-              navigate(`/movie/${item.id}`)
-            }}
-          />
         </div>
       </div>
 

@@ -1,40 +1,37 @@
 import { createGlobalStyle } from 'styled-components';
+import { popoverClasses } from "@mui/material/Popover";
 
 export const GlobalStyle = createGlobalStyle`
   :root {
-    --primary: #2D0C5E;
-    --secondary: #3916C5;
-    --orange: #D18000;
-    --background: #F3F3F3;
+    --primary: #00DF5E;
+    --secondary: #191E24;
+    --terciary: #2C3440;
 
-    --text-dark-contrast: #131313;
-    --text-dark: #000000;
-    --text-dark-light: #646464;
-    --text-dark-medium: #323232;
-    --text-light: #FFFFFF;
-    --text-light-grey: #DDDDDD;
-
-    --transparent-default: rgba(255, 255, 255, 0.1);
-    --text-success: #14FF00;
-
+    --dark: #171717;
+    --contrast: #212121;
+    --grey: #828282;
+    --light: #F9F9F9;
+  
   }
   
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    outline: unset;
 
   }
 
   body {
-    background: var(--background);
+    background: var(--secondary);
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
 
   }
 
   body, input, textarea, button {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--light);
 
   }
 
