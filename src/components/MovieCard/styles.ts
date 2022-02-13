@@ -1,3 +1,4 @@
+import { Button, Menu, MenuItem, popoverClasses } from '@mui/material';
 import styled from 'styled-components'; 
 
 export const Movie = styled.li`
@@ -21,21 +22,32 @@ export const Movie = styled.li`
 export const PosterContainer = styled.div`
   position: relative;
   width: 100%;
+  overflow: hidden;
+  outline: 3px solid transparent;
+  border-radius: 3px;
+  margin-bottom: 5px;
+  transition: .3s;
+
+  &:hover {
+    outline-color: var(--primary);
+
+    &&& button {
+      opacity: 1;
+
+    }
+
+    img {
+      filter: brightness(0.8);
+      transform: scale(1.15);
+
+    }
+  }
 
 
   img {
-    border-radius: 4px;
-    transition: .3s;
     width: 100%;
     cursor: pointer;
-    outline: 3px solid transparent;
-    outline-offset: -4px;
-
-    &:hover {
-      filter: brightness(0.8);
-      outline-color: var(--primary);
-
-    }
+    transition: .3s;
 
     @media(max-width: 500px) {
       width: 35vw;
@@ -46,39 +58,55 @@ export const PosterContainer = styled.div`
 
 `
 
-export const MovieOptions = styled.aside`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: red;
-  padding: 10px;
+export const Dropdown = styled(Menu)`
+  &&& {
+    margin-top: 5px;
 
-`
+    .${popoverClasses.paper} {
+      background-color: var(--dark);
+      border-radius: 5px;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
-export const ModalRateStars = styled.div`
-  padding: 50px;
-  border-radius: 5px;
-  /* background-color: #000; */
-  position: absolute;
-  left: 0;
-  top: 0;
-
-  &::after {
-    content: '';
-    position: absolute;
-    left: -15px;
-    display: block;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 10px 15px 10px 0;
-    border-color: transparent #000 transparent transparent;
+    }
 
   }
+`
+
+export const MovieAction = styled(MenuItem)`
+  &&& {
+    background-color: var(--dark);
+    margin: 0;
+    color: #F9F9F9;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    padding-inline: 25px;
+
+    &:hover {
+      background-color: var(--contrast);
+
+    }
+
+  }
+`
+
+export const DetailsButton = styled(Button)`
+  &&& {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    padding: 3px;
+    background: var(--dark);
+    border-radius: 50%;
+    min-width: 0;
+    opacity: 0;
+
+    &&& .focusVisible  {
+      opacity: 1;
+
+    }
+
+  }
+  
 
 `

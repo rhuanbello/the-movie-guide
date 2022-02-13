@@ -17,6 +17,8 @@ export const Container = styled.header`
     }
 
     & > nav {
+      display: flex;
+      gap: 15px;
       margin-inline: auto 40px;
 
     }

@@ -22,6 +22,7 @@ export default function Home() {
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
   const [searchedTerm, setSearchedTerm] = useState<string>('avengers');
   const [searchedMovies, setSearchedMovies] = useState<searchedMovies[]>([]);
+  const [backDrop, setBackdrop] = useState('https://image.tmdb.org/t/p/original/c6H7Z4u73ir3cIoCteuhJh7UCAR.jpg')
 
   useEffect(() => {
     console.log('searchedMovies', searchedMovies)
@@ -60,7 +61,14 @@ export default function Home() {
   };
 
   const handleMoviesList = (results: any) => {
-   
+
+    const maxRange = 5;
+    const randomRange = Math.floor(Math.random() * (maxRange - 0) + 0);
+    const randomMoviePoster = 'https://image.tmdb.org/t/p/original' 
+      + results[randomRange].backdrop_path;
+
+    setBackdrop(randomMoviePoster)
+
     const moviesListFiltered = [...results].map(
       ({ title, release_date, poster_path, id }) => ({
         title,
@@ -100,6 +108,12 @@ export default function Home() {
     setSearchedMovies(filteredResults);
   }
 
+  const handleRandomMoviePoster = () => {
+
+
+
+  }
+
   useEffect(() => {
     getGenres();
   }, []);
@@ -124,6 +138,7 @@ export default function Home() {
         selectedGenres={selectedGenres}
         setSearchedTerm={setSearchedTerm}
         searchedMovies={searchedMovies}
+        backDrop={backDrop}
       />
       <MoviesList 
         moviesToRender={popularMovies}

@@ -9,13 +9,13 @@ import { searchApi } from '../../services/api';
 export const Header = () => {
   const navigate = useNavigate();
   const [dropDown, setDropDown] = useState('');
-  const { VITE_API_KEY } = import.meta.env;
   const onClose = () => setDropDown('');
+  const { VITE_API_KEY } = import.meta.env;
 
   const menuItems = [
     { 
       menuButton: 'Movies',
-      menuItems: ['Popular', 'Top Rated'] 
+      menuItems: ['Popular', 'Top Rated', 'Now Playing'] 
     }, 
     { 
       menuButton: 'People',

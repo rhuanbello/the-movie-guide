@@ -18,7 +18,8 @@ export const GenresBanner = ({
   selectedGenres, 
   setSelectedGenres, 
   setSearchedTerm, 
-  searchedMovies 
+  searchedMovies,
+  backDrop
 }: genresBannerProps) => {
 
   const handleSelectedGenres = (id: number) => {
@@ -39,7 +40,7 @@ export const GenresBanner = ({
 
   const navigate = useNavigate();
 
-  const [backDrop, setBackdrop] = useState('https://image.tmdb.org/t/p/original/c6H7Z4u73ir3cIoCteuhJh7UCAR.jpg')
+  
 
   return (
     <Container backDrop={backDrop}>

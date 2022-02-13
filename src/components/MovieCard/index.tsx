@@ -1,6 +1,12 @@
-import { ModalRateStars, Movie, MovieOptions, PosterContainer } from "./styles";
+import { 
+  Movie, 
+  PosterContainer, 
+  MovieAction, 
+  DetailsButton, 
+  Dropdown 
+} from "./styles";
+
 import moment from 'moment';
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { RateStars } from '../GenericComponents/RateStars';
 import { MovieCardProps } from './interfaces';
 import { useState } from "react";
@@ -23,29 +29,70 @@ export const MovieCard = ({ onClick, movie }: MovieCardProps) => {
 
   const WatchIcon = ({ onClick, color, size }) => {
     return (
-        <button 
-          onClick={onClick}
-          className="noFilter"
-          style={{ 
-              border: 'none', 
-              backgroundColor: 'transparent',
-            }}
-          >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={size} height={size}><path fill="none" d="M0 0h24v24H0z" /><path d="M1.181 12C2.121 6.88 6.608 3 12 3c5.392 0 9.878 3.88 10.819 9-.94 5.12-5.427 9-10.819 9-5.392 0-9.878-3.88-10.819-9zM12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0-2a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" fill={isWatched ? 'white' : 'var(--secondary)'} /></svg>
-        </button>
+      <button 
+        onClick={onClick}
+        className="noFilter"
+        style={{ 
+            border: 'none', 
+            backgroundColor: 'transparent',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            fontSize: 14
+          }}
+        >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={size} height={size}>
+          <path fill="none" d="M0 0h24v24H0z" />
+          <path fill={isWatched ? 'var(--light)' : 'var(--primary)'}  d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z" />
+        </svg>
+        <p>{isWatched ? 'Watch' : 'Remove'}</p>
+      </button>
+    )
+  }
+  const FavoriteIcon = ({ onClick, color, size }) => {
+    return (
+      <button 
+        onClick={onClick}
+        className="noFilter"
+        style={{ 
+            border: 'none', 
+            backgroundColor: 'transparent',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            fontSize: 14
+          }}
+        >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="none" d="M0 0H24V24H0z" />
+          <path fill={isFavorite ? 'var(--primary) ' : 'var(--light)'}  d="M16.5 3C19.538 3 22 5.5 22 9c0 7-7.5 11-10 12.5C9.5 20 2 16 2 9c0-3.5 2.5-6 5.5-6C9.36 3 11 4 12 5c1-1 2.64-2 4.5-2z" />
+        </svg>
+        <p>{isFavorite ? 'Unfavorite' : 'Favorite'}</p>
+      </button>
     )
   }
 
   const DetailsIcon = () => {
     return (
-      <button>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z" /><path d="M4.5 10.5c-.825 0-1.5.675-1.5 1.5s.675 1.5 1.5 1.5S6 12.825 6 12s-.675-1.5-1.5-1.5zm15 0c-.825 0-1.5.675-1.5 1.5s.675 1.5 1.5 1.5S21 12.825 21 12s-.675-1.5-1.5-1.5zm-7.5 0c-.825 0-1.5.675-1.5 1.5s.675 1.5 1.5 1.5 1.5-.675 1.5-1.5-.675-1.5-1.5-1.5z" /></svg>
-      </button>
+      <>
+        {dropDown ? (
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+            <path fill="none" d="M0 0h24v24H0z"/>
+            <path fill="var(--light)" d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/>
+          </svg>
+        ) : (
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+          <path fill="none" d="M0 0h24v24H0z" />
+          <path fill="var(--light)" d="M5 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm14 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-7 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" /></svg>
+        )}
+      </>
     )
-
   }
 
-  const [isWatched, setIsWatched] = useState(false)
+  const [isWatched, setIsWatched] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [dropDown, setDropDown] = useState<boolean>(null);
+  const onClose = () => setDropDown(null);
 
   return (
     <AnimatePresence>
@@ -58,30 +105,61 @@ export const MovieCard = ({ onClick, movie }: MovieCardProps) => {
         exit={{ opacity: 0 }}
       >
         <PosterContainer>
-          <img src={moviePoster} alt="" onClick={() => onClick(id)}/>
-          {/* <MovieOptions>
-            <WatchIcon 
-              onClick={() => setIsWatched(!isWatched)} 
-              color="#FFF"
-              size={28}
-            />
+          <img src={moviePoster} alt={title} onClick={() => onClick(id)}/>
+
+          <DetailsButton
+            style={{
+              opacity: dropDown && '1',
+            }}
+            onClick={(e) => {
+              setDropDown(e.currentTarget);
+            }}
+          >
             <DetailsIcon />
-
-            <ModalRateStars>
-              <RateStars
-                activeColor="yellow"
-                size={24}
-                onChange={ratingChanged}
-              />
-
-            </ModalRateStars>
-          </MovieOptions> */}
+          </DetailsButton>
+         
         </PosterContainer>
+
         <p>{title}</p>
-        <p>{moment(release_date).format('DD MMM YYYY').toUpperCase()}
-        
-        </p>
+        <p>{moment(release_date).format('YYYY').toUpperCase()}</p>
+
       </Movie>
+
+      <Dropdown
+        anchorEl={dropDown}
+        open={dropDown}
+        onClose={onClose}
+      >
+        <MovieAction
+          onClick={() => { }}
+        >
+          <FavoriteIcon
+            onClick={() => setIsFavorite(!isFavorite)}
+            color="#FFF"
+            size={24}
+          />
+        </MovieAction>
+        <MovieAction
+          onClick={() => { }}
+        >
+          <WatchIcon
+            onClick={() => setIsWatched(!isWatched)}
+            color="#FFF"
+            size={24}
+          />
+        </MovieAction>
+        <MovieAction
+          onClick={() => { }}
+        >
+          <RateStars
+            activeColor="var(--primary)"
+            size={24}
+            onChange={ratingChanged}
+          />
+        </MovieAction>
+
+      </Dropdown>
+
     </AnimatePresence>
   );
 }
