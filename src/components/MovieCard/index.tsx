@@ -23,10 +23,6 @@ export const MovieCard = ({ onClick, movie }: MovieCardProps) => {
 
   const moviePoster = `https://image.tmdb.org/t/p/w200/${poster_path}`;
 
-  const ratingChanged = (newRating) => {
-    console.log(newRating)
-  }
-
   const WatchIcon = ({ onClick, color, size }) => {
     return (
       <button 
@@ -37,18 +33,19 @@ export const MovieCard = ({ onClick, movie }: MovieCardProps) => {
             backgroundColor: 'transparent',
             display: 'flex',
             alignItems: 'center',
-            gap: 10,
-            fontSize: 14
+            gap: 20,
+            fontSize: 14,
           }}
         >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={size} height={size}>
           <path fill="none" d="M0 0h24v24H0z" />
-          <path fill={isWatched ? 'var(--light)' : 'var(--primary)'}  d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z" />
+          <path fill={isWatched ? 'var(--primary)' : 'var(--terciary)'}  d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z" />
         </svg>
-        <p>{isWatched ? 'Watch' : 'Remove'}</p>
+        <p>{isWatched ? 'Remove' : 'Watch'}</p>
       </button>
     )
   }
+  
   const FavoriteIcon = ({ onClick, color, size }) => {
     return (
       <button 
@@ -59,13 +56,13 @@ export const MovieCard = ({ onClick, movie }: MovieCardProps) => {
             backgroundColor: 'transparent',
             display: 'flex',
             alignItems: 'center',
-            gap: 10,
+            gap: 20,
             fontSize: 14
           }}
         >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
           <path fill="none" d="M0 0H24V24H0z" />
-          <path fill={isFavorite ? 'var(--primary) ' : 'var(--light)'}  d="M16.5 3C19.538 3 22 5.5 22 9c0 7-7.5 11-10 12.5C9.5 20 2 16 2 9c0-3.5 2.5-6 5.5-6C9.36 3 11 4 12 5c1-1 2.64-2 4.5-2z" />
+          <path fill={isFavorite ? 'var(--primary) ' : 'var(--terciary)'}  d="M16.5 3C19.538 3 22 5.5 22 9c0 7-7.5 11-10 12.5C9.5 20 2 16 2 9c0-3.5 2.5-6 5.5-6C9.36 3 11 4 12 5c1-1 2.64-2 4.5-2z" />
         </svg>
         <p>{isFavorite ? 'Unfavorite' : 'Favorite'}</p>
       </button>
@@ -149,13 +146,9 @@ export const MovieCard = ({ onClick, movie }: MovieCardProps) => {
           />
         </MovieAction>
         <MovieAction
-          onClick={() => { }}
+          onClick={() => {}}
         >
-          <RateStars
-            activeColor="var(--primary)"
-            size={24}
-            onChange={ratingChanged}
-          />
+          <RateStars />
         </MovieAction>
 
       </Dropdown>
