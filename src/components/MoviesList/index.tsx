@@ -17,7 +17,10 @@ export const MoviesList = ({
   return (
     <>
       <Container>
-        <SectionTitle>Popular Films This Week</SectionTitle>
+        {
+          !isRecommendation && 
+          <SectionTitle>Popular Films This Week</SectionTitle>
+        }
         <Content 
           as={motion.ul}
           layout

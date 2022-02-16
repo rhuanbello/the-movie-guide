@@ -45,7 +45,7 @@ export const PosterContainer = styled.div`
 
 
   img {
-    width: 100%;
+    width: 150px;
     cursor: pointer;
     transition: .3s;
 

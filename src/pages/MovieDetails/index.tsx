@@ -72,9 +72,13 @@ export default function MovieDetails() {
     const { cast, crew } = data.credits;
     const { results } = data.videos;
 
-    const trailersFiltered = [...results]
-    .map(({ key }) => ({ key }))
-    [0].key
+    if (results.length) {
+      const trailersFiltered = [...results]
+        .map(({ key }) => ({ key }))
+      [0]?.key
+
+      setMovieTrailer(trailersFiltered);
+    }
     
     const crewArrayFilteredAndLimited = [...crew]
     .map(({ known_for_department, name, profile_path }) => ({
@@ -87,12 +91,12 @@ export default function MovieDetails() {
     console.log('Iso', data?.release_dates?.results)
 
     const classification = data?.release_dates?.results
-      ?.filter(({ iso_3166_1 } ) => iso_3166_1 === 'BR')[0]
-      .release_dates.filter(
-        ({ certification }) => certification !== ''
-      )[0].certification;
-    
+      ?.filter(({ iso_3166_1 }) => iso_3166_1 === 'BR' || iso_3166_1 === 'US')
+      ?.sort((a, b) => a.iso_3166_1.localeCompare(b.iso_3166_1))[0]?.release_dates
+      ?.filter(({ certification }) => certification !== '')[0]?.certification;     
+
     const movieDetailsFiltered = {
+      backdrop_path: data.backdrop_path,
       genres: data.genres,
       original_title: data.original_title,
       overview: data.overview,
@@ -103,10 +107,9 @@ export default function MovieDetails() {
       vote_average: data.vote_average,
       homepage: data.homepage,
       crew: crewArrayFilteredAndLimited,
-      classification: classification
+      classification: classification || ''
     }
     
-    setMovieTrailer(trailersFiltered);
     setMovieDetails(movieDetailsFiltered);
     handleMovieCredits(cast);
   }

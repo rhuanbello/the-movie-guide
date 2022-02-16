@@ -16,6 +16,10 @@ export const MovieCredits = ({ movieCredits, movieTrailer }: movieCreditsProps) 
   const youtube_baseURL = `https://www.youtube.com/embed/${movieTrailer}?controls=0?autoplay=1`;
   const { ref, inView } = useInView();
 
+  useEffect(() => {
+    console.log('mov', movieTrailer);
+  }, [movieTrailer]);
+
   return (
     <Container>
       <Content>
@@ -24,7 +28,7 @@ export const MovieCredits = ({ movieCredits, movieTrailer }: movieCreditsProps) 
           initial={{ opacity: 0 }}
           transition={{ duration: 2 }}
         >
-          <Subtitle>Elenco Original</Subtitle>
+          <Subtitle className="Cast">Elenco Original</Subtitle>
           <Cards>
             {movieCredits?.map((person, i) => (
               person.profile_path && (
@@ -44,37 +48,43 @@ export const MovieCredits = ({ movieCredits, movieTrailer }: movieCreditsProps) 
             ))}
           </Cards>
         </motion.div>
-        <motion.div
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          ref={ref}
-          variants={{
-            hidden: {
-              opacity: 0,
-              x: -200
-            },
-            visible: {
-              opacity: 1,
-              x: 0,
-              transition: {
-                duration: .7,
+        {
+          movieTrailer && 
+          <motion.div
+            initial="hidden"
+            animate={inView ? 'visible' : 'hidden'}
+            ref={ref}
+            variants={{
+              hidden: {
+                opacity: 0,
+                x: -200
               },
-            }
-          }}
-        >
+              visible: {
+                opacity: 1,
+                x: 0,
+                transition: {
+                  duration: .7,
+                },
+              }
+            }}
+          >
 
-          <Subtitle>Trailer</Subtitle>
-          <iframe 
-            src={youtube_baseURL} 
-            width="853"
-            height="480"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            title="Embedded youtube"
-          ></iframe>
-        </motion.div>
-        <Subtitle>Recomendações</Subtitle>
+            <Subtitle className="Trailer">
+              Trailer
+            </Subtitle>
+            <iframe 
+              className="IFrame"
+              src={youtube_baseURL} 
+              width="853"
+              height="480"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title="Embedded youtube"
+            ></iframe>
+          </motion.div>
+        }
+        <Subtitle className="Recommendations">Recomendações</Subtitle>
       </Content>
     </Container>
   );

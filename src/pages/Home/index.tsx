@@ -22,7 +22,7 @@ export default function Home() {
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
   const [searchedTerm, setSearchedTerm] = useState<string>('avengers');
   const [searchedMovies, setSearchedMovies] = useState<searchedMovies[]>([]);
-  const [backDrop, setBackdrop] = useState('https://image.tmdb.org/t/p/original/c6H7Z4u73ir3cIoCteuhJh7UCAR.jpg')
+  const [backDrop, setBackdrop] = useState('')
 
   useEffect(() => {
     console.log('searchedMovies', searchedMovies)

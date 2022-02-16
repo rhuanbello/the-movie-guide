@@ -41,17 +41,17 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   h1 {
-    font-size: 48px;
+    font-size: 42px;
 
   }
 
   h2 {
-    font-size: 32px;
+    font-size: 28px;
     
   }
 
   h3 {
-    font-size: 20px;
+    font-size: 16px;
   }
 
 

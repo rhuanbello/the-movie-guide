@@ -11,9 +11,15 @@ export const Container = styled.ul`
  
 `
 export const Content = styled.ul<ContentProps>`
-   display: grid; 
+  display: grid; 
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
   gap: 32px;
+  padding-bottom: 24px;
+
+  li > div {
+    outline: ${({isRecommendation}) => isRecommendation && 'none'};
+  
+  } 
 
   @media(min-width: 500px) {
     grid-auto-flow: ${({isRecommendation}) => isRecommendation && 'column'};
@@ -28,13 +34,14 @@ export const Content = styled.ul<ContentProps>`
 
   ::-webkit-scrollbar {
     background-color: #DDDDDD;
-    height: 12px;
+    height: 10px;
     border-radius: 100px;
+    transition: .2s;
     
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #ADADAD;
+    background-color: var(--terciary);
     border-radius: 100px;
 
     &:hover {

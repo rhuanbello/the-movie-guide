@@ -22,11 +22,22 @@ export const Content = styled.div`
 
 `
 
-export const Subtitle = styled.h3`
-  font-size: 28px;
+export const Subtitle = styled.h2`
+  font-size: 24px;
   line-height: 32px;
-  color: var(--text-dark-contrast);
-  padding: 20px 0;
+  color: var(--primary);
+  padding: 10px 0;
+
+  &.Trailer {
+    padding: 40px 0;
+
+  }
+
+  &.Recommendations {
+    padding-top: 40px;
+
+  }
+
 
 `
 
@@ -52,13 +63,14 @@ export const Cards = styled.ul`
 
   ::-webkit-scrollbar {
     background-color: #DDDDDD;
-    height: 12px;
+    height: 10px;
     border-radius: 100px;
+    transition: .2s;
     
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #ADADAD;
+    background-color: var(--terciary);
     border-radius: 100px;
 
     &:hover {
@@ -73,7 +85,7 @@ export const Cards = styled.ul`
 `
 
 export const PersonCard = styled.li`
-  background-color: var(--text-light);
+  background-color: var(--light);
   padding: 8px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   transition: .3s ease-in-out;
@@ -84,17 +96,18 @@ export const PersonCard = styled.li`
   }
 
   img {
-    width: 225px;
-    margin-bottom: 16px;
+    width: 160px;
+    margin-bottom: 5px;
     
   }
   
   p {
-    color: var(--text-dark-contrast);
+    font-size: 16px;
+    color: var(--dark);
     
     &:not(&:last-child) {
       font-weight: bold;
-      font-size: 18px;
+      font-size: 14px;
       line-height: 30px;
 
     }

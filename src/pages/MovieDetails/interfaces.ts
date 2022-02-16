@@ -10,6 +10,8 @@ export interface MovieDetailsTypes {
   vote_average: number;
   homepage: string;
   classification: string;
+  backdrop_path: string;
+
 
 }
 

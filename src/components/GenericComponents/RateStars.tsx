@@ -16,21 +16,22 @@ const labels: { [index: string]: string } = {
   5: 'Excellent+',
 };
 
-export const RateStars = () => {
+export const RateStars = ({ defaultColor, hoverX, size }) => {
   const [value, setValue] = useState<number | null>(0);
   const [hover, setHover] = useState(-1);
 
   return (
     <Box
       sx={{
-        display: 'grid',
+        display: hoverX ? 'flex' : 'grid',
         placeItems: 'center',
-        gap: '5px'
+        gap: (hoverX && hover !== -1) && '10px' ,
       }}
     >
       <Rating
         sx={{
-          color: 'var(--primary)'
+          color: 'var(--primary)',
+          fontSize: size || 24
         }}
         value={value}
         precision={0.5}
@@ -41,7 +42,7 @@ export const RateStars = () => {
         onChangeActive={(e, newHover) => {
           setHover(newHover);
         }}
-        emptyIcon={<StarIcon sx={{ color: 'var(--terciary)' }} />}
+        emptyIcon={<StarIcon sx={{ color: defaultColor || 'var(--terciary)', fontSize: size || 24 }} />}
       />
       {value !== null && (
         <Box>{labels[hover !== -1 ? hover : value]}</Box>
