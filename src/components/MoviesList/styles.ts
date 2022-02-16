@@ -18,7 +18,12 @@ export const Content = styled.ul<ContentProps>`
 
   li > div {
     outline: ${({isRecommendation}) => isRecommendation && 'none'};
-  
+    
+    img {
+      width: ${({isRecommendation}) => isRecommendation && '150px'};
+
+    }
+    
   } 
 
   @media(min-width: 500px) {

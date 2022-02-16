@@ -108,12 +108,6 @@ export default function Home() {
     setSearchedMovies(filteredResults);
   }
 
-  const handleRandomMoviePoster = () => {
-
-
-
-  }
-
   useEffect(() => {
     getGenres();
   }, []);
