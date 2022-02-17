@@ -28,12 +28,13 @@ export const PersonPoster = styled.img`
 `
 
 export const PersonBio = styled.article`
-  display: grid;
+  display: flex;
+  flex-direction: column;
   text-align: justify;
   white-space: pre-line;
   min-height: 100%;
   color: var(--light);
-  gap: 10px;
+  gap: 15px;
 
   h3 {
     font-size: 20px;

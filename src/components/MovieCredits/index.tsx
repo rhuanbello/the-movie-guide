@@ -10,11 +10,13 @@ import { movieCreditsProps } from './interfaces';
 import { AnimatePresence, motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 export const MovieCredits = ({ movieCredits, movieTrailer }: movieCreditsProps) => {
   const profile_baseURL = 'https://image.tmdb.org/t/p/w200';
   const youtube_baseURL = `https://www.youtube.com/embed/${movieTrailer}?controls=0?autoplay=1`;
   const { ref, inView } = useInView();
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log('mov', movieTrailer);
@@ -38,6 +40,9 @@ export const MovieCredits = ({ movieCredits, movieTrailer }: movieCreditsProps) 
                     animate={{ opacity: 1 }}
                     initial={{ opacity: 0 }}
                     transition={{ duration: .3, delay: i * 0.3 }}
+                    onClick={() => {
+                      navigate(`/person/${person.id}`)
+                    }}
                   >
                     <img src={profile_baseURL + person.profile_path} alt="" />
                     <p>{person?.original_name}</p>

@@ -116,10 +116,11 @@ export default function MovieDetails() {
 
   const handleMovieCredits = (cast: castTypes | any) => {
     const castArrayFiltered = [...cast]
-      .map(({ original_name, profile_path, character }) => ({
+      .map(({ original_name, profile_path, character, id }) => ({
         original_name,
         profile_path,
         character,
+        id
       }))
 
     setMovieCredits(castArrayFiltered);

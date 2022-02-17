@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 export const MoviesList = ({ 
   moviesToRender, 
   isRecommendation,
-  isFilmography
+  isFilmography,
 }: MoviesListProps ) => {
   const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ export const MoviesList = ({
     <>
       <Container>
         {
-          !isRecommendation || !isFilmography && 
+          !isRecommendation || isFilmography && 
           <SectionTitle>Popular Films This Week</SectionTitle>
         }
         <Content 

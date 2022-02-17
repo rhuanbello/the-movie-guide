@@ -14,3 +14,8 @@ export const searchApi = axios.create({
   baseURL: 'https://api.themoviedb.org/3/search/',
 
 })
+
+export const personApi = axios.create({
+  baseURL: 'https://api.themoviedb.org/3/person/'
+
+})

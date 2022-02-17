@@ -5,7 +5,7 @@ import { PersonBanner } from "../../components/PersonBanner";
 import { PersonCredits } from "../../components/PersonCredits";
 import { MoviesList } from "../../components/MoviesList";
 
-import { movieApi } from "../../services/api";
+import { movieApi, personApi } from "../../services/api";
 
 import { Container } from './styles'
 
@@ -14,54 +14,76 @@ export default function MovieDetails() {
   const { id } = useParams();
   const { page } = useParams();
   const [popularMovies, setPopularMovies] = useState([]);
-  const [isFilmography, setIsFilmography] = useState(false);
+  const [personDetails, setPersonDetails] = useState([]);
+  const [personFilmography, setPersonFilmography] = useState([]);
+  const [personBanner, setPersonBanner] = useState([]);
+  const [isFilmography, setIsFilmography] = useState<boolean | undefined>(Boolean(personFilmography));
 
-  const getMovies = () => {
-
-    movieApi
-      .get(
-        `popular?api_key=${VITE_API_KEY}&language=pt-BR&page=1`
-      )
+  const getPersonDetails = (id) => {
+    personApi
+      .get(`${id}?api_key=${VITE_API_KEY}&&append_to_response=movie_credits&language=pt-BR`)
       .then(({ data }) => {
-        const { results } = data;
-        console.log('popular ->', results)
-        handleMoviesList(results);
+
+        handlePersonDetails(data)
+      }).catch((error) => {
+        console.log(error)
       })
-      .catch((error) => {
-        console.log(error);
-      });
 
-  };
+  }
 
-  const handleMoviesList = (results: any) => {
+  const handlePersonDetails = (data) => {
 
-    const moviesListFiltered = [...results].map(
-      ({ title, release_date, poster_path, id }) => ({
+    const personBannerFiltered = {
+      biography: data.biography,
+      homepage: data.homepage,
+      name: data.name,
+      profile_path: data.profile_path,
+
+    }
+
+    const personFilmographyFiltered = [...data.movie_credits.cast].map(
+      ({ title, release_date, poster_path, id, popularity }) => ({
         title,
         release_date,
         poster_path,
         id,
+        popularity
       })
-    );
+    ).filter(movie => movie.poster_path !== null)
+    .sort((a, b) => b.popularity - a.popularity);
 
-    setPopularMovies(moviesListFiltered);
-
-  };
+    const personDetailsFiltered = {
+      also_known_as: data.also_known_as,
+      birthday: data.birthday,
+      place_of_birth: data.place_of_birth,
+      gender: data.gender,
+      moviesCount: personFilmographyFiltered.length
+    }
+  
+    setPersonBanner(personBannerFiltered);
+    setPersonDetails(personDetailsFiltered);
+    setPersonFilmography(personFilmographyFiltered);
+  }
 
   useEffect(() => {
-    getMovies();
-    setIsFilmography(true);
-  }, []);
+    console.log(id);
+    console.log('isFilmography', isFilmography)
+  }, [isFilmography]);
+
+  useEffect(() => {
+    getPersonDetails(id);
+    console.log()
+  }, [id])
 
   return (
     <>
-      <PersonBanner />
+      <PersonBanner personBanner={personBanner}/>
       <Container>
-        <PersonCredits />
+        <PersonCredits personDetails={personDetails}/>
         <section>
           <h2>Filmografia</h2>
-          <p>Você já viu 2 dos 32 filmes deste ator</p>
-          <MoviesList moviesToRender={popularMovies} isFilmography={isFilmography}/>
+          <p>Você já viu 0 dos {personDetails.moviesCount} filmes deste ator</p>
+          <MoviesList moviesToRender={personFilmography} isFilmography={isFilmography}/>
         </section>
       </Container>
     </>

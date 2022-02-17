@@ -21,7 +21,7 @@ export default function MainRoutes() {
         />
       ))}
       <Route path="/movie/:id" element={<MovieDetails />} />
-      <Route path="/person" element={<PersonDetails />} />
+      <Route path="/person/:id" element={<PersonDetails />} />
       <Route path="*" element={<Error404 />} />
     </Routes>
   );
