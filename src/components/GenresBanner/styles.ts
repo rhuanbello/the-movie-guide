@@ -7,12 +7,12 @@ interface ContainerProps {
 }
 
 export const Container = styled.section<ContainerProps>`
-  background: ${({backDrop}) => `linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${backDrop}) no-repeat center center`};
+  background: ${({backDrop}) => `linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)), url(${backDrop}) no-repeat center center`};
   background-size: cover;
 
   & > div {
-    backdrop-filter: blur(2px);
     padding-block: 85px 45px;
+    backdrop-filter: blur(3px);
     max-width: 70vw;
     margin: 0 auto;
     display: flex;

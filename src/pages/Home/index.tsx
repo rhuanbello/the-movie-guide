@@ -5,7 +5,7 @@ import { GenresBanner } from '../../components/GenresBanner';
 import { MoviesList } from '../../components/MoviesList';
 import { Pagination } from '../../components/Pagination';
 
-import { genreApi, movieApi, searchApi } from '../../services/api';
+import { collectionApi, genreApi, movieApi, searchApi } from '../../services/api';
 
 import {
   movieListTypes,
@@ -62,12 +62,7 @@ export default function Home() {
 
   const handleMoviesList = (results: any) => {
 
-    const maxRange = 5;
-    const randomRange = Math.floor(Math.random() * (maxRange - 0) + 0);
-    const randomMoviePoster = 'https://image.tmdb.org/t/p/original' 
-      + results[randomRange].backdrop_path;
-
-    setBackdrop(randomMoviePoster)
+  
 
     const moviesListFiltered = [...results].map(
       ({ title, release_date, poster_path, id }) => ({
@@ -108,8 +103,34 @@ export default function Home() {
     setSearchedMovies(filteredResults);
   }
 
+
+  const getCollectionPosters = (id) => {
+    collectionApi
+      .get((`${id}/images?api_key=${VITE_API_KEY}`))
+      .then(({ data }) => {
+        handleCollectionPosters(data)
+      }).catch((error) => {
+        console.log(error)
+      })
+  }
+
+  const handleCollectionPosters = (data) => {
+    const { backdrops } = data;
+
+    const backdropsFiltered = backdrops.map(({ file_path }) => ({ file_path }))
+
+    const maxRange = backdrops.length;
+    const randomRange = Math.floor(Math.random() * (maxRange - 0) + 0);
+    const randomMoviePoster = 'https://image.tmdb.org/t/p/original'
+      + backdropsFiltered[randomRange].file_path;
+
+    setBackdrop(randomMoviePoster)
+
+  }
+
   useEffect(() => {
     getGenres();
+    getCollectionPosters(422837)
   }, []);
 
   useEffect(() => {

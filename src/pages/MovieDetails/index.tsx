@@ -5,7 +5,7 @@ import { MovieBanner } from '../../components/MovieBanner';
 import { MovieCredits } from '../../components/MovieCredits';
 import { MoviesList } from "../../components/MoviesList";
 
-import { movieApi } from "../../services/api";
+import { collectionApi, movieApi } from "../../services/api";
 
 import {
   MovieDetailsTypes,
@@ -65,6 +65,7 @@ export default function MovieDetails() {
       });
 
   }
+
   
   const handleMovieDetails = (data: dataResponseTypes) => {   
     console.log('handleMovieDetails', data)
