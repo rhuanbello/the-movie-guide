@@ -84,6 +84,9 @@ export const Header = () => {
 
                 <StyledMenuItem
                   onClick={() => {
+                    if (menuButton === 'People') {
+                      navigate('/person/popular')
+                    }
                     onClose();
                   }}
                 >
