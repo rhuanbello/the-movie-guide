@@ -22,7 +22,7 @@ export const PersonBanner = ({
     <Container>
       <a href={homepage} target="_blank">
         <PersonPoster 
-          src={imageBaseURL + 'original' + profile_path}
+          src={imageBaseURL + 'w500' + profile_path}
         />
       </a>
       <PersonBio>

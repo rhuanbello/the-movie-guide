@@ -120,9 +120,6 @@ export default function Home() {
       path = 'popular'
     }
 
-    console.log('pathaname atual =>', pathname)
-    console.log('virou =>', path)
-
     getMovies(page, selectedGenres, path)
   }
   

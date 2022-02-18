@@ -1,7 +1,7 @@
 import { Container, PageButton } from './styles';
 import {  FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export const Pagination = () => {
   const pageObj = [
@@ -54,22 +54,31 @@ export const Pagination = () => {
   const handlePagination = (value: number) => {
     let pageNumber = value;
 
-    console.log('value', value)
-
     if (Number.isNaN(page)) pageNumber = 2;
     if (pageNumber === 0) pageNumber = page + 1;
     if (pageNumber === -1) pageNumber = page - 1;
-
-    console.log('pagenumberfinal', pageNumber)
 
     if (pathname.includes('top-rated')) {
       navigate(`/top-rated/page/${pageNumber}`);
     } else if (pathname.includes('now-playing')) {
       navigate(`/now-playing/page/${pageNumber}`);
-    } else if (pathname.includes('up-coming')) {
-      navigate(`/up-coming/page/${pageNumber}`);
+    } else if (pathname.includes('upcoming')) {
+      navigate(`/upcoming/page/${pageNumber}`);
     } else {
       navigate(`/page/${pageNumber}`);
+    }
+
+  }
+
+  const handlePageRoot = () => {
+    if (pathname.includes('top-rated')) {
+      navigate(`/top-rated`);
+    } else if (pathname.includes('now-playing')) {
+      navigate(`/now-playing`);
+    } else if (pathname.includes('upcoming')) {
+      navigate(`/upcoming`);
+    } else {
+      navigate(`/`);
     }
 
   }
@@ -99,15 +108,7 @@ export const Pagination = () => {
           key={index}
           onClick={() => {
             if (value === 1 || (value === -1 && page === 2)) {
-              if (pathname.includes('top-rated')) {
-                navigate(`/top-rated`);
-              } else if (pathname.includes('now-playing')) {
-                navigate(`/now-playing`);
-              } else if (pathname.includes('up-coming')) {
-                navigate(`/up-coming`);
-              } else {
-                navigate(`/`);
-              }
+              handlePageRoot()
             } else {
               handlePagination(value);
             }

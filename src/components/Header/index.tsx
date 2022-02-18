@@ -20,7 +20,7 @@ export const Header = () => {
   const menuItems = [
     { 
       menuButton: 'Movies',
-      menuItems: ['Popular', 'Top Rated', 'Now Playing', 'Up Coming'] 
+      menuItems: ['Popular', 'Top Rated', 'Now Playing', 'Upcoming'] 
     }, 
     { 
       menuButton: 'People',
@@ -98,8 +98,8 @@ export const Header = () => {
       case 'Now Playing':
         navigate('/now-playing')
         break;
-      case 'Up Coming':
-        navigate('/up-coming')
+      case 'Upcoming':
+        navigate('/upcoming')
         break
       case 'My Profile':
         navigate('/profile')

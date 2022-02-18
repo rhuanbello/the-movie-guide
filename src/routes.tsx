@@ -19,8 +19,8 @@ export default function MainRoutes() {
     '/now-playing/page/:page',
     '/top-rated',
     '/top-rated/page/:page',
-    '/up-coming/',
-    '/up-coming/page/:page'
+    '/upcoming/',
+    '/upcoming/page/:page'
   ]
 
   return (

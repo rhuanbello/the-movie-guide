@@ -16,7 +16,7 @@ export const Container = styled.section<ContainerProps>`
     padding-block: 72px 10px;
     display: flex;
     gap: 50px;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
 
     @media(max-width: 1200px) {
       justify-content: center;
@@ -57,6 +57,7 @@ export const MovieInfos = styled.article`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 
   @media(max-width: 1100px) {
     width: 90vw;

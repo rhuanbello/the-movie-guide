@@ -19,6 +19,7 @@ import {
 export default function MovieDetails() {
   const { VITE_API_KEY } = import.meta.env;
   const { id } = useParams();
+  const [detailsLoading, setDetailsLoading] = useState(true);
   const [movieCredits, setMovieCredits] = useState<MovieCreditsCastTypes[]>([])
   const [movieRecommendations, setMovieRecommendations] = useState<MovieRecommendationsTypes[]>([]);
   const [isRecommendation, setIsRecommendation] = useState<boolean | undefined>(Boolean(movieRecommendations));
@@ -47,6 +48,7 @@ export default function MovieDetails() {
       .then(({ data }) => {
         console.log('Movie Details', data)
         handleMovieDetails(data);
+        
       })
       .catch((error) => {
         console.log(error);
@@ -112,6 +114,9 @@ export default function MovieDetails() {
     
     setMovieDetails(movieDetailsFiltered);
     handleMovieCredits(cast);
+    setTimeout(() => {
+      setDetailsLoading(false);
+    }, 700)
   }
 
   const handleMovieCredits = (cast: castTypes | any) => {
@@ -150,6 +155,8 @@ export default function MovieDetails() {
     <>
       <MovieBanner
         movieDetails={movieDetails}
+        detailsLoading={detailsLoading}
+        setDetailsLoading={setDetailsLoading}
       />
       <MovieCredits
         movieCredits={movieCredits}
