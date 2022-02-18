@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 import { GenresBanner } from '../../components/GenresBanner';
 import { MoviesList } from '../../components/MoviesList';
@@ -17,23 +17,18 @@ import {
 export default function Home() {
   const { VITE_API_KEY } = import.meta.env;
   const { page } = useParams();
+  const { pathname } = useLocation();
   const [popularMovies, setPopularMovies] = useState<movieListTypes[]>([]);
   const [genres, setGenres] = useState<genresTypes[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
-  const [searchedTerm, setSearchedTerm] = useState<string>('avengers');
-  const [searchedMovies, setSearchedMovies] = useState<searchedMovies[]>([]);
   const [backDrop, setBackdrop] = useState('')
 
-  useEffect(() => {
-    console.log('searchedMovies', searchedMovies)
-  }, [searchedMovies])
-
-  const getMovies = (page: string | undefined, selectedGenres: Array<Number>) => {
-    const genresToRender = selectedGenres.join(',');
+  const getMovies = (page: string | undefined, selectedGenres: Array<Number>, path: string) => {
+    const genresToRender = selectedGenres?.join(',');
 
     movieApi
       .get(
-        `popular?api_key=${VITE_API_KEY}&with_genres=${genresToRender}&language=pt-BR&page=${page}`
+        `${path}?api_key=${VITE_API_KEY}&with_genres=${genresToRender}&language=pt-BR&page=${page}`
       )
       .then(({ data }) => {
         const { results } = data;
@@ -62,8 +57,6 @@ export default function Home() {
 
   const handleMoviesList = (results: any) => {
 
-  
-
     const moviesListFiltered = [...results].map(
       ({ title, release_date, poster_path, id }) => ({
         title,
@@ -77,32 +70,12 @@ export default function Home() {
 
   };
 
-  const getSearchedMovies = (searchedTerm: string) => {
-    searchApi
-      .get(`movie?api_key=${VITE_API_KEY}&language=pt-BR&page=1&query=${searchedTerm}`)
-      .then(({data}) => {
-        const { results } = data;
-        handleSearchedMovies(results)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
   const handleGenresLocalStorage = () => {
     const genresFromLocalStorage = localStorage.getItem('Genres');
     if (genresFromLocalStorage) {
       setSelectedGenres(JSON.parse(genresFromLocalStorage));
     }
   }
-
-  const handleSearchedMovies = (results: Array<resultsTypes>) => {
-    console.log('Results', results)
-    const propertiesFilter = [...results].map(({ backdrop_path, popularity, poster_path, release_date, title, vote_average, id }) => ({ backdrop_path, popularity, poster_path, release_date, title, vote_average, id}))
-    const filteredResults = [...propertiesFilter]?.filter(x => x.backdrop_path !== null);
-    setSearchedMovies(filteredResults);
-  }
-
 
   const getCollectionPosters = (id) => {
     collectionApi
@@ -130,20 +103,34 @@ export default function Home() {
 
   useEffect(() => {
     getGenres();
-    getCollectionPosters(422837)
+    getCollectionPosters(422837);
   }, []);
 
+  const handlePathname = (page, selectedGenres, pathname) => {
+    let path = '';
+
+    switch (pathname) {
+      case '/':
+        path = 'popular'
+        break;
+      case '/top-rated':
+        path = 'top_rated'
+        break;
+      case '/now-playing':
+        path = 'now_playing'
+
+    }
+
+    getMovies(page, selectedGenres, path)
+  }
+  
   useEffect(() => {
-    getMovies(page, selectedGenres);
-  }, [page, selectedGenres]);
+    handlePathname(page, selectedGenres, pathname)
+  }, [page, selectedGenres, pathname]);
 
   useEffect(() => {
     handleGenresLocalStorage();
   }, [localStorage.getItem('Genres')]);
-
-  useEffect(() => {
-    getSearchedMovies(searchedTerm)
-  }, [searchedTerm])
 
   return (
     <>
@@ -151,8 +138,6 @@ export default function Home() {
         genres={genres}
         setSelectedGenres={setSelectedGenres}
         selectedGenres={selectedGenres}
-        setSearchedTerm={setSearchedTerm}
-        searchedMovies={searchedMovies}
         backDrop={backDrop}
       />
       <MoviesList 

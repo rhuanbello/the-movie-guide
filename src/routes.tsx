@@ -12,18 +12,27 @@ import Error404 from './pages/Error404';
 import PopularPerson from './pages/PopularPerson';
 
 export default function MainRoutes() {
+  const homeOptions = [
+    '/', 
+    '/page/:page',
+    '/now-playing',
+    '/top-rated'
+  ]
+
   return (
     <Routes>
-      {['/', '/page/:page'].map(page => (
+      
+      {homeOptions.map(page => (
         <Route 
           key={page}
           path={page} 
           element={<Home />} 
         />
       ))}
-      <Route path="/movie/:id" element={<MovieDetails />} />
+
       <Route path="/person/:id" element={<PersonDetails />} />
       <Route path="/person/popular" element={<PopularPerson />} />
+      <Route path="/movie/:id" element={<MovieDetails />} />
       <Route path="*" element={<Error404 />} />
     </Routes>
   );

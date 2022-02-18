@@ -71,7 +71,6 @@ export const Header = () => {
 
   }
 
-
   const handleLoadingState = (searchedTerm) => {
     searchedTerm ? setSearchLoading(true) : setSearchLoading(false);
   }
@@ -80,6 +79,33 @@ export const Header = () => {
     getSearchedTerm(searchedTerm);
     handleLoadingState(searchedTerm)
   }, [searchedTerm])
+
+  const handleNavigate = (menuButton: string, menuItem: string) => {
+
+    if (menuButton === 'People') {
+      navigate('/person/popular')
+
+      return;
+    } 
+
+    switch (menuItem) {
+      case 'Popular':
+        navigate('/')
+        break;
+      case 'Top Rated':
+        navigate('/top-rated')
+        break;
+      case 'Now Playing':
+        navigate('/now-playing')
+        break;
+      case 'My Profile':
+        navigate('/profile')
+        break;
+      default:
+        navigate('/');
+    }
+
+  }
 
   return (
     <Container>
@@ -108,9 +134,7 @@ export const Header = () => {
 
                 <StyledMenuItem
                   onClick={() => {
-                    if (menuButton === 'People') {
-                      navigate('/person/popular')
-                    }
+                    handleNavigate(menuButton, item)
                     onClose();
                   }}
                 >
@@ -126,10 +150,8 @@ export const Header = () => {
         <StyledAutocomplete
           clearOnEscape
           freeSolo
-          // loadingText="Carregando..."
           noOptionsText={'Nenhum título encontrado.'}
           groupBy={({ media_type }) => media_type === 'movie' ? 'Filmes' : 'Pessoas'}
-          // loading={searchLoading}
           options={searchedMovies.sort((a, b) => b.popularity - a.popularity)}
           getOptionLabel={(item: searchedMovies | any) => item.title}
           renderInput={(params) => (
