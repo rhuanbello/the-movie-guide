@@ -15,8 +15,12 @@ export default function MainRoutes() {
   const homeOptions = [
     '/', 
     '/page/:page',
-    '/now-playing',
-    '/top-rated'
+    '/now-playing/',
+    '/now-playing/page/:page',
+    '/top-rated',
+    '/top-rated/page/:page',
+    '/up-coming/',
+    '/up-coming/page/:page'
   ]
 
   return (

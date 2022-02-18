@@ -66,7 +66,6 @@ export default function MovieDetails() {
 
   }
 
-  
   const handleMovieDetails = (data: dataResponseTypes) => {   
     console.log('handleMovieDetails', data)
 

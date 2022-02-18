@@ -5,19 +5,18 @@ import { GenresBanner } from '../../components/GenresBanner';
 import { MoviesList } from '../../components/MoviesList';
 import { Pagination } from '../../components/Pagination';
 
-import { collectionApi, genreApi, movieApi, searchApi } from '../../services/api';
+import { collectionApi, genreApi, movieApi } from '../../services/api';
 
 import {
   movieListTypes,
   genresTypes,
-  searchedMovies,
-  resultsTypes
 } from './interfaces';
 
 export default function Home() {
   const { VITE_API_KEY } = import.meta.env;
   const { page } = useParams();
   const { pathname } = useLocation();
+
   const [popularMovies, setPopularMovies] = useState<movieListTypes[]>([]);
   const [genres, setGenres] = useState<genresTypes[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
@@ -26,9 +25,11 @@ export default function Home() {
   const getMovies = (page: string | undefined, selectedGenres: Array<Number>, path: string) => {
     const genresToRender = selectedGenres?.join(',');
 
+    console.log(`get de ${path}/${page || 1}`)
+
     movieApi
       .get(
-        `${path}?api_key=${VITE_API_KEY}&with_genres=${genresToRender}&language=pt-BR&page=${page}`
+        `${path}?api_key=${VITE_API_KEY}&with_genres=${genresToRender}&language=pt-BR&page=${page || 1}`
       )
       .then(({ data }) => {
         const { results } = data;
@@ -39,20 +40,6 @@ export default function Home() {
         console.log(error);
       });
       
-  };
-
-  const getGenres = () => {
-    genreApi
-      .get(`list?api_key=${VITE_API_KEY}`)
-      .then(({ data }) => {
-        const { genres } = data;
-        setGenres(genres);
-        console.log('Genres', genres)
-      })
-      .catch(error => {
-        console.log(error)
-      });
-
   };
 
   const handleMoviesList = (results: any) => {
@@ -67,6 +54,20 @@ export default function Home() {
     );
 
     setPopularMovies(moviesListFiltered);
+
+  };
+
+  const getGenres = () => {
+    genreApi
+      .get(`list?api_key=${VITE_API_KEY}`)
+      .then(({ data }) => {
+        const { genres } = data;
+        setGenres(genres);
+        console.log('Genres', genres)
+      })
+      .catch(error => {
+        console.log(error)
+      });
 
   };
 
@@ -109,17 +110,18 @@ export default function Home() {
   const handlePathname = (page, selectedGenres, pathname) => {
     let path = '';
 
-    switch (pathname) {
-      case '/':
-        path = 'popular'
-        break;
-      case '/top-rated':
-        path = 'top_rated'
-        break;
-      case '/now-playing':
-        path = 'now_playing'
-
+    if (pathname.includes('top-rated')) {
+      path = 'top_rated'
+    } else if (pathname.includes('now-playing')) {
+      path = 'now_playing'
+    } else if (pathname.includes('up-coming')) {
+      path = 'upcoming'
+    } else {
+      path = 'popular'
     }
+
+    console.log('pathaname atual =>', pathname)
+    console.log('virou =>', path)
 
     getMovies(page, selectedGenres, path)
   }
