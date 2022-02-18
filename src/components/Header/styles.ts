@@ -8,7 +8,6 @@ export const Container = styled.header`
   div {
       max-width: 85vw;
       margin: 0 auto;
-      padding: 20px 0;
       display: flex;
       align-items: center;
 
@@ -20,6 +19,7 @@ export const Container = styled.header`
       display: flex;
       gap: 15px;
       margin-inline: auto 40px;
+      padding: 20px 0;
 
     }
   }
@@ -95,15 +95,14 @@ export const StyledMenuItem = styled(MenuItem)`
 
 export const StyledAutocomplete = styled(Autocomplete)`
   &&& {
-    width: 400px;
-    height: 0px;
-    padding: 20px 0;
-    background-color: #FFF;
+    width: 25vw;
+    background-color: var(--light);
     border: none;
     border-radius: 5px;
     outline: transparent;
     margin: 0;
     
+
     @media(max-width: 850px) {
       width: 90vw;
 
@@ -111,15 +110,20 @@ export const StyledAutocomplete = styled(Autocomplete)`
 
   }
  
-
 `;
 
 export const StyledTextField = styled(TextField)`
-  
 
   & label.Mui-focused {
     outline: none;
+
+    &:hover {
+        outline: none;
+      
+    }
+
   }
+
   & .MuiOutlinedInput-root {
     &.Mui-focused fieldset {
       border-color: transparent;
@@ -138,7 +142,11 @@ export const SearchedOptions = styled.li<SearchedOptionsProps>`
   gap: 15px;
   align-items: center;
   font-weight: bold;
-  width: 100%;
+  font-size: 12px;
+
+  &&&:hover {
+    background: var(--light);
+  }
 
   img {
     width: 50px;

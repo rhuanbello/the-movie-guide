@@ -40,8 +40,6 @@ export const GenresBanner = ({
 
   const navigate = useNavigate();
 
-  
-
   return (
     <Container backDrop={backDrop}>
 
