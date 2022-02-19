@@ -3,14 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { genresBannerProps } from './interfaces';
 
 import { MdCancel } from "react-icons/md";
-import TextField from '@mui/material/TextField';
 
 import { 
   ButtonContainer, 
   Container, 
   GenreButton, 
 } from './styles';
-import { searchedMovies } from "../../pages/Home/interfaces";
+import { searchedMovies } from "../../../pages/Home/interfaces";
 import { useState } from "react";
 
 export const GenresBanner = ({ 

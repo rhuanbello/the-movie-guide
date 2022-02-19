@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 
-import { MovieBanner } from '../../components/MovieBanner';
-import { MovieCredits } from '../../components/MovieCredits';
-import { MoviesList } from "../../components/MoviesList";
+import { MovieBanner } from '../../components/Movies/MovieBanner';
+import { MovieCredits } from '../../components/Movies/MovieCredits';
+import { MoviesList } from "../../components/Movies/MoviesList";
 
-import { collectionApi, movieApi } from "../../services/api";
+import { movieApi } from "../../services/requests/api";
 
 import {
   MovieDetailsTypes,

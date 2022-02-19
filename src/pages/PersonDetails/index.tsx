@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 
-import { PersonBanner } from "../../components/PersonBanner";
-import { PersonCredits } from "../../components/PersonCredits";
-import { MoviesList } from "../../components/MoviesList";
+import { PersonBanner } from "../../components/Person/PersonBanner";
+import { PersonCredits } from "../../components/Person/PersonCredits";
+import { MoviesList } from "../../components/Movies/MoviesList";
 
-import { movieApi, personApi } from "../../services/api";
+import { personApi } from "../../services/requests/api";
 
 import { Container } from './styles'
 

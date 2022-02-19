@@ -1,5 +1,3 @@
-import moment from 'moment';
-import { useEffect, useState } from 'react';
 import {
   Container,
   PersonInfo

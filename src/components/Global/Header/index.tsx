@@ -1,12 +1,25 @@
-import { Container, SearchedOptions, StyledAutocomplete, StyledMenu, StyledMenuButton, StyledMenuItem, StyledTextField } from './styles';
-import Logo from '../../assets/logo.svg';
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import { Autocomplete, CircularProgress, TextField } from '@mui/material';
+import { useNavigate } from "react-router-dom";
+import { searchApi } from '../../../services/requests/api';
+
+import { 
+  Container, 
+  SearchedOptions, 
+  StyledAutocomplete, 
+  StyledMenu, 
+  StyledMenuButton, 
+  StyledMenuItem, 
+  StyledTextField 
+} from './styles';
+
+import Logo from '../../../assets/logo.svg';
+
 import { resultsTypes, searchedMovies } from './interfaces';
-import { searchApi } from '../../services/api';
-import Skeleton from '@mui/material/Skeleton';
-import { Box } from '@mui/system';
+
+import { 
+  CircularProgress, 
+  Skeleton 
+} from '@mui/material';
 
 export const Header = () => {
   const navigate = useNavigate();

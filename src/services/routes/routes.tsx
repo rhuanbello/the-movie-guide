@@ -5,11 +5,11 @@ import {
   Routes 
 } from 'react-router-dom';
 
-import Home from './pages/Home';
-import MovieDetails from './pages/MovieDetails';
-import PersonDetails from './pages/PersonDetails';
-import Error404 from './pages/Error404';
-import PopularPerson from './pages/PopularPerson';
+import Home from '../../pages/Home';
+import MovieDetails from '../../pages/MovieDetails';
+import PersonDetails from '../../pages/PersonDetails';
+import Error404 from '../../pages/Error404';
+import PopularPerson from '../../pages/PopularPerson';
 
 export default function MainRoutes() {
   const homeOptions = [

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
-import { movieApi, personApi } from "../../services/api";
+import { personApi } from "../../services/requests/api";
 
 import { 
   Container, 
@@ -9,7 +9,7 @@ import {
   PersonCard
 } from './styles';
 
-import { Pagination } from '../../components/Pagination'
+import { Pagination } from '../../components/Global/Pagination'
 
 export default function PopularPerson() {
   const { VITE_API_KEY } = import.meta.env;

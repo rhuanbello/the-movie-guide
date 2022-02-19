@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { GenresBanner } from '../../components/GenresBanner';
-import { MoviesList } from '../../components/MoviesList';
-import { Pagination } from '../../components/Pagination';
+import { GenresBanner } from '../../components/Movies/GenresBanner';
+import { MoviesList } from '../../components/Movies/MoviesList';
+import { Pagination } from '../../components/Global/Pagination';
 
-import { collectionApi, genreApi, movieApi } from '../../services/api';
+import { collectionApi, genreApi, movieApi } from '../../services/requests/api';
 
 import {
   movieListTypes,

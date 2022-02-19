@@ -14,8 +14,7 @@ import { PieChart } from 'react-minimal-pie-chart';
 
 import { MovieBannerProps } from './interfaces';
 import { AnimatePresence, motion } from 'framer-motion';
-import { RateStars } from '../GenericComponents/RateStars';
-import { FavoriteIcon, WatchIcon } from '../GenericComponents/GenericIcons';
+import { FavoriteIcon, WatchIcon, RateStars } from '../../Global/MovieIcons';
 import { Skeleton } from '@mui/material';
 
 export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading }: MovieBannerProps) => {

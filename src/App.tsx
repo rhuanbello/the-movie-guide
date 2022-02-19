@@ -1,9 +1,9 @@
 import { GlobalStyle } from './styles/global';
 
-import { Header } from './components/Header';
+import { Header } from './components/Global/Header';
 
 import { BrowserRouter as Router } from 'react-router-dom';
-import Routes from './routes';
+import Routes from './services/routes/routes';
 
 export default function App() {
   return (

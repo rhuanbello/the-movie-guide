@@ -1,11 +1,8 @@
-import { useEffect, useState } from 'react';
 import {
   Container,
   PersonPoster,
   PersonBio
 } from './styles';
-
-import personPoster from '../../assets/personPoster.png'
 
 export const PersonBanner = ({ 
   personBanner

@@ -12,9 +12,9 @@ import {
   DetailsIcon, 
   FavoriteIcon, 
   WatchIcon 
-} from '../GenericComponents/GenericIcons';
+} from '../../Global/MovieIcons';
 
-import { RateStars } from "../GenericComponents/RateStars";
+import { RateStars } from "../../Global/MovieIcons";
 
 import { MovieCardProps } from './interfaces';
 import { useEffect, useState } from "react";
