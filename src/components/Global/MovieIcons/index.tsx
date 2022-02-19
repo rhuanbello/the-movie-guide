@@ -22,7 +22,6 @@ export const DetailsIcon = ({ dropDown }) => {
 }
 
 export const FavoriteIcon = ({ 
-  onClick, 
   defaultColor,
   actionColor, 
   size, 
@@ -31,7 +30,6 @@ export const FavoriteIcon = ({
 }) => {
   return (
     <button
-      onClick={onClick}
       className="noFilter"
       style={{
         border: 'none',

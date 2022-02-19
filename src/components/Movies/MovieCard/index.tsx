@@ -20,7 +20,7 @@ import { MovieCardProps } from './interfaces';
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
 
-export const MovieCard = ({ onClick, movie }: MovieCardProps) => {
+export const MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesObj}: MovieCardProps) => {
   
   const { 
     title, 
@@ -31,8 +31,6 @@ export const MovieCard = ({ onClick, movie }: MovieCardProps) => {
 
   const moviePoster = `https://image.tmdb.org/t/p/w200/${poster_path}`;
   
-  const [isWatched, setIsWatched] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
   const [dropDown, setDropDown] = useState<boolean>(null);
   const onClose = () => setDropDown(null);
 
@@ -75,23 +73,25 @@ export const MovieCard = ({ onClick, movie }: MovieCardProps) => {
         onClose={onClose}
       >
         <MovieAction
-          onClick={() => { }}
+          onClick={() => { 
+            handleAddedMoviesObj(movie, 1);
+          }}
         >
           <FavoriteIcon
-            onClick={() => setIsFavorite(!isFavorite)}
             color="#FFF"
             size={24}
-            isFavorite={isFavorite}
+            isFavorite={addedMoviesObj.favoriteMovies.some(m => m.id === movie.id)}
           />
         </MovieAction>
         <MovieAction
-          onClick={() => { }}
+          onClick={() => {
+            handleAddedMoviesObj(movie, 2);
+          }}
         >
           <WatchIcon
-            onClick={() => setIsWatched(!isWatched)}
             color="#FFF"
             size={24}
-            isWatched={isWatched}
+            isWatched={addedMoviesObj.watchedMovies.some(m => m.id === movie.id)}
           />
         </MovieAction>
         <MovieAction

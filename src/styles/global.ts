@@ -29,6 +29,19 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
 
+    ::-webkit-scrollbar {
+      background-color: var(--light);
+      transition: .2s;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--terciary);
+
+      &:hover {
+        background: var(--primary);
+      }
+    }
+
   }
 
   body, input, textarea, button {

@@ -44,6 +44,7 @@ export const Subtitle = styled.h2`
 export const Cards = styled.ul`
   display: flex;
   overflow-x: auto;
+  scroll-snap-type: x mandatory;
   gap: 16px;
   padding: 24px 0;
 
