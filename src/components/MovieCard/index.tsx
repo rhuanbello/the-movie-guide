@@ -17,7 +17,7 @@ import {
 import { RateStars } from "../GenericComponents/RateStars";
 
 import { MovieCardProps } from './interfaces';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const MovieCard = ({ onClick, movie }: MovieCardProps) => {
@@ -43,7 +43,7 @@ export const MovieCard = ({ onClick, movie }: MovieCardProps) => {
         layout
         animate={{ opacity: 1 }}
         initial={{ opacity: 0 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 2 }}
         exit={{ opacity: 0 }}
       >
         <PosterContainer>

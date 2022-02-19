@@ -142,6 +142,7 @@ export default function MovieDetails() {
     getMovieDetails(id);
     getMovieRecommendations(id);
     scrollToTop();
+    setDetailsLoading(true);
   }, [id]);
 
   const scrollToTop = () => {

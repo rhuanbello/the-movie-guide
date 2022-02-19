@@ -18,9 +18,9 @@ export default function PopularPerson() {
   const navigate = useNavigate();
   const [popularPerson, setPopularPerson] = useState([]);
 
-  const getPopularPerson = () => {
+  const getPopularPerson = (page) => {
     personApi
-      .get(`popular?api_key=${VITE_API_KEY}&language=pt-BR&page=1`)
+      .get(`popular?api_key=${VITE_API_KEY}&language=pt-BR&page=${page}`)
       .then(({ data }) => {
         handlePopularPerson(data)
       }).catch((error) => {
@@ -45,33 +45,31 @@ export default function PopularPerson() {
   };
 
   useEffect(() => {
-    getPopularPerson();
-  }, [])
+    getPopularPerson(page);
+  }, [page])
 
   const profile_baseURL = 'https://image.tmdb.org/t/p/w200';
  
   return (
-    <>
-      <Container>
-        <h2>Pessoas Populares</h2>
-        <Cards>
-          {popularPerson.map(({ profile_path, id, name, movies }) => (
+    <Container>
+      <h2>Pessoas Populares</h2>
+      <Cards>
+        {popularPerson.map(({ profile_path, id, name, movies }) => (
 
-            <PersonCard
-              onClick={() => {
-                navigate(`/person/${id}`)
-              }}
-            >
-              <img src={profile_baseURL + profile_path} alt="" />
-              <p>{name}</p>
-              <p>{movies.trim()[movies.length - 1] === ',' ? movies.slice(-1) : movies}</p>
-            </PersonCard>       
+          <PersonCard
+            onClick={() => {
+              navigate(`/person/${id}`)
+            }}
+          >
+            <img src={profile_baseURL + profile_path} alt="" />
+            <p>{name}</p>
+            <p>{movies.trim()[movies.length - 1] === ',' ? movies.slice(-1) : movies}</p>
+          </PersonCard>       
 
-          ))}
-        </Cards>
-        <Pagination />
-      </Container>
-    </>
+        ))}
+      </Cards>
+      <Pagination />
+    </Container>
   );
 }
 

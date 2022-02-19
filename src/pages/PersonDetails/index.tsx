@@ -13,11 +13,9 @@ export default function MovieDetails() {
   const { VITE_API_KEY } = import.meta.env;
   const { id } = useParams();
   const { page } = useParams();
-  const [popularMovies, setPopularMovies] = useState([]);
   const [personDetails, setPersonDetails] = useState([]);
   const [personFilmography, setPersonFilmography] = useState([]);
   const [personBanner, setPersonBanner] = useState([]);
-  const [isFilmography, setIsFilmography] = useState<boolean | undefined>(Boolean(personFilmography));
 
   const getPersonDetails = (id) => {
     personApi
@@ -67,8 +65,8 @@ export default function MovieDetails() {
 
   useEffect(() => {
     console.log(id);
-    console.log('isFilmography', isFilmography)
-  }, [isFilmography]);
+  
+  }, []);
 
   useEffect(() => {
     getPersonDetails(id);
@@ -83,7 +81,7 @@ export default function MovieDetails() {
         <section>
           <h2>Filmografia</h2>
           <p>Você já viu 0 dos {personDetails.moviesCount} filmes deste ator</p>
-          <MoviesList moviesToRender={personFilmography} isFilmography={isFilmography}/>
+          <MoviesList moviesToRender={personFilmography} />
         </section>
       </Container>
     </>

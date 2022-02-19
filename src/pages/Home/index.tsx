@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-
 import { GenresBanner } from '../../components/GenresBanner';
 import { MoviesList } from '../../components/MoviesList';
 import { Pagination } from '../../components/Pagination';
@@ -17,10 +16,11 @@ export default function Home() {
   const { page } = useParams();
   const { pathname } = useLocation();
 
-  const [popularMovies, setPopularMovies] = useState<movieListTypes[]>([]);
+  const [moviesList, setMoviesList] = useState<movieListTypes[]>([]);
   const [genres, setGenres] = useState<genresTypes[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
   const [backDrop, setBackdrop] = useState('')
+  const [isHomepage] = useState<boolean | undefined>(Boolean(moviesList));
 
   const getMovies = (page: string | undefined, selectedGenres: Array<Number>, path: string) => {
     const genresToRender = selectedGenres?.join(',');
@@ -53,7 +53,7 @@ export default function Home() {
       })
     );
 
-    setPopularMovies(moviesListFiltered);
+    setMoviesList(moviesListFiltered);
 
   };
 
@@ -98,7 +98,8 @@ export default function Home() {
     const randomMoviePoster = 'https://image.tmdb.org/t/p/original'
       + backdropsFiltered[randomRange].file_path;
 
-    setBackdrop(randomMoviePoster)
+    // setBackdrop(randomMoviePoster)
+    setBackdrop('https://www.themoviedb.org/t/p/original/tNE9HGcFOH8EpCmzO7XCYwqguI0.jpg')
 
   }
 
@@ -110,11 +111,13 @@ export default function Home() {
   const handlePathname = (page, selectedGenres, pathname) => {
     let path = '';
 
+    console.log(pathname)
+
     if (pathname.includes('top-rated')) {
       path = 'top_rated'
     } else if (pathname.includes('now-playing')) {
       path = 'now_playing'
-    } else if (pathname.includes('up-coming')) {
+    } else if (pathname.includes('upcoming')) {
       path = 'upcoming'
     } else {
       path = 'popular'
@@ -140,7 +143,8 @@ export default function Home() {
         backDrop={backDrop}
       />
       <MoviesList 
-        moviesToRender={popularMovies}
+        isHomepage={isHomepage}
+        moviesToRender={moviesList}
       />
       <Pagination />
     </>

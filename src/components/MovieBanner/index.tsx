@@ -124,11 +124,10 @@ export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading }:
                 }}
               >
                 <FavoriteIcon 
-                  size={20}
-                  noText
-                  isFavorite={isFavorite}
-                  defaultColor='var(--light)'
-                />
+                    size={20}
+                    noText
+                    isFavorite={isFavorite}
+                    defaultColor='var(--light)' onClick={undefined} actionColor={undefined}                />
               </button>
               <button
                 onClick={() => {

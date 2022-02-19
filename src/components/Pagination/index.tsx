@@ -1,7 +1,7 @@
 import { Container, PageButton } from './styles';
 import {  FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 export const Pagination = () => {
   const pageObj = [
@@ -46,15 +46,18 @@ export const Pagination = () => {
       value: 500
     },
   ]
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const actualPage = useParams();
   const page = Number(actualPage.page);
 
-  const handlePagination = (value: number) => {
+  const handlePagination = (value: number, label) => {
     let pageNumber = value;
 
-    if (Number.isNaN(page)) pageNumber = 2;
+    console.log('label', label)
+
+    if (Number.isNaN(page) && isNaN(label)) pageNumber = 2;
     if (pageNumber === 0) pageNumber = page + 1;
     if (pageNumber === -1) pageNumber = page - 1;
 
@@ -64,6 +67,8 @@ export const Pagination = () => {
       navigate(`/now-playing/page/${pageNumber}`);
     } else if (pathname.includes('upcoming')) {
       navigate(`/upcoming/page/${pageNumber}`);
+    } else if (pathname.includes('person')) {
+      navigate(`/person/popular/page/${pageNumber}`);
     } else {
       navigate(`/page/${pageNumber}`);
     }
@@ -77,6 +82,8 @@ export const Pagination = () => {
       navigate(`/now-playing`);
     } else if (pathname.includes('upcoming')) {
       navigate(`/upcoming`);
+    } else if (pathname.includes('person')) {
+      navigate(`/person/popular`);
     } else {
       navigate(`/`);
     }
@@ -90,36 +97,30 @@ export const Pagination = () => {
   }
 
   useEffect(() => {
-    scrollToTop();
+    // window.onscroll = () => { window.scroll(0, 0); };
+
   }, [page])
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 550,
-      behavior: 'smooth'
-    })
-  }
-
-  return (
-    <Container>
-      {pageObj.map(({ label, value }, index) => (
-        <PageButton
-          disabled={handleDisabledButtons(label)}
-          key={index}
-          onClick={() => {
-            if (value === 1 || (value === -1 && page === 2)) {
-              handlePageRoot()
-            } else {
-              handlePagination(value);
-            }
-          }}
-          value={value}
-          page={page}
-        >
-          {label}
-        </PageButton>
-      ))}
-    </Container>
+return (
+  <Container>
+    {pageObj.map(({ label, value }, index) => (
+      <PageButton
+        disabled={handleDisabledButtons(label)}
+        key={index}
+        onClick={() => {
+          if (value === 1 || (value === -1 && page === 2)) {
+            handlePageRoot()
+          } else {
+            handlePagination(value, label);
+          }
+        }}
+        value={value}
+        page={page}
+      >
+        {label}
+      </PageButton>
+    ))}
+  </Container>
   );
 }
 
