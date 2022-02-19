@@ -7,7 +7,8 @@ interface ContainerProps {
 }
 
 export const Container = styled.section<ContainerProps>`
-  background: ${({backDrop}) => `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0 ,0, 0, 0.5)), url(${backDrop}) no-repeat center center`};
+  /* background: ${({backDrop}) => `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0 ,0, 0, 0.5)), url(${backDrop}) no-repeat center center`}; */
+  background: ${({ backDrop }) => `linear-gradient(0deg, rgba(44, 52, 64, 0.7), rgba(44, 52, 64, 0.7)), radial-gradient(100% 576% at 0% 50%, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.18) 50%, rgba(0, 0, 0, 0.6) 100%), url(${backDrop}) no-repeat center center`};
   background-size: cover;
  
 

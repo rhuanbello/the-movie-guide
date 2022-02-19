@@ -2,6 +2,7 @@ import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
 import { useState } from 'react';
+import { BsArrowUpShort } from 'react-icons/bs';
 
 export const DetailsIcon = ({ dropDown }) => {
   return (
@@ -130,4 +131,29 @@ export const RateStars = ({ defaultColor, hoverX, size }) => {
       )}
     </Box>
   );
+}
+
+export const ScrollBack = ({ onClick }) => {
+  return (
+    <button
+      onClick={onClick}
+      className="noFilter"
+      style={{
+        border: 'none',
+        backgroundColor: 'var(--contrast)',
+        color:'var(--primary)',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 20,
+        position: 'fixed',
+        bottom: '30px',
+        right: '30px',
+        borderRadius: '50%',
+        padding: '7px'
+      }}
+    >
+      <BsArrowUpShort size={32} />      
+    </button>
+  )
+
 }

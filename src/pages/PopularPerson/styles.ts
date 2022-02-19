@@ -17,6 +17,7 @@ export const Container = styled.main`
 export const Cards = styled.ul`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 400px;
   gap: 16px;
   padding: 24px 0;
 
