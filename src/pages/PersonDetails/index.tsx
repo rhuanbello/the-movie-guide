@@ -16,6 +16,7 @@ export default function MovieDetails() {
   const [personDetails, setPersonDetails] = useState([]);
   const [personFilmography, setPersonFilmography] = useState([]);
   const [personBanner, setPersonBanner] = useState([]);
+  const [detailsLoading, setDetailsLoading] = useState(true);
 
   const getPersonDetails = (id) => {
     personApi
@@ -61,21 +62,27 @@ export default function MovieDetails() {
     setPersonBanner(personBannerFiltered);
     setPersonDetails(personDetailsFiltered);
     setPersonFilmography(personFilmographyFiltered);
+    setTimeout(() => {
+      setDetailsLoading(false);
+    }, 800)
   }
 
-  useEffect(() => {
-    console.log(id);
-  
-  }, []);
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
 
   useEffect(() => {
     getPersonDetails(id);
     console.log()
+    scrollToTop()
   }, [id])
 
   return (
     <>
-      <PersonBanner personBanner={personBanner}/>
+      <PersonBanner personBanner={personBanner} setDetailsLoading={setDetailsLoading} detailsLoading={detailsLoading}/>
       <Container>
         <PersonCredits personDetails={personDetails}/>
         <section>

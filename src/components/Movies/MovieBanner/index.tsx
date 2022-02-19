@@ -70,13 +70,13 @@ export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading }:
         <MovieInfos>
 
           {detailsLoading ? (
-            <Skeleton variant="text" width="30%" height="50px" animation="wave" />
+            <Skeleton variant="text" width="40%" height="50px" animation="wave" />
           ) : (
             <h2>{original_title}</h2>
           )}
 
           {detailsLoading ? (
-            <Skeleton variant="text" width="50%" height="35px" animation="wave" />
+            <Skeleton variant="text" width="30%" height="35px" animation="wave" />
           ) : (
             <Subtitle>
               {classification && (
@@ -89,7 +89,7 @@ export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading }:
           )}
 
           {detailsLoading ? (
-            <Skeleton variant="text" width="60%" height="80px" animation="wave" />
+            <Skeleton variant="text" width="45%" height="60px" animation="wave" />
           ) : (
             <MovieBannerActions>
               <PieChart
@@ -158,14 +158,14 @@ export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading }:
               <h3>Sinopse</h3>
             )}
             {detailsLoading ? (
-              <Skeleton variant="text" width="100%" height="80px" animation="wave" />
+              <Skeleton variant="text" width="80%" height="80px" animation="wave" />
             ) : (
               <p>{overview}</p>
             )}
           </article>
 
           {detailsLoading ? (
-            <Skeleton variant="text" width="70%" height="80px" animation="wave" />
+            <Skeleton variant="text" width="60%" height="80px" animation="wave" />
           ) : (
             <MovieProducers>
               {crew.map(person => (

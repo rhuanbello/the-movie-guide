@@ -43,10 +43,9 @@ export const GenresBanner = ({
     <Container backDrop={backDrop}>
 
       <div>
-        <h1>Track films you've watched. Discover millions of movies.
-          Explore now.</h1>
+        <h1>Milhões de Filmes e Pessoas para Descobrir. Explore já.</h1>
         <div>
-          <p>FILTER BY:</p>
+          <p>FILTRE POR:</p>
           <ButtonContainer>
             {genres.map((genre) => (
               <GenreButton

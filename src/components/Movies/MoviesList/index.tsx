@@ -31,7 +31,7 @@ export const MoviesList = ({
     } else if (pathname.includes('top-rated')) {
       title = 'Melhores Filmes'
     } else if (pathname.includes('now-playing')) {
-      title = 'Filmes Recentes'
+      title = 'Filmes em Cartaz'
     }
 
     return title;

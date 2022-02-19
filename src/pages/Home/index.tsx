@@ -59,7 +59,7 @@ export default function Home() {
 
   const getGenres = () => {
     genreApi
-      .get(`list?api_key=${VITE_API_KEY}`)
+      .get(`list?api_key=${VITE_API_KEY}&language=pt-BR`)
       .then(({ data }) => {
         const { genres } = data;
         setGenres(genres);

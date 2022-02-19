@@ -32,16 +32,16 @@ export const Header = () => {
 
   const menuItems = [
     { 
-      menuButton: 'Movies',
-      menuItems: ['Popular', 'Top Rated', 'Now Playing', 'Upcoming'] 
+      menuButton: 'Filmes',
+      menuItems: ['Populares', 'Mais bem avaliados', 'Em cartaz', 'Próximos Lançamentos'] 
     }, 
     { 
-      menuButton: 'People',
-      menuItems: ['Popular'] 
+      menuButton: 'Pessoas',
+      menuItems: ['Populares'] 
     }, 
     { 
-      menuButton: 'Profile',
-      menuItems: ['My Profile'] 
+      menuButton: 'Perfil',
+      menuItems: ['Meu Perfil'] 
     }
   ];
 
@@ -95,26 +95,26 @@ export const Header = () => {
 
   const handleNavigate = (menuButton: string, menuItem: string) => {
 
-    if (menuButton === 'People') {
+    if (menuButton === 'Pessoas') {
       navigate('/person/popular')
 
       return;
     } 
 
     switch (menuItem) {
-      case 'Popular':
+      case 'Populares':
         navigate('/')
         break;
-      case 'Top Rated':
+      case 'Mais bem avaliados':
         navigate('/top-rated')
         break;
-      case 'Now Playing':
+      case 'Em cartaz':
         navigate('/now-playing')
         break;
-      case 'Upcoming':
+      case 'Próximos Lançamentos':
         navigate('/upcoming')
         break
-      case 'My Profile':
+      case 'Meu Perfil':
         navigate('/profile')
         break;
       default:
@@ -173,7 +173,7 @@ export const Header = () => {
           renderInput={(params) => (
             <StyledTextField {...params}
               size="small" 
-              placeholder='Search a title or a person...'
+              placeholder='Busce por filmes ou pessoas...'
               onChange={(e) => setSearchedTerm(e.target.value)}
               InputProps={{
                 ...params.InputProps,
