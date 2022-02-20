@@ -78,17 +78,6 @@ export const MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesObj
         onClose={onClose}
       >
         <MovieAction
-          onClick={() => { 
-            handleAddedMoviesObj(movie, 'favorited');
-          }}
-        >
-          <FavoriteIcon
-            color="#FFF"
-            size={24}
-            isFavorite={addedMoviesObj.favoriteMovies.some(m => m.id === movie.id)}
-          />
-        </MovieAction>
-        <MovieAction
           onClick={() => {
             handleAddedMoviesObj(movie, 'watched');
           }}
@@ -99,11 +88,20 @@ export const MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesObj
             isWatched={addedMoviesObj.watchedMovies.some(m => m.id === movie.id)}
           />
         </MovieAction>
+        <MovieAction
+          onClick={() => { 
+            handleAddedMoviesObj(movie, 'favorited');
+          }}
+        >
+          <FavoriteIcon
+            color="#FFF"
+            size={24}
+            isFavorite={addedMoviesObj.favoriteMovies.some(m => m.id === movie.id)}
+          />
+        </MovieAction>
         <MovieAction>
           <RateStars onChange={(e, rate) => {
             handleAddedMoviesObj(movie, 'rated', rate)
-            // console.log('aqui', finalRate)
-            // setValue(finalRate)
           }}
             value={value}
           />

@@ -115,7 +115,7 @@ export const Header = () => {
         navigate('/upcoming')
         break
       case 'Meu Perfil':
-        navigate('/profile')
+        navigate('/profile/my-profile')
         break;
       default:
         navigate('/');

@@ -12,7 +12,8 @@ import { useEffect, useState } from 'react';
 export const MoviesList = ({ 
   moviesToRender, 
   isRecommendation,
-  isHomepage
+  isHomepage,
+  setMoviesList
 }: MoviesListProps ) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -121,6 +122,7 @@ export const MoviesList = ({
 
     localStorage.setItem('MoviesList', JSON.stringify(tempAddedMoviesObj))
     setAddedMoviesObj(tempAddedMoviesObj);
+    setMoviesList(tempAddedMoviesObj);
    
   }
 
@@ -147,11 +149,11 @@ export const MoviesList = ({
           <SectionTitle>{handleSectionTitle()}</SectionTitle>
         }
         <Content 
-            as={motion.ul}
-            layout
-            isRecommendation={isRecommendation}
-            isHomepage={isHomepage}
-          >
+          as={motion.ul}
+          layout
+          isRecommendation={isRecommendation}
+          isHomepage={isHomepage}
+        >
           {moviesToRender?.map((movie) => (
             <MovieCard 
               handleAddedMoviesObj={handleAddedMoviesObj}

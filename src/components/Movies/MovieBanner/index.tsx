@@ -117,6 +117,18 @@ export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading }:
                 }}
               />
               <p>Avaliação dos usuários</p>
+                <button
+                  onClick={() => {
+                    setIsWatched(!isWatched)
+                  }}
+                >
+                  <WatchIcon
+                    size={20}
+                    noText
+                    isWatched={isWatched}
+                    defaultColor='var(--light)'
+                  />
+                </button>
               <button
                 onClick={() => {
                   setIsFavorite(!isFavorite)
@@ -127,18 +139,6 @@ export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading }:
                     noText
                     isFavorite={isFavorite}
                     defaultColor='var(--light)' onClick={undefined} actionColor={undefined}                />
-              </button>
-              <button
-                onClick={() => {
-                  setIsWatched(!isWatched)
-                }}
-              >
-                <WatchIcon 
-                  size={20}
-                  noText
-                  isWatched={isWatched}
-                  defaultColor='var(--light)'
-                />
               </button>
               <button>
                 <RateStars 
