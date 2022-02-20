@@ -33,7 +33,6 @@ export default function Home() {
       )
       .then(({ data }) => {
         const { results } = data;
-        console.log('popular ->', results)
         handleMoviesList(results);
       })
       .catch((error) => {
@@ -52,6 +51,8 @@ export default function Home() {
         id,
       })
     );
+
+    console.log(moviesListFiltered)
 
     setMoviesList(moviesListFiltered);
 

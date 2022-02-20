@@ -19,7 +19,8 @@ export const MoviesList = ({
 
   const [addedMoviesObj, setAddedMoviesObj] = useState({
     watchedMovies: [],
-    favoriteMovies: []
+    favoriteMovies: [],
+    ratedMovies: []
   })
 
   useEffect(() => {
@@ -42,32 +43,76 @@ export const MoviesList = ({
     return title;
   }
 
-  const handleAddedMoviesObj = (movie, type) => {
-    console.log('óia ele', movie, type)
+  const handleAddedMoviesObj = (movie, type: string, rate: number) => {
 
     const tempAddedMoviesObj = {...addedMoviesObj};
 
-    if (type === 1) {
-      const tempFavoriteMovies = [...addedMoviesObj.favoriteMovies];
-      const index = tempFavoriteMovies.findIndex(m => m.id === movie.id);
+    const {
+      favoriteMovies,
+      watchedMovies,
+      ratedMovies
+    } = tempAddedMoviesObj;
 
-      if (index === -1) {
-        tempFavoriteMovies.push(movie);
+    const indexFavorite = favoriteMovies.findIndex(m => m.id === movie.id);
+    const indexWatched = watchedMovies.findIndex(m => m.id === movie.id);
+    const indexRated = ratedMovies.findIndex(m => m.id === movie.id);
+
+    if (type === 'favorited') {
+
+      if (indexFavorite === -1) {
+        favoriteMovies.push(movie);
       } else {
-        tempFavoriteMovies.splice(index, 1);
+        favoriteMovies.splice(indexFavorite, 1);
       }
 
-      tempAddedMoviesObj.favoriteMovies = [...tempFavoriteMovies];
+    } 
+    
+    if (type === 'watched') {
 
-    } else {
+      if (indexWatched === -1) {
+        watchedMovies.push({
+          ...movie,
+          createdAt: new Date()
+        });
+      } else {
+        watchedMovies.splice(indexWatched, 1);
+        ratedMovies.splice(indexRated, 1);
+
+      }
+
+    } 
+    
+    if (type === 'rated') {
+      const tempRatedMovies = [...addedMoviesObj.ratedMovies];
+      const indexRated = tempRatedMovies.findIndex(m => m.id === movie.id);
 
       const tempWatchedMovies = [...addedMoviesObj.watchedMovies];
-      const index = tempWatchedMovies.findIndex(m => m.id === movie.id);
+      const indexWatched = tempWatchedMovies.findIndex(m => m.id === movie.id);
 
-      if (index === -1) {
-        tempWatchedMovies.push(movie);
+      if (indexRated === -1) {
+        tempRatedMovies.push({
+          id: movie.id,
+          title: movie.title,
+          rate: rate
+        });
+      } else if (!rate) {
+        tempRatedMovies.splice(indexRated, 1);
       } else {
-        tempWatchedMovies.splice(index, 1);
+        tempRatedMovies[indexRated].rate = rate;
+      }
+
+      tempAddedMoviesObj.ratedMovies = [...tempRatedMovies];
+
+      if (!rate) {
+        tempWatchedMovies.splice(indexWatched, 1);
+      } else if (indexWatched === -1) {
+        tempWatchedMovies.push({
+          ...movie,
+          createdAt: new Date()
+        });
+      } else {
+        tempRatedMovies.splice(indexRated, 1);
+
       }
 
       tempAddedMoviesObj.watchedMovies = [...tempWatchedMovies];

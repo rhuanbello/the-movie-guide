@@ -83,8 +83,7 @@ export const WatchIcon = ({
   )
 }
 
-export const RateStars = ({ defaultColor, hoverX, size }) => {
-  const [value, setValue] = useState<number | null>(0);
+export const RateStars = ({ defaultColor, hoverX, onChange, value }) => {
   const [hover, setHover] = useState(-1);
 
   const labels: { [index: string]: string } = {
@@ -111,18 +110,15 @@ export const RateStars = ({ defaultColor, hoverX, size }) => {
       <Rating
         sx={{
           color: 'var(--primary)',
-          fontSize: size || 24
+          fontSize: 24
         }}
         value={value}
         precision={0.5}
-        onChange={(e, newValue) => {
-          setValue(newValue);
-          console.log(newValue);
-        }}
+        onChange={onChange}
         onChangeActive={(e, newHover) => {
           setHover(newHover);
         }}
-        emptyIcon={<StarIcon sx={{ color: defaultColor || 'var(--terciary)', fontSize: size || 24 }} />}
+        emptyIcon={<StarIcon sx={{ color: defaultColor || 'var(--terciary)', fontSize: 24 }} />}
       />
       {value !== null && (
         <Box>{labels[hover !== -1 ? hover : value]}</Box>

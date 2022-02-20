@@ -30,9 +30,14 @@ export const MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesObj
   } = movie;
 
   const moviePoster = `https://image.tmdb.org/t/p/w200/${poster_path}`;
-  
+  const [value, setValue] = useState(0)
   const [dropDown, setDropDown] = useState<boolean>(null);
   const onClose = () => setDropDown(null);
+
+  useEffect(() => {
+    const finalRate = addedMoviesObj?.ratedMovies?.find(m => m.id === movie.id)?.rate || 0
+    setValue(finalRate)
+  }, [addedMoviesObj])
 
   return (
     <AnimatePresence>
@@ -74,7 +79,7 @@ export const MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesObj
       >
         <MovieAction
           onClick={() => { 
-            handleAddedMoviesObj(movie, 1);
+            handleAddedMoviesObj(movie, 'favorited');
           }}
         >
           <FavoriteIcon
@@ -85,7 +90,7 @@ export const MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesObj
         </MovieAction>
         <MovieAction
           onClick={() => {
-            handleAddedMoviesObj(movie, 2);
+            handleAddedMoviesObj(movie, 'watched');
           }}
         >
           <WatchIcon
@@ -94,10 +99,14 @@ export const MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesObj
             isWatched={addedMoviesObj.watchedMovies.some(m => m.id === movie.id)}
           />
         </MovieAction>
-        <MovieAction
-          onClick={() => {}}
-        >
-          <RateStars />
+        <MovieAction>
+          <RateStars onChange={(e, rate) => {
+            handleAddedMoviesObj(movie, 'rated', rate)
+            // console.log('aqui', finalRate)
+            // setValue(finalRate)
+          }}
+            value={value}
+          />
         </MovieAction>
 
       </Dropdown>
