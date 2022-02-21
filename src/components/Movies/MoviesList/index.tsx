@@ -25,7 +25,7 @@ export const MoviesList = ({
   })
 
   useEffect(() => {
-    console.log('path', pathname)
+   
     handleSectionTitle()
 
   }, [pathname])

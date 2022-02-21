@@ -20,7 +20,7 @@ import { MovieCardProps } from './interfaces';
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
 
-export const MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesObj}: MovieCardProps) => {
+export const  MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesObj}: MovieCardProps) => {
   
   const { 
     title, 

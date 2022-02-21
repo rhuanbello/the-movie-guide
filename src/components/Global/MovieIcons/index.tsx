@@ -104,7 +104,7 @@ export const RateStars = ({ defaultColor, hoverX, onChange, value }) => {
       sx={{
         display: hoverX ? 'flex' : 'grid',
         placeItems: 'center',
-        gap: (hoverX && hover !== -1) && '10px',
+        gap: '10px',
       }}
     >
       <Rating

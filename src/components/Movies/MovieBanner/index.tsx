@@ -17,11 +17,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { FavoriteIcon, WatchIcon, RateStars } from '../../Global/MovieIcons';
 import { Skeleton } from '@mui/material';
 
-export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading }: MovieBannerProps) => {
-  const [isWatched, setIsWatched] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
+export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading, addedMoviesObj, handleAddedMoviesObj }: MovieBannerProps) => {
+  const [value, setValue] = useState(0);
 
-  const { 
+  const {
+    id, 
     crew,
     genres,
     homepage,
@@ -37,13 +37,22 @@ export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading }:
   } = movieDetails;
 
   console.log('MOvie', movieDetails)
+
+  const movie = {
+    id, 
+    release_date,
+    poster_path,
+    title: original_title,
+  }
   
   const imageBaseURL = 'https://image.tmdb.org/t/p/'
 
   const voteAverage = +vote_average.toString().replace('.', '');
+  
   useEffect(() => {
-    console.log(movieDetails)
-  }, [movieDetails])
+    const finalRate = addedMoviesObj?.ratedMovies?.find(m => m.id === movieDetails.id)?.rate || 0
+    setValue(finalRate)
+  }, [addedMoviesObj, movieDetails])
 
   return (
     <Container 
@@ -119,33 +128,37 @@ export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading }:
               <p>Avaliação dos usuários</p>
                 <button
                   onClick={() => {
-                    setIsWatched(!isWatched)
+                    handleAddedMoviesObj(movie, 'watched');
                   }}
                 >
                   <WatchIcon
                     size={20}
                     noText
-                    isWatched={isWatched}
+                    isWatched={addedMoviesObj.watchedMovies.some(m => m.id === movie.id)}
                     defaultColor='var(--light)'
                   />
                 </button>
               <button
                 onClick={() => {
-                  setIsFavorite(!isFavorite)
+                  handleAddedMoviesObj(movie, 'favorited');
                 }}
               >
                 <FavoriteIcon 
-                    size={20}
-                    noText
-                    isFavorite={isFavorite}
-                    defaultColor='var(--light)' onClick={undefined} actionColor={undefined}                />
+                  size={20}
+                  noText
+                  isFavorite={addedMoviesObj.favoriteMovies.some(m => m.id === movie.id)}
+                  defaultColor='var(--light)' onClick={undefined} actionColor={undefined}                
+                />
               </button>
               <button>
-                <RateStars 
-                  defaultColor='var(--light)'
-                  hoverX
-                  size={22}
-                />
+                <RateStars onChange={(e, rate) => {
+                  handleAddedMoviesObj(movie, 'rated', rate)
+                }}
+                value={value}
+                defaultColor='var(--light)'
+                hoverX
+                size={22}
+              />
               </button>
             </MovieBannerActions>
           )}
