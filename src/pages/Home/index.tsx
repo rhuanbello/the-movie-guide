@@ -11,7 +11,7 @@ import {
   genresTypes,
 } from './interfaces';
 import { useDispatch } from 'react-redux';
-import { handleMoviesToRender } from '../../services/store/modules/Home/actions';
+import { handleMoviesGenres, handleMoviesToRender } from '../../services/store/modules/Home/actions';
 
 export default function Home() {
   const { VITE_API_KEY } = import.meta.env;
@@ -19,7 +19,6 @@ export default function Home() {
   const { pathname } = useLocation();
 
   const [moviesList, setMoviesList] = useState<movieListTypes[]>([]);
-  const [genres, setGenres] = useState<genresTypes[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
   const [backDrop, setBackdrop] = useState('')
   const [isHomepage] = useState<boolean | undefined>(Boolean(moviesList));
@@ -35,7 +34,6 @@ export default function Home() {
       )
       .then(({ data }) => {
         const { results } = data;
-        handleMoviesList(results);
         dispatch(handleMoviesToRender(results))
       })
       .catch((error) => {
@@ -44,30 +42,12 @@ export default function Home() {
       
   };
 
-  const handleMoviesList = (results: any) => {
-
-    const moviesListFiltered = [...results].map(
-      ({ title, release_date, poster_path, id }) => ({
-        title,
-        release_date,
-        poster_path,
-        id,
-      })
-    );
-
-    console.log(moviesListFiltered)
-
-    setMoviesList(moviesListFiltered);
-
-  };
-
   const getGenres = () => {
     genreApi
       .get(`list?api_key=${VITE_API_KEY}&language=pt-BR`)
       .then(({ data }) => {
         const { genres } = data;
-        setGenres(genres);
-        console.log('Genres', genres)
+        dispatch(handleMoviesGenres(genres))
       })
       .catch(error => {
         console.log(error)
@@ -141,15 +121,11 @@ export default function Home() {
   return (
     <>
       <GenresBanner 
-        genres={genres}
         setSelectedGenres={setSelectedGenres}
         selectedGenres={selectedGenres}
         backDrop={backDrop}
       />
-      <MoviesList 
-        isHomepage={isHomepage}
-        moviesToRender={moviesList}
-      />
+      <MoviesList isHomepage={isHomepage} />
       <Pagination />
     </>
   );

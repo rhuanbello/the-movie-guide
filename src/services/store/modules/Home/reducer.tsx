@@ -27,3 +27,14 @@ export function moviesToRender(state: Array<moviesListObj> = [], action: any) {
       return state;
   }
 }
+
+export function moviesGenres(state = [], action: any) {
+  switch (action.type) {
+    case 'setGenres': {
+      console.log('Chegou genres', action.response)
+      return action.response;
+    }
+    default:
+      return state;
+  }
+}

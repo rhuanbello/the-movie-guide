@@ -5,4 +5,11 @@ export function handleMoviesToRender(response: any) {
   };
 }
 
+export function handleMoviesGenres(response: any) {
+  return {
+    type: 'setGenres',
+    response,
+  };
+}
+
 

@@ -26,7 +26,7 @@ export const MoviesList = ({
     ratedMovies: []
   })
 
-  const { moviesToRender } = useSelector((state): DefaultRootState => state);
+  const { moviesToRender } = useSelector((state: DefaultRootState) => state);
 
   useEffect(() => {
     handleSectionTitle();

@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
 import { genresBannerProps } from './interfaces';
 
 import { MdCancel } from "react-icons/md";
@@ -9,11 +7,11 @@ import {
   Container, 
   GenreButton, 
 } from './styles';
-import { searchedMovies } from "../../../pages/Home/interfaces";
-import { useState } from "react";
+
+import { useSelector } from "react-redux";
+import { DefaultRootState } from "../../../services/store/modules/Home/interfaces";
 
 export const GenresBanner = ({ 
-  genres, 
   selectedGenres, 
   setSelectedGenres, 
   setSearchedTerm, 
@@ -37,7 +35,7 @@ export const GenresBanner = ({
     setSelectedGenres(filteredSelectedGenres);
   }
 
-  const navigate = useNavigate();
+  const { moviesGenres } = useSelector((state): DefaultRootState => state)
 
   return (
     <Container backDrop={backDrop}>
@@ -47,7 +45,7 @@ export const GenresBanner = ({
         <div>
           <p>FILTRE POR:</p>
           <ButtonContainer>
-            {genres.map((genre) => (
+            {moviesGenres.map((genre) => (
               <GenreButton
                 key={genre.id}
                 style={{
