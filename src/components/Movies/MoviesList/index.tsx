@@ -8,9 +8,11 @@ import { Container, Content, SectionTitle } from "./styles";
 
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
+import { DefaultRootState } from '../../../services/store/modules/Home/interfaces';
 
 export const MoviesList = ({ 
-  moviesToRender, 
   isRecommendation,
   isHomepage,
   setMoviesList
@@ -24,10 +26,10 @@ export const MoviesList = ({
     ratedMovies: []
   })
 
-  useEffect(() => {
-   
-    handleSectionTitle()
+  const { moviesToRender } = useSelector((state): DefaultRootState => state);
 
+  useEffect(() => {
+    handleSectionTitle();
   }, [pathname])
 
   const handleSectionTitle = () => {

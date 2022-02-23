@@ -1,5 +1,4 @@
-export interface MoviesListProps {
-  isRecommendation?: boolean | undefined;
+export interface DefaultRootState {
   moviesToRender: Array<MoviesToRenderTypes>;
 
 }
@@ -9,10 +8,5 @@ interface MoviesToRenderTypes {
   id: number;
   poster_path: string;
   release_date: string;
-
-}
-
-export interface DefaultRootState {
-  moviesToRender: Array<MoviesToRenderTypes>;
 
 }

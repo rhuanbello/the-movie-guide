@@ -11,7 +11,7 @@ import {
   genresTypes,
 } from './interfaces';
 import { useDispatch } from 'react-redux';
-import { reduxHandleMoviesList } from '../../services/store/modules/Home/actions';
+import { handleMoviesToRender } from '../../services/store/modules/Home/actions';
 
 export default function Home() {
   const { VITE_API_KEY } = import.meta.env;
@@ -36,7 +36,7 @@ export default function Home() {
       .then(({ data }) => {
         const { results } = data;
         handleMoviesList(results);
-        dispatch(reduxHandleMoviesList(results))
+        dispatch(handleMoviesToRender(results))
       })
       .catch((error) => {
         console.log(error);

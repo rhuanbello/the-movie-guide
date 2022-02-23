@@ -5,12 +5,10 @@ interface moviesListObj {
   poster_path: string,
 }
 
-export function moviesList(state = [], action: any) {
+export function moviesToRender(state: Array<moviesListObj> = [], action: any) {
   switch (action.type) {
     case 'filtering_movies_list': {
       const { response } = action;
-
-      console.log('CHEGOU', response)
 
       const moviesListFiltered = [...response].map(
         ({ title, release_date, poster_path, id }) => ({
@@ -20,6 +18,8 @@ export function moviesList(state = [], action: any) {
           id,
         })
       );
+
+      console.log('Filtrou no redux', moviesListFiltered)
 
       return moviesListFiltered;
     }
