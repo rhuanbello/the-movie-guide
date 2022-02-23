@@ -10,6 +10,8 @@ import {
   movieListTypes,
   genresTypes,
 } from './interfaces';
+import { useDispatch } from 'react-redux';
+import { reduxHandleMoviesList } from '../../services/store/modules/Home/actions';
 
 export default function Home() {
   const { VITE_API_KEY } = import.meta.env;
@@ -21,10 +23,10 @@ export default function Home() {
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
   const [backDrop, setBackdrop] = useState('')
   const [isHomepage] = useState<boolean | undefined>(Boolean(moviesList));
+  const dispatch = useDispatch();
 
   const getMovies = (page: string | undefined, selectedGenres: Array<Number>, path: string) => {
     const genresToRender = selectedGenres?.join(',');
-
     console.log(`get de ${path}/${page || 1}`)
 
     movieApi
@@ -34,6 +36,7 @@ export default function Home() {
       .then(({ data }) => {
         const { results } = data;
         handleMoviesList(results);
+        dispatch(reduxHandleMoviesList(results))
       })
       .catch((error) => {
         console.log(error);
