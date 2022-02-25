@@ -12,4 +12,41 @@ export function handleMoviesGenres(response: any) {
   };
 }
 
+export function handleMovieDetails(response: any) {
+  return {
+    type: 'setMovieDetails',
+    response,
+  };
+}
+
+export function handleMovieTrailer(response: any) {
+  return {
+    type: 'setMovieTrailer',
+    response,
+  };
+}
+
+export function handleMovieCast(response: any) {
+  return {
+    type: 'setMovieCredits',
+    response,
+  };
+}
+
+export function handleMovieRecommendations(response: any) {
+  return {
+    type: 'setMovieRecommendations',
+    response,
+  };
+}
+
+export function handleAddedMoviesObjRedux(movie: any, type: string, rate: number) {
+  return {
+    typeState: 'setAddedMoviesObj',
+    movie,
+    type,
+    rate
+  };
+}
+
 

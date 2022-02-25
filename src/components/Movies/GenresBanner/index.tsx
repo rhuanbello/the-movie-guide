@@ -11,13 +11,8 @@ import {
 import { useSelector } from "react-redux";
 import { DefaultRootState } from "../../../services/store/modules/Home/interfaces";
 
-export const GenresBanner = ({ 
-  selectedGenres, 
-  setSelectedGenres, 
-  setSearchedTerm, 
-  searchedMovies,
-  backDrop
-}: genresBannerProps) => {
+export const GenresBanner = ({ selectedGenres, setSelectedGenres }: genresBannerProps) => {
+  const { moviesGenres } = useSelector((state): DefaultRootState => state);
 
   const handleSelectedGenres = (id: number) => {
     const filteredSelectedGenres = [...selectedGenres];
@@ -35,30 +30,32 @@ export const GenresBanner = ({
     setSelectedGenres(filteredSelectedGenres);
   }
 
-  const { moviesGenres } = useSelector((state): DefaultRootState => state)
+  const imageBaseURL = 'https://www.themoviedb.org/t/p/'
+  const cover = '/tNE9HGcFOH8EpCmzO7XCYwqguI0.jpg'
+  const backdropCover = imageBaseURL + 'original' + cover;
 
   return (
-    <Container backDrop={backDrop}>
-
+    <Container backDrop={backdropCover}>
       <div>
         <h1>Milhões de Filmes e Pessoas para Descobrir. Explore já.</h1>
         <div>
           <p>FILTRE POR:</p>
           <ButtonContainer>
-            {moviesGenres.map((genre) => (
+            {moviesGenres.map(({ id, name }) => (
               <GenreButton
-                key={genre.id}
+                key={id}
                 style={{
-                  backgroundColor: selectedGenres.some(g => g === genre.id) ? 'var(--primary)' : 'var(--light)',
-                  color: 'var(--dark)',
+                  backgroundColor: selectedGenres.some(selectedGenre => selectedGenre === id) ? 
+                                    'var(--primary)' : 
+                                    'var(--light)'
                 }}
                 onClick={() => {
-                  handleSelectedGenres(genre.id);
+                  handleSelectedGenres(id);
                 }}
               >
-                {genre.name}
+                {name}
                 
-                {selectedGenres.some(selectedGenre => selectedGenre === genre.id) && (
+                {selectedGenres.some(selectedGenre => selectedGenre === id) && (
                   <MdCancel
                     size={18}
                   />

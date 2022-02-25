@@ -11,8 +11,11 @@ import { AnimatePresence, motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 
-export const MovieCredits = ({ movieCredits, movieTrailer }: movieCreditsProps) => {
+export const MovieCredits = () => {
+  const { movieCredits, movieTrailer } = useSelector((state) => state)
+
   const profile_baseURL = 'https://image.tmdb.org/t/p/w200';
   const youtube_baseURL = `https://www.youtube.com/embed/${movieTrailer}?controls=0?autoplay=1`;
   const { ref, inView } = useInView();

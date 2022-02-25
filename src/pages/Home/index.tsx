@@ -10,17 +10,18 @@ import {
   movieListTypes,
   genresTypes,
 } from './interfaces';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { handleMoviesGenres, handleMoviesToRender } from '../../services/store/modules/Home/actions';
 
 export default function Home() {
+  const { moviesToRender } = useSelector((state: DefaultRootState) => state);
+
   const { VITE_API_KEY } = import.meta.env;
   const { page } = useParams();
   const { pathname } = useLocation();
 
   const [moviesList, setMoviesList] = useState<movieListTypes[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
-  const [backDrop, setBackdrop] = useState('')
   const [isHomepage] = useState<boolean | undefined>(Boolean(moviesList));
   const dispatch = useDispatch();
 
@@ -62,36 +63,6 @@ export default function Home() {
     }
   }
 
-  const getCollectionPosters = (id) => {
-    collectionApi
-      .get((`${id}/images?api_key=${VITE_API_KEY}`))
-      .then(({ data }) => {
-        handleCollectionPosters(data)
-      }).catch((error) => {
-        console.log(error)
-      })
-  }
-
-  const handleCollectionPosters = (data) => {
-    const { backdrops } = data;
-
-    const backdropsFiltered = backdrops.map(({ file_path }) => ({ file_path }))
-
-    const maxRange = backdrops.length;
-    const randomRange = Math.floor(Math.random() * (maxRange - 0) + 0);
-    const randomMoviePoster = 'https://image.tmdb.org/t/p/original'
-      + backdropsFiltered[randomRange].file_path;
-
-    // setBackdrop(randomMoviePoster)
-    setBackdrop('https://www.themoviedb.org/t/p/original/tNE9HGcFOH8EpCmzO7XCYwqguI0.jpg')
-
-  }
-
-  useEffect(() => {
-    getGenres();
-    getCollectionPosters(422837);
-  }, []);
-
   const handlePathname = (page, selectedGenres, pathname) => {
     let path = '';
 
@@ -111,6 +82,10 @@ export default function Home() {
   }
   
   useEffect(() => {
+    getGenres();
+  }, []);
+
+  useEffect(() => {
     handlePathname(page, selectedGenres, pathname)
   }, [page, selectedGenres, pathname]);
 
@@ -123,9 +98,10 @@ export default function Home() {
       <GenresBanner 
         setSelectedGenres={setSelectedGenres}
         selectedGenres={selectedGenres}
-        backDrop={backDrop}
       />
-      <MoviesList isHomepage={isHomepage} />
+      <MoviesList 
+        isHomepage={isHomepage} 
+        moviesToRender={moviesToRender}/>
       <Pagination />
     </>
   );

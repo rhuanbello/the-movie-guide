@@ -15,7 +15,8 @@ import { DefaultRootState } from '../../../services/store/modules/Home/interface
 export const MoviesList = ({ 
   isRecommendation,
   isHomepage,
-  setMoviesList
+  setMoviesList,
+  moviesToRender
 }: MoviesListProps ) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -26,7 +27,6 @@ export const MoviesList = ({
     ratedMovies: []
   })
 
-  const { moviesToRender } = useSelector((state: DefaultRootState) => state);
 
   useEffect(() => {
     handleSectionTitle();
