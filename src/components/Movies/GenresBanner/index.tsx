@@ -8,27 +8,13 @@ import {
   GenreButton, 
 } from './styles';
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { DefaultRootState } from "../../../services/store/modules/Home/interfaces";
+import { handleSelectedGenres } from '../../../services/store/modules/Home/actions';
 
-export const GenresBanner = ({ selectedGenres, setSelectedGenres }: genresBannerProps) => {
-  const { moviesGenres } = useSelector((state): DefaultRootState => state);
-
-  const handleSelectedGenres = (id: number) => {
-    const filteredSelectedGenres = [...selectedGenres];
-    const genreIndex = selectedGenres.findIndex(x => x === id);
-
-    if (genreIndex === -1) {
-      filteredSelectedGenres.push(id);
-    
-    } else {
-      filteredSelectedGenres.splice(genreIndex, 1);
-  
-    }
-
-    localStorage.setItem('Genres', JSON.stringify(filteredSelectedGenres))
-    setSelectedGenres(filteredSelectedGenres);
-  }
+export const GenresBanner = () => {
+  const { moviesGenres, selectedGenres } = useSelector((state): DefaultRootState => state);
+  const dispatch = useDispatch();
 
   const imageBaseURL = 'https://www.themoviedb.org/t/p/'
   const cover = '/tNE9HGcFOH8EpCmzO7XCYwqguI0.jpg'
@@ -50,7 +36,7 @@ export const GenresBanner = ({ selectedGenres, setSelectedGenres }: genresBanner
                                     'var(--light)'
                 }}
                 onClick={() => {
-                  handleSelectedGenres(id);
+                  dispatch(handleSelectedGenres(id))
                 }}
               >
                 {name}

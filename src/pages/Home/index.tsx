@@ -14,14 +14,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { handleMoviesGenres, handleMoviesToRender } from '../../services/store/modules/Home/actions';
 
 export default function Home() {
-  const { moviesToRender } = useSelector((state: DefaultRootState) => state);
+  const { moviesToRender, selectedGenres } = useSelector((state: DefaultRootState) => state);
 
   const { VITE_API_KEY } = import.meta.env;
   const { page } = useParams();
   const { pathname } = useLocation();
 
   const [moviesList, setMoviesList] = useState<movieListTypes[]>([]);
-  const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
   const [isHomepage] = useState<boolean | undefined>(Boolean(moviesList));
   const dispatch = useDispatch();
 
@@ -56,13 +55,6 @@ export default function Home() {
 
   };
 
-  const handleGenresLocalStorage = () => {
-    const genresFromLocalStorage = localStorage.getItem('Genres');
-    if (genresFromLocalStorage) {
-      setSelectedGenres(JSON.parse(genresFromLocalStorage));
-    }
-  }
-
   const handlePathname = (page, selectedGenres, pathname) => {
     let path = '';
 
@@ -89,16 +81,10 @@ export default function Home() {
     handlePathname(page, selectedGenres, pathname)
   }, [page, selectedGenres, pathname]);
 
-  useEffect(() => {
-    handleGenresLocalStorage();
-  }, [localStorage.getItem('Genres')]);
-
   return (
     <>
-      <GenresBanner 
-        setSelectedGenres={setSelectedGenres}
-        selectedGenres={selectedGenres}
-      />
+      <GenresBanner />
+      
       <MoviesList 
         isHomepage={isHomepage} 
         moviesToRender={moviesToRender}/>

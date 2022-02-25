@@ -16,10 +16,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { FavoriteIcon, WatchIcon, RateStars } from '../../Global/MovieIcons';
 import { Skeleton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleAddedMoviesObjRedux } from '../../../services/store/modules/Home/actions';
+import { handleAddedMoviesObj } from '../../../services/store/modules/Home/actions';
 
-export const MovieBanner = ({ detailsLoading, addedMoviesObj, handleAddedMoviesObj }: MovieBannerProps) => {
-  const { movieDetails } = useSelector((state) => state);
+export const MovieBanner = ({ detailsLoading }: MovieBannerProps) => {
+  const { movieDetails, addedMoviesObj } = useSelector((state) => state);
   const [value, setValue] = useState(0);
   const dispatch = useDispatch();
 
@@ -127,8 +127,7 @@ export const MovieBanner = ({ detailsLoading, addedMoviesObj, handleAddedMoviesO
               <p>Avaliação dos usuários</p>
                 <button
                   onClick={() => {
-                    dispatch(handleAddedMoviesObjRedux(movie, 'watched'))
-                    handleAddedMoviesObj(movie, 'watched');
+                    dispatch(handleAddedMoviesObj(movie, 'watched'))
                   }}
                 >
                   <WatchIcon
@@ -140,7 +139,7 @@ export const MovieBanner = ({ detailsLoading, addedMoviesObj, handleAddedMoviesO
                 </button>
               <button
                 onClick={() => {
-                  handleAddedMoviesObj(movie, 'favorited');
+                  dispatch(handleAddedMoviesObj(movie, 'favorited'))
                 }}
               >
                 <FavoriteIcon 
@@ -152,7 +151,7 @@ export const MovieBanner = ({ detailsLoading, addedMoviesObj, handleAddedMoviesO
               </button>
               <button>
                 <RateStars onChange={(e, rate) => {
-                  handleAddedMoviesObj(movie, 'rated', rate)
+                  dispatch(handleAddedMoviesObj(movie, 'rated', rate))
                 }}
                 value={value}
                 defaultColor='var(--light)'

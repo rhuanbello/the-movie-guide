@@ -6,7 +6,8 @@ import {
   movieTrailer,
   movieCredits,
   movieRecommendations,
-  addedMoviesObj
+  addedMoviesObj,
+  selectedGenres
 } from './Home/reducer';
 
 export default combineReducers({
@@ -16,5 +17,6 @@ export default combineReducers({
   movieTrailer,
   movieCredits,
   movieRecommendations,
-  addedMoviesObj
+  addedMoviesObj,
+  selectedGenres
 });

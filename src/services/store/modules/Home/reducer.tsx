@@ -1,4 +1,3 @@
-import produce from 'immer';
 interface moviesListObj {
   id: string,
   title: string,
@@ -145,6 +144,31 @@ export function movieRecommendations(state = [], action: any) {
       return state;
   }
 }
+export function selectedGenres(state = [], action: any) {
+  console.log('acionou')
+
+  switch (action.type) {
+    case 'setSelectedGenres': {
+      const { response } = action;
+      const id = response;
+      const filteredSelectedGenres = [...state];
+      const genreIndex = state.findIndex(x => x === id);
+
+      if (genreIndex === -1) {
+        filteredSelectedGenres.push(id);
+
+      } else {
+        filteredSelectedGenres.splice(genreIndex, 1);
+
+      }
+
+      return filteredSelectedGenres
+
+    }
+    default:
+      return state;
+  }
+}
 
 export function addedMoviesObj(state = {
   favoriteMovies: [],
@@ -193,10 +217,10 @@ export function addedMoviesObj(state = {
       }
 
       if (type === 'rated') {
-        const tempRatedMovies = [...addedMoviesObj.ratedMovies];
+        const tempRatedMovies = [...state.ratedMovies];
         const indexRated = tempRatedMovies.findIndex(m => m.id === movie.id);
 
-        const tempWatchedMovies = [...addedMoviesObj.watchedMovies];
+        const tempWatchedMovies = [...state.watchedMovies];
         const indexWatched = tempWatchedMovies.findIndex(m => m.id === movie.id);
 
         if (indexRated === -1) {

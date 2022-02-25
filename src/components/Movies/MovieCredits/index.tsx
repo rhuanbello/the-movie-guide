@@ -21,10 +21,6 @@ export const MovieCredits = () => {
   const { ref, inView } = useInView();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log('mov', movieTrailer);
-  }, [movieTrailer]);
-
   return (
     <Container>
       <Content>

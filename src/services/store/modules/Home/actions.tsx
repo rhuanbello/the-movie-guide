@@ -40,7 +40,7 @@ export function handleMovieRecommendations(response: any) {
   };
 }
 
-export function handleAddedMoviesObjRedux(movie: any, type: string, rate: number) {
+export function handleAddedMoviesObj(movie: any, type: string, rate?: number) {
   return {
     typeState: 'setAddedMoviesObj',
     movie,
@@ -49,4 +49,10 @@ export function handleAddedMoviesObjRedux(movie: any, type: string, rate: number
   };
 }
 
+export function handleSelectedGenres(response: number) {
 
+  return {
+    type: 'setSelectedGenres',
+    response
+  };
+}

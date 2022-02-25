@@ -10,34 +10,16 @@ import {
   MoviesSection
 } from './styles';
 
-import { AnimatePresence, motion } from "framer-motion";
 import { MoviesList } from "../../components/Movies/MoviesList";
+import { useSelector } from "react-redux";
 
 export default function MyProfile() {
-  const [moviesList, setMoviesList] = useState({
-    watchedMovies: [],
-    favoriteMovies: [],
-    ratedMovies: []
-  })
-
-  useEffect(() => {
-    const moviesFromLocalStorage = localStorage.getItem('MoviesList')
-
-    if (moviesFromLocalStorage) {
-      const moviesList = JSON.parse(moviesFromLocalStorage);
-      console.log('atualizou')
-      setMoviesList(moviesList)
-    }
-
-    console.log('att')
-
-  }, [localStorage.getItem('MoviesList')]);
-
+  const { addedMoviesObj } = useSelector((state) => state);
+ 
   const {
     watchedMovies,
-    favoriteMovies,
-    ratedMovies
-  } = moviesList;
+    favoriteMovies
+  } = addedMoviesObj;
 
   const handleThisYearMoviesWatched = (watchedMovies) => {
     const thisYearCount = [...watchedMovies]?.filter(
@@ -90,7 +72,6 @@ export default function MyProfile() {
         <MoviesList 
           moviesToRender={favoriteMovies}
           isRecommendation={true}
-          setMoviesList={setMoviesList}
         />
 
       </MoviesSection>
@@ -98,10 +79,7 @@ export default function MyProfile() {
       <MoviesSection>
         <h3>Assisti Recentemente</h3>
 
-        <MoviesList 
-          moviesToRender={watchedMovies}
-          setMoviesList={setMoviesList}
-        />
+        <MoviesList moviesToRender={watchedMovies} />
 
       </MoviesSection>
     
