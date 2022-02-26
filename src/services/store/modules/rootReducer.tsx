@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+
 import { 
   moviesToRender, 
   moviesGenres, 
@@ -7,7 +8,8 @@ import {
   movieCredits,
   movieRecommendations,
   addedMoviesObj,
-  selectedGenres
+  selectedGenres,
+  popularPerson
 } from './Home/reducer';
 
 export default combineReducers({
@@ -18,5 +20,6 @@ export default combineReducers({
   movieCredits,
   movieRecommendations,
   addedMoviesObj,
-  selectedGenres
+  selectedGenres,
+  popularPerson
 });

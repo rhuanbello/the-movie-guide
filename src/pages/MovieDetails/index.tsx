@@ -64,15 +64,9 @@ export default function MovieDetails() {
 
   return (
     <>
-      <MovieBanner
-        detailsLoading={detailsLoading}
-        setDetailsLoading={setDetailsLoading}
-      />
+      <MovieBanner detailsLoading={detailsLoading} setDetailsLoading={setDetailsLoading} />
       <MovieCredits />
-      <MoviesList
-        moviesToRender={movieRecommendations}
-        isRecommendation={isRecommendation}
-      />
+      <MoviesList moviesToRender={movieRecommendations} isRecommendation={isRecommendation} />
     </>
   );
 }

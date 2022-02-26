@@ -50,9 +50,15 @@ export function handleAddedMoviesObj(movie: any, type: string, rate?: number) {
 }
 
 export function handleSelectedGenres(response: number) {
-
   return {
     type: 'setSelectedGenres',
+    response
+  };
+}
+
+export function handlePopularPerson(response) {
+  return {
+    type: 'setPopularPerson',
     response
   };
 }

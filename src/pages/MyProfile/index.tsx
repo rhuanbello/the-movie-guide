@@ -2,8 +2,6 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { personApi } from "../../services/requests/api";
 
-import { ScrollBack } from '../../components/Global/MovieIcons'
-
 import { 
   Container, 
   Cover,
@@ -15,11 +13,7 @@ import { useSelector } from "react-redux";
 
 export default function MyProfile() {
   const { addedMoviesObj } = useSelector((state) => state);
- 
-  const {
-    watchedMovies,
-    favoriteMovies
-  } = addedMoviesObj;
+  const { watchedMovies, favoriteMovies } = addedMoviesObj;
 
   const handleThisYearMoviesWatched = (watchedMovies) => {
     const thisYearCount = [...watchedMovies]?.filter(
@@ -66,7 +60,9 @@ export default function MyProfile() {
        
       </Cover>
 
-      <MoviesSection>
+      <MoviesSection 
+        style={{ display: favoriteMovies.length > 0 ? 'default' : 'none' }}
+      >
         <h3>Filmes favoritos</h3>
 
         <MoviesList 
@@ -76,13 +72,22 @@ export default function MyProfile() {
 
       </MoviesSection>
 
-      <MoviesSection>
+      <MoviesSection
+        style={{ display: watchedMovies.length > 0 ? 'default' : 'none' }}
+      >
+
         <h3>Assisti Recentemente</h3>
 
         <MoviesList moviesToRender={watchedMovies} />
 
       </MoviesSection>
-    
+
+      <MoviesSection
+        style={{ display: favoriteMovies.length <= 0 && watchedMovies.length <= 0 ? 'default' : 'none' }}
+      >
+        <h3>Ops... não há nada por aqui.</h3>
+      </MoviesSection>
+  
     </Container>
   );
 }

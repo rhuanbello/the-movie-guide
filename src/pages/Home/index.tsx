@@ -84,10 +84,7 @@ export default function Home() {
   return (
     <>
       <GenresBanner />
-      
-      <MoviesList 
-        isHomepage={isHomepage} 
-        moviesToRender={moviesToRender}/>
+      <MoviesList isHomepage={isHomepage} moviesToRender={moviesToRender} />
       <Pagination />
     </>
   );
