@@ -292,3 +292,86 @@ export function popularPerson(state = [], action: any) {
       return state;
   }
 }
+
+export function searchedMovies(state = [], action: any) {
+  const { type, response, setSearchLoading } = action;
+
+  switch (type) {
+    case 'setSearchedTerm': {
+
+      const moviesAndPeople = [...response].filter(content => content.media_type !== 'tv'
+        && content.backdrop_path !== null
+        && content.profile_path !== null)
+
+      const peopleList = [...moviesAndPeople].filter(content => content.media_type === 'person')
+        .map(({ id, name, popularity, profile_path, media_type }) =>
+          ({ poster_path: profile_path, title: name, id, popularity, media_type }));
+
+      const moviesList = [...moviesAndPeople].filter(content => content.media_type === 'movie')
+        .map(({ popularity, poster_path, release_date, title, vote_average, id, media_type }) =>
+          ({ popularity, poster_path, release_date, title, vote_average, id, media_type }))
+
+      const filteredResults = [...moviesList, ...peopleList];
+
+      setTimeout(() => {
+        setSearchLoading(false);
+      }, 800)
+
+      return filteredResults;
+    }
+    default:
+      return state;
+  }
+}
+
+
+export function personDetails(state = {}, action: any) {
+  const { type, response, setDetailsLoading } = action;
+
+  switch (type) {
+    case 'setPersonDetails': {
+      const data = response;
+
+      const personBanner = {
+        biography: data.biography,
+        homepage: data.homepage,
+        name: data.name,
+        profile_path: data.profile_path,
+
+      }
+
+      const personFilmography = [...data.movie_credits.cast].map(
+        ({ title, release_date, poster_path, id, popularity }) => ({
+          title,
+          release_date,
+          poster_path,
+          id,
+          popularity
+        })
+      ).filter(movie => movie.poster_path !== null)
+        .sort((a, b) => b.popularity - a.popularity);
+
+      const personMovieDetails = {
+        also_known_as: data.also_known_as,
+        birthday: data.birthday,
+        place_of_birth: data.place_of_birth,
+        gender: data.gender,
+        moviesCount: personFilmography.length
+      }
+
+      const personDetailsObj = {
+        personBanner,
+        personFilmography,
+        personMovieDetails
+      }
+
+      setTimeout(() => {
+        setDetailsLoading(false);
+      }, 800)
+
+      return personDetailsObj;
+    }
+    default:
+      return state;
+  }
+}

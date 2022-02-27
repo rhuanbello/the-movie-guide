@@ -9,7 +9,9 @@ import {
   movieRecommendations,
   addedMoviesObj,
   selectedGenres,
-  popularPerson
+  popularPerson,
+  searchedMovies,
+  personDetails
 } from './Home/reducer';
 
 export default combineReducers({
@@ -21,5 +23,7 @@ export default combineReducers({
   movieRecommendations,
   addedMoviesObj,
   selectedGenres,
-  popularPerson
+  popularPerson,
+  searchedMovies,
+  personDetails
 });

@@ -62,3 +62,19 @@ export function handlePopularPerson(response) {
     response
   };
 }
+
+export function handleSearchedTerm(response, setSearchLoading) {
+  return {
+    type: 'setSearchedTerm',
+    response,
+    setSearchLoading
+  };
+}
+
+export function handlePersonDetails(response, setDetailsLoading) {
+  return {
+    type: 'setPersonDetails',
+    response,
+    setDetailsLoading
+  };
+}
