@@ -57,36 +57,34 @@ export default function MyProfile() {
 
         </div>
 
-       
       </Cover>
 
-      <MoviesSection 
-        style={{ display: favoriteMovies.length > 0 ? 'default' : 'none' }}
-      >
-        <h3>Filmes favoritos</h3>
+      {favoriteMovies.length > 0 && (
+        <MoviesSection>
+          <h3>Filmes favoritos</h3>
 
-        <MoviesList 
-          moviesToRender={favoriteMovies}
-          isRecommendation={true}
-        />
+          <MoviesList 
+            moviesToRender={favoriteMovies}
+            isRecommendation={true}
+          />
 
-      </MoviesSection>
+        </MoviesSection>
+      )}
 
-      <MoviesSection
-        style={{ display: watchedMovies.length > 0 ? 'default' : 'none' }}
-      >
+      {watchedMovies.length > 0 && (
+        <MoviesSection>
+          <h3>Assisti Recentemente</h3>
 
-        <h3>Assisti Recentemente</h3>
+          <MoviesList moviesToRender={watchedMovies} />
 
-        <MoviesList moviesToRender={watchedMovies} />
+        </MoviesSection>
+      )}
 
-      </MoviesSection>
-
-      <MoviesSection
-        style={{ display: favoriteMovies.length <= 0 && watchedMovies.length <= 0 ? 'default' : 'none' }}
-      >
-        <h3>Ops... não há nada por aqui.</h3>
-      </MoviesSection>
+      {favoriteMovies.length <= 0 && watchedMovies.length <= 0 && (
+        <MoviesSection>
+          <h3>Ops... não há nada por aqui.</h3>
+        </MoviesSection>
+      )}
   
     </Container>
   );
