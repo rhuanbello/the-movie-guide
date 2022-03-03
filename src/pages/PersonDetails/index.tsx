@@ -1,23 +1,22 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+
+import { personApi } from "../../services/requests/api";
+import { handlePersonDetails } from "../../services/store/modules/Home/actions";
 
 import { PersonBanner } from "../../components/Person/PersonBanner";
 import { PersonCredits } from "../../components/Person/PersonCredits";
 import { MoviesList } from "../../components/Movies/MoviesList";
 
-import { personApi } from "../../services/requests/api";
+import { Container } from './styles';
 
-import { Container } from './styles'
-import { useDispatch, useSelector } from "react-redux";
-import { handlePersonDetails } from "../../services/store/modules/Home/actions";
-
-export default function MovieDetails() {
+export default function PersonDetails() {
   const { VITE_API_KEY } = import.meta.env;
   const { id } = useParams();
-  const { page } = useParams();
   const [detailsLoading, setDetailsLoading] = useState(true);
   const dispatch = useDispatch();
-  const { personDetails } = useSelector((state) => state);
+  const { personDetails, addedMoviesObj } = useSelector((state) => state);
 
   useEffect(() => {
     console.log('personDetails', personDetails)
@@ -49,18 +48,27 @@ export default function MovieDetails() {
 
   useEffect(() => {
     getPersonDetails(id);
-    console.log()
     scrollToTop()
   }, [id])
 
+  const handlePersonMoviesWatched = () => {
+    const personMoviesIDs = personFilmography?.map(x => x.id);
+    const personWatchedMoviesCount = addedMoviesObj.watchedMovies?.filter(({ id }) => personMoviesIDs?.includes(id))?.length
+    return personWatchedMoviesCount;
+  }
+
   return (
     <>
-      <PersonBanner personBanner={personBanner} setDetailsLoading={setDetailsLoading} detailsLoading={detailsLoading}/>
+      <PersonBanner
+        personBanner={personBanner}
+        setDetailsLoading={setDetailsLoading}
+        detailsLoading={detailsLoading}
+      />
       <Container>
-        <PersonCredits personDetails={personMovieDetails}/>
+        <PersonCredits personDetails={personMovieDetails} />
         <section>
           <h2>Filmografia</h2>
-          <p>Você já viu 0 dos {personDetails.moviesCount} filmes deste ator</p>
+          <p>Você já viu {handlePersonMoviesWatched()} de {personMovieDetails?.moviesCount} filmes deste ator</p>
           <MoviesList moviesToRender={personFilmography} />
         </section>
       </Container>

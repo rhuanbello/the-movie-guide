@@ -16,7 +16,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { FavoriteIcon, WatchIcon, RateStars } from '../../Global/MovieIcons';
 import { Skeleton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleAddedMoviesObj } from '../../../services/store/modules/Home/actions';
+import { cleaningPreviousState, handleAddedMoviesObj } from '../../../services/store/modules/Home/actions';
 
 export const MovieBanner = ({ detailsLoading }: MovieBannerProps) => {
   const { movieDetails, addedMoviesObj } = useSelector((state) => state);
@@ -52,6 +52,11 @@ export const MovieBanner = ({ detailsLoading }: MovieBannerProps) => {
     const finalRate = addedMoviesObj?.ratedMovies?.find(m => m.id === movieDetails.id)?.rate || 0
     setValue(finalRate)
   }, [addedMoviesObj, movieDetails])
+
+
+  useEffect(() => {
+    console.count('Renderizou')
+  }, [movieDetails])
 
   return (
     <Container 

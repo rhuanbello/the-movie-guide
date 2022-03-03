@@ -12,10 +12,17 @@ export function handleMoviesGenres(response: any) {
   };
 }
 
-export function handleMovieDetails(response: any) {
+export function handleMovieDetails(response: any, setDetailsLoading) {
   return {
     type: 'setMovieDetails',
     response,
+    setDetailsLoading
+  };
+}
+
+export function cleaningPreviousState() {
+  return {
+    type: 'cleaningPreviousState',
   };
 }
 

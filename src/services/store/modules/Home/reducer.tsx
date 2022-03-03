@@ -40,10 +40,10 @@ export function moviesGenres(state = [], action: any) {
 }
 
 export function movieDetails(state = [], action: any) {
-  switch (action.type) {
+  const { type, setDetailsLoading, response } = action;
+
+  switch (type) {
     case 'setMovieDetails': {
-      console.log('Chegou setMovieDetails', action.response)
-      const { response } = action;
       const { crew } = response.credits;
 
       const crewArrayFilteredAndLimited = [...crew]
@@ -75,9 +75,14 @@ export function movieDetails(state = [], action: any) {
         classification: classification || ''
       }
 
-      console.log('movieDetailsFiltered', movieDetailsFiltered)
+      setTimeout(() => {
+        setDetailsLoading(false);
+      }, 700);
 
       return movieDetailsFiltered;
+    }
+    case 'cleaningPreviousState': {
+      return state = [];
     }
     default:
       return state;
@@ -88,7 +93,6 @@ export function movieCredits(state = [], action: any) {
   switch (action.type) {
     case 'setMovieCredits': {
       const { response } = action;
-
       const castArrayFiltered = [...response]
         .map(({ original_name, profile_path, character, id }) => ({
           original_name,
@@ -111,19 +115,11 @@ export function movieTrailer(state = '', action: any) {
   switch (action.type) {
     case 'setMovieTrailer': {
       const { response } = action;
+      const trailersFiltered = [...response]
+        .map(({ key }) => ({ key }))
+      [0]?.key;
 
-      // if (response.length) {
-        const trailersFiltered = [...response]
-          .map(({ key }) => ({ key }))
-        [0]?.key
-
-      console.log('trailersFiltered', trailersFiltered)
-
-
-        return trailersFiltered;
-      // }
-
-      // return undefined;
+      return trailersFiltered;
 
     }
     default:
@@ -135,8 +131,8 @@ export function movieRecommendations(state = [], action: any) {
   switch (action.type) {
     case 'setMovieRecommendations': {
       const { response } = action;
-
       const movieRecommendationsFiltered = [...response].map(({ poster_path, id, release_date, title }) => ({ poster_path, id, release_date, title }))
+      
       return movieRecommendationsFiltered;
 
     }
@@ -324,7 +320,6 @@ export function searchedMovies(state = [], action: any) {
   }
 }
 
-
 export function personDetails(state = {}, action: any) {
   const { type, response, setDetailsLoading } = action;
 
@@ -367,7 +362,7 @@ export function personDetails(state = {}, action: any) {
 
       setTimeout(() => {
         setDetailsLoading(false);
-      }, 800)
+      }, 800);
 
       return personDetailsObj;
     }

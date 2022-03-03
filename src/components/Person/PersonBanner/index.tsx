@@ -16,7 +16,7 @@ export const PersonBanner = ({
     homepage,
     name,
     profile_path
-  } = personBanner;
+  } = personBanner || {};
 
   const imageBaseURL = 'https://image.tmdb.org/t/p/'
 
