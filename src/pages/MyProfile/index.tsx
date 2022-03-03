@@ -2,42 +2,18 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { personApi } from "../../services/requests/api";
 
-import { ScrollBack } from '../../components/Global/MovieIcons'
-
 import { 
   Container, 
   Cover,
   MoviesSection
 } from './styles';
 
-import { AnimatePresence, motion } from "framer-motion";
 import { MoviesList } from "../../components/Movies/MoviesList";
+import { useSelector } from "react-redux";
 
 export default function MyProfile() {
-  const [moviesList, setMoviesList] = useState({
-    watchedMovies: [],
-    favoriteMovies: [],
-    ratedMovies: []
-  })
-
-  useEffect(() => {
-    const moviesFromLocalStorage = localStorage.getItem('MoviesList')
-
-    if (moviesFromLocalStorage) {
-      const moviesList = JSON.parse(moviesFromLocalStorage);
-      console.log('atualizou')
-      setMoviesList(moviesList)
-    }
-
-    console.log('att')
-
-  }, [localStorage.getItem('MoviesList')]);
-
-  const {
-    watchedMovies,
-    favoriteMovies,
-    ratedMovies
-  } = moviesList;
+  const { addedMoviesObj } = useSelector((state) => state);
+  const { watchedMovies, favoriteMovies } = addedMoviesObj;
 
   const handleThisYearMoviesWatched = (watchedMovies) => {
     const thisYearCount = [...watchedMovies]?.filter(
@@ -81,30 +57,35 @@ export default function MyProfile() {
 
         </div>
 
-       
       </Cover>
 
-      <MoviesSection>
-        <h3>Filmes favoritos</h3>
+      {favoriteMovies.length > 0 && (
+        <MoviesSection>
+          <h3>Filmes favoritos</h3>
 
-        <MoviesList 
-          moviesToRender={favoriteMovies}
-          isRecommendation={true}
-          setMoviesList={setMoviesList}
-        />
+          <MoviesList 
+            moviesToRender={favoriteMovies}
+            isRecommendation={true}
+          />
 
-      </MoviesSection>
+        </MoviesSection>
+      )}
 
-      <MoviesSection>
-        <h3>Assisti Recentemente</h3>
+      {watchedMovies.length > 0 && (
+        <MoviesSection>
+          <h3>Assisti Recentemente</h3>
 
-        <MoviesList 
-          moviesToRender={watchedMovies}
-          setMoviesList={setMoviesList}
-        />
+          <MoviesList moviesToRender={watchedMovies} />
 
-      </MoviesSection>
-    
+        </MoviesSection>
+      )}
+
+      {favoriteMovies.length <= 0 && watchedMovies.length <= 0 && (
+        <MoviesSection>
+          <h3>Ops... não há nada por aqui.</h3>
+        </MoviesSection>
+      )}
+  
     </Container>
   );
 }

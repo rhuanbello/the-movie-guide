@@ -19,9 +19,13 @@ import { RateStars } from "../../Global/MovieIcons";
 import { MovieCardProps } from './interfaces';
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
+import { useDispatch, useSelector } from "react-redux";
+import { handleAddedMoviesObj } from "../../../services/store/modules/Global/actions";
 
-export const  MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesObj}: MovieCardProps) => {
-  
+export const MovieCard = ({ onClick, movie }: MovieCardProps) => {
+  const { addedMoviesObj } = useSelector((state) => state);
+  const dispatch = useDispatch()
+
   const { 
     title, 
     release_date, 
@@ -46,7 +50,7 @@ export const  MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesOb
         layout
         animate={{ opacity: 1 }}
         initial={{ opacity: 0 }}
-        transition={{ duration: 2 }}
+        transition={{ duration: 1 }}
         exit={{ opacity: 0 }}
       >
         <PosterContainer>
@@ -79,7 +83,8 @@ export const  MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesOb
       >
         <MovieAction
           onClick={() => {
-            handleAddedMoviesObj(movie, 'watched');
+            console.log('assisti', movie)
+            dispatch(handleAddedMoviesObj(movie, 'watched'));
           }}
         >
           <WatchIcon
@@ -90,7 +95,7 @@ export const  MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesOb
         </MovieAction>
         <MovieAction
           onClick={() => { 
-            handleAddedMoviesObj(movie, 'favorited');
+            dispatch(handleAddedMoviesObj(movie, 'favorited'));
           }}
         >
           <FavoriteIcon
@@ -101,7 +106,7 @@ export const  MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesOb
         </MovieAction>
         <MovieAction>
           <RateStars onChange={(e, rate) => {
-            handleAddedMoviesObj(movie, 'rated', rate)
+            dispatch(handleAddedMoviesObj(movie, 'rated', rate))
           }}
             value={value}
           />

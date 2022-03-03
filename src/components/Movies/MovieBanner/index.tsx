@@ -4,7 +4,6 @@ import {
   Container,
   MovieInfos,
   Subtitle,
-  CircularPercentage,
   MovieProducers,
   MoviePoster,
   MovieBannerActions
@@ -16,9 +15,13 @@ import { MovieBannerProps } from './interfaces';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FavoriteIcon, WatchIcon, RateStars } from '../../Global/MovieIcons';
 import { Skeleton } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { cleaningPreviousState, handleAddedMoviesObj } from '../../../services/store/modules/Global/actions';
 
-export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading, addedMoviesObj, handleAddedMoviesObj }: MovieBannerProps) => {
+export const MovieBanner = ({ detailsLoading }: MovieBannerProps) => {
+  const { movieDetails, addedMoviesObj } = useSelector((state) => state);
   const [value, setValue] = useState(0);
+  const dispatch = useDispatch();
 
   const {
     id, 
@@ -36,8 +39,6 @@ export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading, a
     backdrop_path
   } = movieDetails;
 
-  console.log('MOvie', movieDetails)
-
   const movie = {
     id, 
     release_date,
@@ -47,12 +48,15 @@ export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading, a
   
   const imageBaseURL = 'https://image.tmdb.org/t/p/'
 
-  const voteAverage = +vote_average.toString().replace('.', '');
-  
   useEffect(() => {
     const finalRate = addedMoviesObj?.ratedMovies?.find(m => m.id === movieDetails.id)?.rate || 0
     setValue(finalRate)
   }, [addedMoviesObj, movieDetails])
+
+
+  useEffect(() => {
+    console.count('Renderizou')
+  }, [movieDetails])
 
   return (
     <Container 
@@ -91,8 +95,8 @@ export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading, a
               {classification && (
                 <span>{classification === 'L' ? 'Livre' : classification === 'R' ? '18 anos' : classification + ' anos'}</span>
               )}
-              <span>{moment(release_date).format('DD/MM/YYYY')} ({original_language.toUpperCase()})</span>
-              <span>{genres.map(genre => genre.name).join(', ')}</span>
+              <span>{moment(release_date).format('DD/MM/YYYY')} ({original_language?.toUpperCase()})</span>
+              <span>{genres?.map(genre => genre.name).join(', ')}</span>
               <span>{Math.floor(runtime / 60)}h {runtime % 60}m</span>
             </Subtitle>
           )}
@@ -104,8 +108,8 @@ export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading, a
               <PieChart
                 data={[
                   {
-                    value: voteAverage,
-                    color: voteAverage > 70 ? 'var(--primary)' : 'red' 
+                    value: vote_average,
+                    color: vote_average >= 70 ? 'var(--primary)' : 'red' 
                   },
                 ]}
                 totalValue={100}
@@ -121,14 +125,14 @@ export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading, a
                 }}
                 labelStyle={{ 
                   fontSize: 28, 
-                  fill: voteAverage > 70 ? 'var(--primary)' : 'red', 
+                  fill: vote_average >= 70 ? 'var(--primary)' : 'red', 
                   fontWeight: 'bold',
                 }}
               />
               <p>Avaliação dos usuários</p>
                 <button
                   onClick={() => {
-                    handleAddedMoviesObj(movie, 'watched');
+                    dispatch(handleAddedMoviesObj(movie, 'watched'))
                   }}
                 >
                   <WatchIcon
@@ -140,7 +144,7 @@ export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading, a
                 </button>
               <button
                 onClick={() => {
-                  handleAddedMoviesObj(movie, 'favorited');
+                  dispatch(handleAddedMoviesObj(movie, 'favorited'))
                 }}
               >
                 <FavoriteIcon 
@@ -152,7 +156,7 @@ export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading, a
               </button>
               <button>
                 <RateStars onChange={(e, rate) => {
-                  handleAddedMoviesObj(movie, 'rated', rate)
+                  dispatch(handleAddedMoviesObj(movie, 'rated', rate))
                 }}
                 value={value}
                 defaultColor='var(--light)'
@@ -181,7 +185,7 @@ export const MovieBanner = ({ movieDetails, detailsLoading, setDetailsLoading, a
             <Skeleton variant="text" width="60%" height="80px" animation="wave" />
           ) : (
             <MovieProducers>
-              {crew.map(person => (
+              {crew?.map(person => (
                 <li>
                   <span>{person.name}</span>
                   <span>{person.known_for_department}</span>

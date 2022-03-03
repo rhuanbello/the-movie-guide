@@ -8,14 +8,15 @@ import {
 
 export const PersonBanner = ({ 
   personBanner,
-  setDetailsLoading,
   detailsLoading
 }) => {
 
-  const { biography,
+  const { 
+    biography,
     homepage,
     name,
-    profile_path} = personBanner;
+    profile_path
+  } = personBanner || {};
 
   const imageBaseURL = 'https://image.tmdb.org/t/p/'
 

@@ -1,0 +1,15 @@
+import { createStore } from 'redux';
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import rootReducer from './modules/rootReducer';
+
+const persistConfigStorage = {
+  key: 'movies-guide',
+  storage,
+  whitelist: ['addedMoviesObj', 'selectedGenres'],
+};
+
+const persistedReducer = persistReducer( persistConfigStorage, rootReducer);
+
+export const store = createStore(persistedReducer);
+export const persistor = persistStore(store);

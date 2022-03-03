@@ -11,7 +11,7 @@ export const PersonCredits = ({ personDetails }) => {
     place_of_birth,
     gender,
     moviesCount
-  } = personDetails;
+  } = personDetails || {};
 
   console.log('also_known_as', also_known_as);
 

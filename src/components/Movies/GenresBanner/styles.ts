@@ -92,5 +92,6 @@ export const GenreButton = styled.button`
   border-radius: 4px;
   align-items: center;
   gap: 5px;
+  color: var(--dark);
 
 `
