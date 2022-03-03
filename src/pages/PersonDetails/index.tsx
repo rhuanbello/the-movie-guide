@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 
 import { personApi } from "../../services/requests/api";
-import { handlePersonDetails } from "../../services/store/modules/Home/actions";
+import { handlePersonDetails } from "../../services/store/modules/PersonDetails/actions";
 
 import { PersonBanner } from "../../components/Person/PersonBanner";
 import { PersonCredits } from "../../components/Person/PersonCredits";

@@ -11,7 +11,8 @@ import {
   genresTypes,
 } from './interfaces';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleMoviesGenres, handleMoviesToRender } from '../../services/store/modules/Home/actions';
+import { handleMoviesGenres } from '../../services/store/modules/Home/actions';
+import { handleMoviesToRender } from '../../services/store/modules/Global/actions';
 
 export default function Home() {
   const { moviesToRender, selectedGenres } = useSelector((state: DefaultRootState) => state);

@@ -2,17 +2,24 @@ import { combineReducers } from 'redux';
 
 import { 
   moviesToRender, 
+  addedMoviesObj,
+  searchedMovies,
+} from './Global/reducer';
+
+import { 
   moviesGenres, 
+  selectedGenres
+} from './Home/reducer';
+
+import { 
   movieDetails,
   movieTrailer,
   movieCredits,
   movieRecommendations,
-  addedMoviesObj,
-  selectedGenres,
-  popularPerson,
-  searchedMovies,
-  personDetails
-} from './Home/reducer';
+} from './MovieDetails/reducer';
+
+import { personDetails } from './PersonDetails/reducer';
+import { popularPerson } from './PopularPerson/reducer';
 
 export default combineReducers({
   moviesToRender,

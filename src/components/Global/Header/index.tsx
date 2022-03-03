@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+
 import { searchApi } from '../../../services/requests/api';
+
+import Logo from '../../../assets/logo.svg';
 
 import { 
   Container, 
@@ -12,26 +16,25 @@ import {
   StyledTextField 
 } from './styles';
 
-import Logo from '../../../assets/logo.svg';
-
-import { resultsTypes, searchedMovies } from './interfaces';
-
 import { 
   CircularProgress, 
   Skeleton 
 } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { handleSearchedTerm } from '../../../services/store/modules/Home/actions';
+
+import { searchedMovies } from './interfaces';
+import { handleSearchedTerm } from '../../../services/store/modules/Global/actions';
 
 export const Header = () => {
-  const navigate = useNavigate();
-  const [dropDown, setDropDown] = useState('');
-  const onClose = () => setDropDown('');
   const { VITE_API_KEY } = import.meta.env;
+
+  const { searchedMovies } = useSelector((state) => state);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [dropDown, setDropDown] = useState('');
   const [searchedTerm, setSearchedTerm] = useState<string>('Vingadores');
   const [searchLoading, setSearchLoading] = useState(false);
-  const dispatch = useDispatch();
-  const { searchedMovies } = useSelector((state) => state);
 
   const menuItems = [
     { 
@@ -65,11 +68,6 @@ export const Header = () => {
     searchedTerm ? setSearchLoading(true) : setSearchLoading(false);
   }
 
-  useEffect(() => {
-    getSearchedTerm(searchedTerm);
-    handleLoadingState(searchedTerm);
-  }, [searchedTerm]);
-
   const handleNavigate = (menuButton: string, menuItem: string) => {
 
     if (menuButton === 'Pessoas') {
@@ -98,6 +96,13 @@ export const Header = () => {
     }
 
   }
+
+  const onClose = () => setDropDown('');
+
+  useEffect(() => {
+    getSearchedTerm(searchedTerm);
+    handleLoadingState(searchedTerm);
+  }, [searchedTerm]);
 
   return (
     <Container>

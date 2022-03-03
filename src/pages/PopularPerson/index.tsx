@@ -11,7 +11,7 @@ import {
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { handlePopularPerson } from '../../services/store/modules/Home/actions'
+import { handlePopularPerson } from '../../services/store/modules/PopularPerson/actions'
 
 export default function PopularPerson() {
   const { VITE_API_KEY } = import.meta.env;

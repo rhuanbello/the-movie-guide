@@ -20,7 +20,7 @@ import { MovieCardProps } from './interfaces';
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDispatch, useSelector } from "react-redux";
-import { handleAddedMoviesObj } from "../../../services/store/modules/Home/actions";
+import { handleAddedMoviesObj } from "../../../services/store/modules/Global/actions";
 
 export const MovieCard = ({ onClick, movie }: MovieCardProps) => {
   const { addedMoviesObj } = useSelector((state) => state);
