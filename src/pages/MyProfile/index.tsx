@@ -10,6 +10,7 @@ import {
 
 import { MoviesList } from "../../components/Movies/MoviesList";
 import { useSelector } from "react-redux";
+import { DropZone } from '../../components/Global/DropZone'
 
 export default function MyProfile() {
   const { addedMoviesObj } = useSelector((state) => state);
@@ -27,14 +28,12 @@ export default function MyProfile() {
 
   return (
     <Container>
-
       <Cover
         backdrop={'https://www.themoviedb.org/t/p/original/3GppgdtQeVKfN6JhvGIGWYVsItn.jpg'}
       >
-
         <div>
           <div>
-            <img src="https://github.com/rhuanbello.png" />
+            <DropZone />
             <div>
               <h2>Rhuan Bello</h2>
               <p>Front-End Developer | INFJ-T não tenho nada à oferecer</p>
@@ -54,7 +53,6 @@ export default function MyProfile() {
               <span>Favoritos</span>
             </li>
           </ul>
-
         </div>
 
       </Cover>

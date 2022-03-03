@@ -47,22 +47,21 @@ export default function MovieDetails() {
 
   }
 
-  useEffect(() => {
-    dispatch(cleaningPreviousState())
-  }, [])
-
-  useEffect(() => {
-    getMovieDetails(id);
-    getMovieRecommendations(id);
-    scrollToTop();
-  }, [id]);
-
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     })
   }
+
+  useEffect(() => {
+    getMovieDetails(id);
+    getMovieRecommendations(id);
+    scrollToTop();
+    return () => {
+      dispatch(cleaningPreviousState())
+    };
+  }, [id]);
 
   return (
     <>

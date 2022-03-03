@@ -89,9 +89,6 @@ export function addedMoviesObj(state = {
 
       }
 
-      // localStorage.setItem('MoviesList', JSON.stringify(tempAddedMoviesObj))
-      
-      console.log('FEZ TUDO REDUX', tempAddedMoviesObj)
       return tempAddedMoviesObj;
 
     }
