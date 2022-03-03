@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+
 import { searchApi } from '../../../services/requests/api';
+
+import Logo from '../../../assets/logo.svg';
 
 import { 
   Container, 
@@ -12,22 +16,24 @@ import {
   StyledTextField 
 } from './styles';
 
-import Logo from '../../../assets/logo.svg';
-
-import { resultsTypes, searchedMovies } from './interfaces';
-
 import { 
   CircularProgress, 
   Skeleton 
 } from '@mui/material';
 
+import { searchedMovies } from './interfaces';
+import { handleSearchedTerm } from '../../../services/store/modules/Global/actions';
+
 export const Header = () => {
-  const navigate = useNavigate();
-  const [dropDown, setDropDown] = useState('');
-  const onClose = () => setDropDown('');
   const { VITE_API_KEY } = import.meta.env;
+
+  const { searchedMovies } = useSelector((state) => state);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [dropDown, setDropDown] = useState('');
   const [searchedTerm, setSearchedTerm] = useState<string>('Vingadores');
-  const [searchedMovies, setSearchedMovies] = useState<searchedMovies[]>([]);
   const [searchLoading, setSearchLoading] = useState(false);
 
   const menuItems = [
@@ -51,53 +57,21 @@ export const Header = () => {
       .then(({ data }) => {
         console.log('data', data)
         const { results } = data;
-        handleSearchedTerm(results);
+        dispatch(handleSearchedTerm(results, setSearchLoading));
       })
       .catch((error) => {
         console.log(error)
       })
   }
 
-  const handleSearchedTerm = (results: Array<resultsTypes>) => {
-    console.log('Results', results);
-
-    const moviesAndPeople = [...results].filter(content => content.media_type !== 'tv' 
-                                                        && content.backdrop_path !== null 
-                                                        && content.profile_path !== null)
-
-    const peopleList = [...moviesAndPeople].filter(content => content.media_type === 'person')
-                            .map(({ id, name, popularity, profile_path, media_type }) => 
-                              ({ poster_path: profile_path, title: name, id, popularity, media_type }));
-
-    const moviesList = [...moviesAndPeople].filter(content => content.media_type === 'movie')
-      .map(({ popularity, poster_path, release_date, title, vote_average, id, media_type }) => 
-        ({ popularity, poster_path, release_date, title, vote_average, id, media_type }))
-
-    const filteredResults = [...moviesList, ...peopleList];
-
-    console.log(filteredResults);
-    setSearchedMovies(filteredResults);
-
-    setTimeout(() => {
-      setSearchLoading(false);
-    }, 800)
-
-  }
-
   const handleLoadingState = (searchedTerm) => {
     searchedTerm ? setSearchLoading(true) : setSearchLoading(false);
   }
-
-  useEffect(() => {
-    getSearchedTerm(searchedTerm);
-    handleLoadingState(searchedTerm)
-  }, [searchedTerm])
 
   const handleNavigate = (menuButton: string, menuItem: string) => {
 
     if (menuButton === 'Pessoas') {
       navigate('/person/popular')
-
       return;
     } 
 
@@ -122,6 +96,13 @@ export const Header = () => {
     }
 
   }
+
+  const onClose = () => setDropDown('');
+
+  useEffect(() => {
+    getSearchedTerm(searchedTerm);
+    handleLoadingState(searchedTerm);
+  }, [searchedTerm]);
 
   return (
     <Container>

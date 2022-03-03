@@ -10,21 +10,23 @@ import {
   movieListTypes,
   genresTypes,
 } from './interfaces';
+import { useDispatch, useSelector } from 'react-redux';
+import { handleMoviesGenres } from '../../services/store/modules/Home/actions';
+import { handleMoviesToRender } from '../../services/store/modules/Global/actions';
 
 export default function Home() {
+  const { moviesToRender, selectedGenres } = useSelector((state: DefaultRootState) => state);
+
   const { VITE_API_KEY } = import.meta.env;
   const { page } = useParams();
   const { pathname } = useLocation();
 
   const [moviesList, setMoviesList] = useState<movieListTypes[]>([]);
-  const [genres, setGenres] = useState<genresTypes[]>([]);
-  const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
-  const [backDrop, setBackdrop] = useState('')
   const [isHomepage] = useState<boolean | undefined>(Boolean(moviesList));
+  const dispatch = useDispatch();
 
   const getMovies = (page: string | undefined, selectedGenres: Array<Number>, path: string) => {
     const genresToRender = selectedGenres?.join(',');
-
     console.log(`get de ${path}/${page || 1}`)
 
     movieApi
@@ -33,7 +35,7 @@ export default function Home() {
       )
       .then(({ data }) => {
         const { results } = data;
-        handleMoviesList(results);
+        dispatch(handleMoviesToRender(results))
       })
       .catch((error) => {
         console.log(error);
@@ -41,73 +43,18 @@ export default function Home() {
       
   };
 
-  const handleMoviesList = (results: any) => {
-
-    const moviesListFiltered = [...results].map(
-      ({ title, release_date, poster_path, id }) => ({
-        title,
-        release_date,
-        poster_path,
-        id,
-      })
-    );
-
-    console.log(moviesListFiltered)
-
-    setMoviesList(moviesListFiltered);
-
-  };
-
   const getGenres = () => {
     genreApi
       .get(`list?api_key=${VITE_API_KEY}&language=pt-BR`)
       .then(({ data }) => {
         const { genres } = data;
-        setGenres(genres);
-        console.log('Genres', genres)
+        dispatch(handleMoviesGenres(genres))
       })
       .catch(error => {
         console.log(error)
       });
 
   };
-
-  const handleGenresLocalStorage = () => {
-    const genresFromLocalStorage = localStorage.getItem('Genres');
-    if (genresFromLocalStorage) {
-      setSelectedGenres(JSON.parse(genresFromLocalStorage));
-    }
-  }
-
-  const getCollectionPosters = (id) => {
-    collectionApi
-      .get((`${id}/images?api_key=${VITE_API_KEY}`))
-      .then(({ data }) => {
-        handleCollectionPosters(data)
-      }).catch((error) => {
-        console.log(error)
-      })
-  }
-
-  const handleCollectionPosters = (data) => {
-    const { backdrops } = data;
-
-    const backdropsFiltered = backdrops.map(({ file_path }) => ({ file_path }))
-
-    const maxRange = backdrops.length;
-    const randomRange = Math.floor(Math.random() * (maxRange - 0) + 0);
-    const randomMoviePoster = 'https://image.tmdb.org/t/p/original'
-      + backdropsFiltered[randomRange].file_path;
-
-    // setBackdrop(randomMoviePoster)
-    setBackdrop('https://www.themoviedb.org/t/p/original/tNE9HGcFOH8EpCmzO7XCYwqguI0.jpg')
-
-  }
-
-  useEffect(() => {
-    getGenres();
-    getCollectionPosters(422837);
-  }, []);
 
   const handlePathname = (page, selectedGenres, pathname) => {
     let path = '';
@@ -128,25 +75,17 @@ export default function Home() {
   }
   
   useEffect(() => {
+    getGenres();
+  }, []);
+
+  useEffect(() => {
     handlePathname(page, selectedGenres, pathname)
   }, [page, selectedGenres, pathname]);
 
-  useEffect(() => {
-    handleGenresLocalStorage();
-  }, [localStorage.getItem('Genres')]);
-
   return (
     <>
-      <GenresBanner 
-        genres={genres}
-        setSelectedGenres={setSelectedGenres}
-        selectedGenres={selectedGenres}
-        backDrop={backDrop}
-      />
-      <MoviesList 
-        isHomepage={isHomepage}
-        moviesToRender={moviesList}
-      />
+      <GenresBanner />
+      <MoviesList isHomepage={isHomepage} moviesToRender={moviesToRender} />
       <Pagination />
     </>
   );

@@ -1,54 +1,33 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
-
 import { MovieBanner } from '../../components/Movies/MovieBanner';
 import { MovieCredits } from '../../components/Movies/MovieCredits';
 import { MoviesList } from "../../components/Movies/MoviesList";
-
 import { movieApi } from "../../services/requests/api";
-
-import {
-  MovieDetailsTypes,
-  MovieRecommendationsResponseTypes,
-  MovieRecommendationsTypes,
-  MovieCreditsCastTypes,
-  dataResponseTypes,
-  castTypes,
-} from './interfaces';
+import { cleaningPreviousState } from "../../services/store/modules/Global/actions";
+import { handleMovieCast, handleMovieDetails, handleMovieRecommendations, handleMovieTrailer } from "../../services/store/modules/MovieDetails/actions";
 
 export default function MovieDetails() {
+  const { movieRecommendations } = useSelector((state) => state);
+
+  const dispatch = useDispatch();
   const { VITE_API_KEY } = import.meta.env;
   const { id } = useParams();
   const [detailsLoading, setDetailsLoading] = useState(true);
-  const [movieCredits, setMovieCredits] = useState<MovieCreditsCastTypes[]>([])
-  const [movieRecommendations, setMovieRecommendations] = useState<MovieRecommendationsTypes[]>([]);
-  const [isRecommendation, setIsRecommendation] = useState<boolean | undefined>(Boolean(movieRecommendations));
-  const [movieTrailer, setMovieTrailer] = useState<string>('');
-  const [movieDetails, setMovieDetails] = useState<MovieDetailsTypes>({
-    genres: [],
-    original_title: '',
-    overview: '',
-    poster_path: '',
-    release_date: '',
-    original_language: '',
-    runtime: 0,
-    vote_average: 0,
-    homepage: '',
-    crew: [],
-    classification: ''
-  })
-
-  useEffect(() => {
-    console.log('movieRecommendations', movieRecommendations)
-  }, [movieRecommendations])
+  const [isRecommendation] = useState<boolean | undefined>(Boolean(movieRecommendations));
 
   const getMovieDetails = (id: string | undefined) => {
+    const appendItems = 'credits,videos,release_dates';
+
     movieApi
-      .get(`${id}?api_key=${VITE_API_KEY}&append_to_response=credits,videos,release_dates&language=pt-BR`)
+      .get(`${id}?api_key=${VITE_API_KEY}&append_to_response=${appendItems}&language=pt-BR`)
       .then(({ data }) => {
-        console.log('Movie Details', data)
-        handleMovieDetails(data);
-        
+
+        dispatch(handleMovieDetails(data, setDetailsLoading));
+        dispatch(handleMovieTrailer(data.videos.results));
+        dispatch(handleMovieCast(data.credits.cast));
+    
       })
       .catch((error) => {
         console.log(error);
@@ -60,7 +39,7 @@ export default function MovieDetails() {
       .get(`${id}/recommendations?api_key=${VITE_API_KEY}&language=pt-BR&page=1`)
       .then(({ data }) => {
         const { results } = data;
-        handleMovieRecommendations(results);
+        dispatch(handleMovieRecommendations(results));
       })
       .catch((error) => {
         console.log(error);
@@ -68,82 +47,14 @@ export default function MovieDetails() {
 
   }
 
-  const handleMovieDetails = (data: dataResponseTypes) => {   
-    console.log('handleMovieDetails', data)
-
-    const { cast, crew } = data.credits;
-    const { results } = data.videos;
-
-    if (results.length) {
-      const trailersFiltered = [...results]
-        .map(({ key }) => ({ key }))
-      [0]?.key
-
-      setMovieTrailer(trailersFiltered);
-    }
-    
-    const crewArrayFilteredAndLimited = [...crew]
-    .map(({ known_for_department, name, profile_path }) => ({
-      known_for_department,
-      name,
-      profile_path,
-    }))
-    .slice(0, 5);
-
-    console.log('Iso', data?.release_dates?.results)
-
-    const classification = data?.release_dates?.results
-      ?.filter(({ iso_3166_1 }) => iso_3166_1 === 'BR' || iso_3166_1 === 'US')
-      ?.sort((a, b) => a.iso_3166_1.localeCompare(b.iso_3166_1))[0]?.release_dates
-      ?.filter(({ certification }) => certification !== '')[0]?.certification;     
-
-    const movieDetailsFiltered = {
-      id: data.id,
-      backdrop_path: data.backdrop_path,
-      genres: data.genres,
-      original_title: data.original_title,
-      overview: data.overview,
-      poster_path: data.poster_path,
-      release_date: data.release_date,
-      original_language: data.original_language,
-      runtime: data.runtime,
-      vote_average: data.vote_average,
-      homepage: data.homepage,
-      crew: crewArrayFilteredAndLimited,
-      classification: classification || ''
-    }
-    
-    setMovieDetails(movieDetailsFiltered);
-    handleMovieCredits(cast);
-    setTimeout(() => {
-      setDetailsLoading(false);
-    }, 700)
-  }
-
-  const handleMovieCredits = (cast: castTypes | any) => {
-    const castArrayFiltered = [...cast]
-      .map(({ original_name, profile_path, character, id }) => ({
-        original_name,
-        profile_path,
-        character,
-        id
-      }))
-
-    setMovieCredits(castArrayFiltered);
-  };
-
-  const handleMovieRecommendations = (results: MovieRecommendationsResponseTypes | any) => {
-    console.log('results', results)
-
-    const movieRecommendationsFiltered = [...results].map(({ poster_path, id, release_date, title }) => ({ poster_path, id, release_date, title }))
-    setMovieRecommendations(movieRecommendationsFiltered);
-  } 
+  useEffect(() => {
+    dispatch(cleaningPreviousState())
+  }, [])
 
   useEffect(() => {
     getMovieDetails(id);
     getMovieRecommendations(id);
     scrollToTop();
-    setDetailsLoading(true);
   }, [id]);
 
   const scrollToTop = () => {
@@ -153,122 +64,11 @@ export default function MovieDetails() {
     })
   }
 
-  const [addedMoviesObj, setAddedMoviesObj] = useState({
-    watchedMovies: [],
-    favoriteMovies: [],
-    ratedMovies: []
-  })
-
-  const handleAddedMoviesObj = (movie, type: string, rate: number) => {
-
-    const tempAddedMoviesObj = { ...addedMoviesObj };
-
-    const {
-      favoriteMovies,
-      watchedMovies,
-      ratedMovies
-    } = tempAddedMoviesObj;
-
-    const indexFavorite = favoriteMovies.findIndex(m => m.id === movie.id);
-    const indexWatched = watchedMovies.findIndex(m => m.id === movie.id);
-    const indexRated = ratedMovies.findIndex(m => m.id === movie.id);
-
-    if (type === 'favorited') {
-
-      if (indexFavorite === -1) {
-        favoriteMovies.push(movie);
-      } else {
-        favoriteMovies.splice(indexFavorite, 1);
-      }
-
-    }
-
-    if (type === 'watched') {
-
-      if (indexWatched === -1) {
-        watchedMovies.push({
-          ...movie,
-          createdAt: new Date()
-        });
-      } else {
-        watchedMovies.splice(indexWatched, 1);
-        ratedMovies.splice(indexRated, 1);
-
-      }
-
-    }
-
-    if (type === 'rated') {
-      const tempRatedMovies = [...addedMoviesObj.ratedMovies];
-      const indexRated = tempRatedMovies.findIndex(m => m.id === movie.id);
-
-      const tempWatchedMovies = [...addedMoviesObj.watchedMovies];
-      const indexWatched = tempWatchedMovies.findIndex(m => m.id === movie.id);
-
-      if (indexRated === -1) {
-        tempRatedMovies.push({
-          id: movie.id,
-          title: movie.title,
-          rate: rate
-        });
-      } else if (!rate) {
-        tempRatedMovies.splice(indexRated, 1);
-      } else {
-        tempRatedMovies[indexRated].rate = rate;
-      }
-
-      tempAddedMoviesObj.ratedMovies = [...tempRatedMovies];
-
-      if (!rate) {
-        tempWatchedMovies.splice(indexWatched, 1);
-      } else if (indexWatched === -1) {
-        tempWatchedMovies.push({
-          ...movie,
-          createdAt: new Date()
-        });
-      } else {
-        tempRatedMovies.splice(indexRated, 1);
-
-      }
-
-      tempAddedMoviesObj.watchedMovies = [...tempWatchedMovies];
-
-    }
-
-    localStorage.setItem('MoviesList', JSON.stringify(tempAddedMoviesObj))
-    setAddedMoviesObj(tempAddedMoviesObj);
-    // setMoviesList(tempAddedMoviesObj);
-
-  }
-
-  const handleMoviesListFromLocalStorage = () => {
-    const moviesFromLocalStorage = localStorage.getItem('MoviesList');
-    if (moviesFromLocalStorage) {
-      setAddedMoviesObj(JSON.parse(moviesFromLocalStorage));
-    }
-  }
-
-  useEffect(() => {
-    handleMoviesListFromLocalStorage();
-  }, [localStorage.getItem('MoviesList')]);
-
   return (
     <>
-      <MovieBanner
-        addedMoviesObj={addedMoviesObj}
-        handleAddedMoviesObj={handleAddedMoviesObj}
-        movieDetails={movieDetails}
-        detailsLoading={detailsLoading}
-        setDetailsLoading={setDetailsLoading}
-      />
-      <MovieCredits
-        movieCredits={movieCredits}
-        movieTrailer={movieTrailer}
-      />
-      <MoviesList
-        moviesToRender={movieRecommendations}
-        isRecommendation={isRecommendation}
-      />
+      <MovieBanner detailsLoading={detailsLoading} setDetailsLoading={setDetailsLoading} />
+      <MovieCredits />
+      <MoviesList moviesToRender={movieRecommendations} isRecommendation={isRecommendation} />
     </>
   );
 }

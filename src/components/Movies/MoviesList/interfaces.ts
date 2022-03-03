@@ -11,3 +11,8 @@ interface MoviesToRenderTypes {
   release_date: string;
 
 }
+
+export interface DefaultRootState {
+  moviesToRender: Array<MoviesToRenderTypes>;
+
+}
