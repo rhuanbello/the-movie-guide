@@ -15,11 +15,14 @@ import {
 
 import { MoviesList } from "../../components/Movies/MoviesList";
 import { useSelector } from "react-redux";
-import { DropZone } from '../../components/Global/DropZone'
+import { DropZone } from '../../components/Global/DropZone';
+import { EditProfileModal } from '../../components/Global/EditProfileModal';
 
 export default function MyProfile() {
   const { addedMoviesObj } = useSelector((state) => state);
   const { watchedMovies, favoriteMovies } = addedMoviesObj;
+  const [ openModal, setOpenModal ] = useState(false);
+  const handleModalState = () => setOpenModal(!openModal);
 
   const handleThisYearMoviesWatched = (watchedMovies) => {
     const thisYearCount = [...watchedMovies]?.filter(
@@ -30,6 +33,7 @@ export default function MyProfile() {
     return thisYearCount;
 
   }
+
 
   return (
     <Container>
@@ -59,7 +63,15 @@ export default function MyProfile() {
                 <span>Favoritos</span>
               </li>
             </ProfileMoviesCount>
-            <button>Editar Perfil</button>
+            <button
+              onClick={handleModalState}  
+            >
+              Editar Perfil
+            </button>
+            <EditProfileModal 
+              openModal={openModal}
+              handleModalState={handleModalState}
+            />
           </ProfileSection>
         </ProfileHeader>
       </Cover>
@@ -91,7 +103,9 @@ export default function MyProfile() {
         </MoviesSection>
       )}
   
+        
     </Container>
   );
 }
+
 
