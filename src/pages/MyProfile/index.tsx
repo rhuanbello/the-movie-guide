@@ -5,7 +5,12 @@ import { personApi } from "../../services/requests/api";
 import { 
   Container, 
   Cover,
-  MoviesSection
+  MoviesSection,
+  ProfileDetails,
+  ProfileHeader,
+  ProfileMovies,
+  ProfileMoviesCount,
+  ProfileSection
 } from './styles';
 
 import { MoviesList } from "../../components/Movies/MoviesList";
@@ -31,30 +36,32 @@ export default function MyProfile() {
       <Cover
         backdrop={'https://www.themoviedb.org/t/p/original/3GppgdtQeVKfN6JhvGIGWYVsItn.jpg'}
       >
-        <div>
-          <div>
+        <ProfileHeader>
+          <ProfileDetails>
             <DropZone />
             <div>
               <h2>Rhuan Bello</h2>
               <p>Front-End Developer | INFJ-T não tenho nada à oferecer</p>
             </div>
-          </div>
-          <ul>
-            <li>
-              <p>{watchedMovies?.length}</p>
-              <span>Já vi</span>
-            </li>
-            <li>
-              <p>{handleThisYearMoviesWatched(watchedMovies)}</p>
-              <span>Neste ano</span>
-            </li>
-            <li>
-              <p>{favoriteMovies?.length}</p>
-              <span>Favoritos</span>
-            </li>
-          </ul>
-        </div>
-
+          </ProfileDetails>
+          <ProfileSection>
+            <ProfileMoviesCount>
+              <li>
+                <p>{watchedMovies?.length}</p>
+                <span>Já vi</span>
+              </li>
+              <li>
+                <p>{handleThisYearMoviesWatched(watchedMovies)}</p>
+                <span>Neste ano</span>
+              </li>
+              <li>
+                <p>{favoriteMovies?.length}</p>
+                <span>Favoritos</span>
+              </li>
+            </ProfileMoviesCount>
+            <button>Editar Perfil</button>
+          </ProfileSection>
+        </ProfileHeader>
       </Cover>
 
       {favoriteMovies.length > 0 && (

@@ -41,7 +41,11 @@ export const DropZone = () => {
     <ProfileImage>
       <div {...getRootProps({ className: 'dropzone' })}>
         <input {...getInputProps()} />
-        <img src={profileImage?.preview || 'https://s.ltrbxd.com/static/img/avatar300.17f1d3b7.png'} />
+        <img src={profileImage?.preview} 
+          onError={(e) => {
+            e.target.src = "https://s.ltrbxd.com/static/img/avatar300.17f1d3b7.png"
+          }}
+        />
         <div>
           <p>Arraste ou Clique para Inserir uma Foto de Perfil</p>
           <BiImageAdd size={32} color="var(--primary)" />      
