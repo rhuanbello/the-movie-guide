@@ -29,7 +29,6 @@ export const DropZone = ({
 
       dispatch(handleProfileImage(profileImageObj, imageType))
 
-
     }
   });
 

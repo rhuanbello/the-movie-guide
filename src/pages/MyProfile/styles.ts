@@ -39,7 +39,6 @@ export const ProfileDetails = styled.div`
   display: flex;
   gap: 30px;
   align-items: center;
-  width: 30vw;
 
   img {
     border-radius: 50%;
@@ -54,6 +53,17 @@ export const ProfileDetails = styled.div`
       transform: scale(1.1);
     }
 
+  }
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    width: 220px;
+
+  }
+
+  h2, p {
+    word-wrap: break-word;
 
   }
 

@@ -94,6 +94,9 @@ export const EditProfileModal = ({
           </SectionModal>
           <MainModal>
             <TextField 
+              inputProps={{
+                maxLength: 25,
+              }}
               color="success"
               label="Nome"
               defaultValue={profileName}
@@ -102,8 +105,11 @@ export const EditProfileModal = ({
               autoFocus
               onChange={(e) => handleProfileNameBio(e.target.value, 'profileName')}
             />
-
+            
             <TextField 
+              inputProps={{
+                maxLength: 65,
+              }}
               color="success"
               label="Bio"
               defaultValue={profileBio}

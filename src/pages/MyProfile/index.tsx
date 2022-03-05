@@ -8,20 +8,19 @@ import {
   MoviesSection,
   ProfileDetails,
   ProfileHeader,
-  ProfileMovies,
   ProfileMoviesCount,
   ProfileSection
 } from './styles';
 
 import { MoviesList } from "../../components/Movies/MoviesList";
 import { useSelector } from "react-redux";
-import { DropZone } from '../../components/Global/DropZone';
 import { EditProfileModal } from '../../components/Global/EditProfileModal';
 
 export default function MyProfile() {
-  const { addedMoviesObj, profileEditedInfos } = useSelector((state) => state);
-  const { watchedMovies, favoriteMovies } = addedMoviesObj;
   const [ openModal, setOpenModal ] = useState(false);
+
+  const { addedMoviesObj, profileEditedInfos } = useSelector((state) => state);
+
   const handleModalState = () => setOpenModal(!openModal);
 
   const handleThisYearMoviesWatched = (watchedMovies) => {
@@ -34,8 +33,16 @@ export default function MyProfile() {
 
   }
 
+  const { watchedMovies, favoriteMovies } = addedMoviesObj;
   const { profileName, profileBio, usersProfileImagesObj } = profileEditedInfos;
   const { profileImage, profileCover } = usersProfileImagesObj;
+
+  useEffect(() => {
+    console.log('All', profileEditedInfos)
+    const { profileName, profileBio, usersProfileImagesObj } = profileEditedInfos;
+    const { profileImage, profileCover } = usersProfileImagesObj;
+
+  }, [profileEditedInfos]);
   
   return (
     <Container>
