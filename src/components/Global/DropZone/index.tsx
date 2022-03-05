@@ -2,52 +2,57 @@ import { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { ProfileImage } from './styles';
 import { BiImageAdd } from "react-icons/bi";
+import { useDispatch } from 'react-redux';
+import { handleProfileCover, handleProfileImage } from '../../../services/store/modules/Global/actions';
 
-export const DropZone = () => {
-  const [profileImage, setProfileImage] = useState({});
+export const DropZone = ({ 
+  width, 
+  onErrorImg, 
+  rounded, 
+  outlined,
+  description,
+  background,
+  imageToRender,
+  imageType,
+}) => {
+  const dispatch = useDispatch();
   const { getRootProps, getInputProps } = useDropzone({
     maxFiles: 1,
     maxSize: 400000,
     accept: 'image/png, image/jpeg',
-    onDropRejected: (rejectedFiles) => {
-      console.log('ih')
-    },
     onDrop: (image) => {
       const draggedImage = image[0];
-
       const profileImageObj = {
         ...draggedImage,
         preview: URL.createObjectURL(draggedImage)
       }
 
-      setProfileImage(profileImageObj);
-      localStorage.setItem('profileImage', JSON.stringify(profileImageObj))
+      dispatch(handleProfileImage(profileImageObj, imageType))
+
 
     }
   });
 
-  const handleProfileImageFromLocalStorage = () => {
-    const profileImageFromLocalStorage = localStorage.getItem('profileImage');
-    if (profileImageFromLocalStorage) {
-      setProfileImage(JSON.parse(profileImageFromLocalStorage));
-    }
-  }
-
-  useEffect(() => {
-    handleProfileImageFromLocalStorage();
-  }, [localStorage.getItem('profileImage')]);
-
   return (
-    <ProfileImage>
+    <ProfileImage style={{
+      width: width,
+      borderRadius: rounded && '50%',
+      outline: outlined && ' 3px solid var(--primary)',
+      background: background
+    }}>
       <div {...getRootProps({ className: 'dropzone' })}>
         <input {...getInputProps()} />
-        <img src={profileImage?.preview} 
-          onError={(e) => {
-            e.target.src = "https://s.ltrbxd.com/static/img/avatar300.17f1d3b7.png"
+        <img 
+          style={{
+              borderRadius: rounded && '50%',
           }}
+          src={imageToRender?.preview} 
+          onError={(e) => e.target.src = onErrorImg}
         />
         <div>
-          <p>Arraste ou Clique para Inserir uma Foto de Perfil</p>
+          {description && (
+            <p>Arraste ou Clique para Inserir uma Foto de Perfil</p>
+          )}
           <BiImageAdd size={32} color="var(--primary)" />      
         </div>
       </div>

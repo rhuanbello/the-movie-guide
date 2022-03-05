@@ -1,11 +1,9 @@
 import styled from 'styled-components'; 
 
 export const ProfileImage = styled.div`
-  background-color: var(--dark);
-  border-radius: 50%;
-  outline: 3px solid var(--primary);
   width: 200px;
   height: 200px;
+  aspect-ratio: 1;
   cursor: pointer;
 
   & > div {
@@ -14,6 +12,8 @@ export const ProfileImage = styled.div`
     & > img {
       transition: .2s;
       object-fit: cover;
+      width: 100%;
+      height: 100%;
 
     }
 

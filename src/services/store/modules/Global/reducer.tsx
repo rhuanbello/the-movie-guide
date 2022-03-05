@@ -150,3 +150,50 @@ export function moviesToRender(state: Array<moviesListObj> = [], action: any) {
       return state;
   }
 }
+
+export function usersProfileImagesObj(state = {
+  profileImage: {},
+  profileCover: {},
+}, action: any) {
+  const { type, image, imageType } = action;
+
+  switch (type) {
+    case 'setProfileImage':
+      const tempUsersProfileImagesObj = { ...state };
+      tempUsersProfileImagesObj[imageType] = { ...image };
+      return tempUsersProfileImagesObj;
+    default:
+      return state;
+  }
+
+}
+
+export function profileEditedInfos(state = {
+  profileName: '',
+  profileBio: '',
+  usersProfileImagesObj: {
+    profileImage: {},
+    profileCover: {}
+  }
+}, action: any) {
+  const { type, profileNameBio, usersProfileImagesObj } = action;
+
+  switch (type) {
+    case 'setProfileEditedInfos':
+      const { profileName, profileBio } = profileNameBio;
+
+      const tempProfileEditedInfos = {
+        profileName: profileName,
+        profileBio: profileBio,
+        usersProfileImagesObj: { ...usersProfileImagesObj }
+      }
+
+      return tempProfileEditedInfos;
+
+    default:
+      return state;
+  }
+
+
+
+}

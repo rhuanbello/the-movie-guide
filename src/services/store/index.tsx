@@ -6,7 +6,7 @@ import rootReducer from './modules/rootReducer';
 const persistConfigStorage = {
   key: 'movies-guide',
   storage,
-  whitelist: ['addedMoviesObj', 'selectedGenres'],
+  whitelist: ['addedMoviesObj', 'selectedGenres', 'profileEditedInfos', 'usersProfileImagesObj'],
 };
 
 const persistedReducer = persistReducer( persistConfigStorage, rootReducer);

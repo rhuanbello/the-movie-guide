@@ -45,6 +45,15 @@ export const ProfileDetails = styled.div`
     border-radius: 50%;
     width: 200px;
     aspect-ratio: 1;
+    object-fit: cover;
+    outline: 3px solid var(--primary);
+    transition: .2s;
+    overflow: hidden;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
 
   }
 

@@ -19,7 +19,7 @@ import { DropZone } from '../../components/Global/DropZone';
 import { EditProfileModal } from '../../components/Global/EditProfileModal';
 
 export default function MyProfile() {
-  const { addedMoviesObj } = useSelector((state) => state);
+  const { addedMoviesObj, profileEditedInfos } = useSelector((state) => state);
   const { watchedMovies, favoriteMovies } = addedMoviesObj;
   const [ openModal, setOpenModal ] = useState(false);
   const handleModalState = () => setOpenModal(!openModal);
@@ -34,18 +34,23 @@ export default function MyProfile() {
 
   }
 
-
+  const { profileName, profileBio, usersProfileImagesObj } = profileEditedInfos;
+  const { profileImage, profileCover } = usersProfileImagesObj;
+  
   return (
     <Container>
       <Cover
-        backdrop={'https://www.themoviedb.org/t/p/original/3GppgdtQeVKfN6JhvGIGWYVsItn.jpg'}
+        backdrop={profileCover?.preview}
       >
         <ProfileHeader>
           <ProfileDetails>
-            <DropZone />
+            <img 
+              draggable={false}
+              src={profileImage?.preview}
+            />
             <div>
-              <h2>Rhuan Bello</h2>
-              <p>Front-End Developer | INFJ-T não tenho nada à oferecer</p>
+              <h2>{profileName}</h2>
+              <p>{profileBio}</p>
             </div>
           </ProfileDetails>
           <ProfileSection>
@@ -71,6 +76,7 @@ export default function MyProfile() {
             <EditProfileModal 
               openModal={openModal}
               handleModalState={handleModalState}
+              profileEditedInfos={profileEditedInfos}
             />
           </ProfileSection>
         </ProfileHeader>
