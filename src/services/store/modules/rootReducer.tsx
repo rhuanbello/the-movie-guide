@@ -4,6 +4,8 @@ import {
   moviesToRender, 
   addedMoviesObj,
   searchedMovies,
+  usersProfileImagesObj,
+  profileEditedInfos
 } from './Global/reducer';
 
 import { 
@@ -32,5 +34,7 @@ export default combineReducers({
   selectedGenres,
   popularPerson,
   searchedMovies,
-  personDetails
+  personDetails,
+  usersProfileImagesObj,
+  profileEditedInfos
 });

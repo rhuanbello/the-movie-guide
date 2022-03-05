@@ -22,7 +22,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useDispatch, useSelector } from "react-redux";
 import { handleAddedMoviesObj } from "../../../services/store/modules/Global/actions";
 
-export const MovieCard = ({ onClick, movie }: MovieCardProps) => {
+export const MovieCard = ({ onClick, movie, isProfile }: MovieCardProps) => {
   const { addedMoviesObj } = useSelector((state) => state);
   const dispatch = useDispatch()
 
@@ -53,9 +53,11 @@ export const MovieCard = ({ onClick, movie }: MovieCardProps) => {
         transition={{ duration: 1 }}
         exit={{ opacity: 0 }}
       >
-        <PosterContainer>
+        
+        <PosterContainer onMouseOver={() => {
+          console.log('eita')
+        }}>
           <img src={moviePoster} alt={title} onClick={() => onClick(id)}/>
-
           <DetailsButton
             style={{
               opacity: dropDown && '1',
@@ -73,9 +75,17 @@ export const MovieCard = ({ onClick, movie }: MovieCardProps) => {
 
         <p>{title}</p>
         <p>{moment(release_date).format('YYYY').toUpperCase()}</p>
+        {isProfile && (
+          <RateStars onChange={(e, rate) => {
+            dispatch(handleAddedMoviesObj(movie, 'rated', rate))
+          }}
+            value={value}
+            isProfile={isProfile}
+          />
+        )}
 
       </Movie>
-
+      
       <Dropdown
         anchorEl={dropDown}
         open={dropDown}

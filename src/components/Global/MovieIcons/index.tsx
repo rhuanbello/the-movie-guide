@@ -83,7 +83,7 @@ export const WatchIcon = ({
   )
 }
 
-export const RateStars = ({ defaultColor, hoverX, onChange, value }) => {
+export const RateStars = ({ defaultColor, hoverX, onChange, value, isProfile }) => {
   const [hover, setHover] = useState(-1);
 
   const labels: { [index: string]: string } = {
@@ -110,7 +110,8 @@ export const RateStars = ({ defaultColor, hoverX, onChange, value }) => {
       <Rating
         sx={{
           color: 'var(--primary)',
-          fontSize: 24
+          fontSize: isProfile ? 20 : 24,
+          marginBlock: isProfile && '7px'
         }}
         value={value}
         precision={0.5}
@@ -118,9 +119,9 @@ export const RateStars = ({ defaultColor, hoverX, onChange, value }) => {
         onChangeActive={(e, newHover) => {
           setHover(newHover);
         }}
-        emptyIcon={<StarIcon sx={{ color: defaultColor || 'var(--terciary)', fontSize: 24 }} />}
+        emptyIcon={<StarIcon sx={{ color: defaultColor || 'var(--terciary)', fontSize: isProfile ? 20 : 24, }} />}
       />
-      {value !== null && (
+      {!isProfile && value !== null && (
         <Box>{labels[hover !== -1 ? hover : value]}</Box>
       )}
     </Box>

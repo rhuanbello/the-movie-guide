@@ -9,11 +9,10 @@ import { Container, Content, SectionTitle } from "./styles";
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-import { DefaultRootState } from '../../../services/store/modules/Home/interfaces';
-
 export const MoviesList = ({ 
   isRecommendation,
   isHomepage,
+  isProfile,
   moviesToRender
 }: MoviesListProps ) => {
   const navigate = useNavigate();
@@ -48,10 +47,12 @@ export const MoviesList = ({
           as={motion.ul}
           layout
           isRecommendation={isRecommendation}
+          isProfile={isProfile}
           isHomepage={isHomepage}
         >
           {moviesToRender?.map((movie) => (
-            <MovieCard 
+            <MovieCard
+              isProfile={isProfile}
               key={movie.id}
               movie={movie}
               onClick={(id: number) => {

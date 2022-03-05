@@ -1,19 +1,33 @@
-import { useEffect, useLayoutEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { personApi } from "../../services/requests/api";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { 
   Container, 
   Cover,
-  MoviesSection
+  MoviesSection,
+  ProfileDetails,
+  ProfileHeader,
+  ProfileMoviesCount,
+  ProfileSection
 } from './styles';
 
 import { MoviesList } from "../../components/Movies/MoviesList";
-import { useSelector } from "react-redux";
+import { EditProfileModal } from '../../components/Global/EditProfileModal';
 
 export default function MyProfile() {
-  const { addedMoviesObj } = useSelector((state) => state);
+  const [ openModal, setOpenModal ] = useState(false);
+
+  const { addedMoviesObj, profileEditedInfos } = useSelector((state) => state);
   const { watchedMovies, favoriteMovies } = addedMoviesObj;
+  const {
+    profileName,
+    profileBio,
+    profileUsername,
+    usersProfileImagesObj
+  } = profileEditedInfos;
+  const { profileImage, profileCover } = usersProfileImagesObj;
+
+  const handleModalState = () => setOpenModal(!openModal);
 
   const handleThisYearMoviesWatched = (watchedMovies) => {
     const thisYearCount = [...watchedMovies]?.filter(
@@ -25,38 +39,54 @@ export default function MyProfile() {
 
   }
 
+  useEffect(() => {
+    console.log('addedMoviesObj', addedMoviesObj)
+  }, [addedMoviesObj]);
+
   return (
     <Container>
-
       <Cover
-        backdrop={'https://www.themoviedb.org/t/p/original/3GppgdtQeVKfN6JhvGIGWYVsItn.jpg'}
+        backdrop={profileCover?.preview}
       >
-
-        <div>
-          <div>
-            <img src="https://github.com/rhuanbello.png" />
+        <ProfileHeader>
+          <ProfileDetails>
+            <img 
+              draggable={false}
+              src={profileImage?.preview}
+            />
             <div>
-              <h2>Rhuan Bello</h2>
-              <p>Front-End Developer | INFJ-T não tenho nada à oferecer</p>
+              <h2>{profileName}</h2>
+              <p>{profileUsername.includes('@') ? profileUsername : '@' + profileUsername}</p>
+              <p>{profileBio}</p>
             </div>
-          </div>
-          <ul>
-            <li>
-              <p>{watchedMovies?.length}</p>
-              <span>Já vi</span>
-            </li>
-            <li>
-              <p>{handleThisYearMoviesWatched(watchedMovies)}</p>
-              <span>Neste ano</span>
-            </li>
-            <li>
-              <p>{favoriteMovies?.length}</p>
-              <span>Favoritos</span>
-            </li>
-          </ul>
-
-        </div>
-
+          </ProfileDetails>
+          <ProfileSection>
+            <ProfileMoviesCount>
+              <li>
+                <p>{watchedMovies?.length}</p>
+                <span>Já vi</span>
+              </li>
+              <li>
+                <p>{handleThisYearMoviesWatched(watchedMovies)}</p>
+                <span>Neste ano</span>
+              </li>
+              <li>
+                <p>{favoriteMovies?.length}</p>
+                <span>Favoritos</span>
+              </li>
+            </ProfileMoviesCount>
+            <button
+              onClick={handleModalState}  
+            >
+              Editar Perfil
+            </button>
+            <EditProfileModal 
+              openModal={openModal}
+              handleModalState={handleModalState}
+              profileEditedInfos={profileEditedInfos}
+            />
+          </ProfileSection>
+        </ProfileHeader>
       </Cover>
 
       {favoriteMovies.length > 0 && (
@@ -66,6 +96,7 @@ export default function MyProfile() {
           <MoviesList 
             moviesToRender={favoriteMovies}
             isRecommendation={true}
+            isProfile={true}
           />
 
         </MoviesSection>
@@ -75,7 +106,10 @@ export default function MyProfile() {
         <MoviesSection>
           <h3>Assisti Recentemente</h3>
 
-          <MoviesList moviesToRender={watchedMovies} />
+          <MoviesList 
+            moviesToRender={watchedMovies} 
+            isProfile={true}
+          />
 
         </MoviesSection>
       )}
@@ -86,7 +120,9 @@ export default function MyProfile() {
         </MoviesSection>
       )}
   
+        
     </Container>
   );
 }
+
 

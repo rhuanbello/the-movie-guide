@@ -30,7 +30,7 @@ export function addedMoviesObj(state = {
       if (type === 'favorited') {
 
         if (indexFavorite === -1) {
-          favoriteMovies.push(movie);
+          favoriteMovies.unshift(movie);
         } else {
           favoriteMovies.splice(indexFavorite, 1);
         }
@@ -40,7 +40,7 @@ export function addedMoviesObj(state = {
       if (type === 'watched') {
 
         if (indexWatched === -1) {
-          watchedMovies.push({
+          watchedMovies.unshift({
             ...movie,
             createdAt: new Date()
           });
@@ -60,7 +60,7 @@ export function addedMoviesObj(state = {
         const indexWatched = tempWatchedMovies.findIndex(m => m.id === movie.id);
 
         if (indexRated === -1) {
-          tempRatedMovies.push({
+          tempRatedMovies.unshift({
             id: movie.id,
             title: movie.title,
             rate: rate
@@ -76,7 +76,7 @@ export function addedMoviesObj(state = {
         if (!rate) {
           tempWatchedMovies.splice(indexWatched, 1);
         } else if (indexWatched === -1) {
-          tempWatchedMovies.push({
+          tempWatchedMovies.unshift({
             ...movie,
             createdAt: new Date()
           });
@@ -89,9 +89,6 @@ export function addedMoviesObj(state = {
 
       }
 
-      // localStorage.setItem('MoviesList', JSON.stringify(tempAddedMoviesObj))
-      
-      console.log('FEZ TUDO REDUX', tempAddedMoviesObj)
       return tempAddedMoviesObj;
 
     }
@@ -152,4 +149,67 @@ export function moviesToRender(state: Array<moviesListObj> = [], action: any) {
     default:
       return state;
   }
+}
+
+export function usersProfileImagesObj(state = {
+  profileImage: {
+    preview: 'https://i.imgur.com/dMd9k2n.jpg',
+    path: 'assets'
+  },
+  profileCover: {
+    preview: 'https://i.imgur.com/zCdvhG0.jpg',
+    path: 'assets'
+  },
+}, action: any) {
+  const { type, image, imageType } = action;
+
+  switch (type) {
+    case 'setProfileImage':
+      const tempUsersProfileImagesObj = { ...state };
+      tempUsersProfileImagesObj[imageType] = { ...image };
+      return tempUsersProfileImagesObj;
+    default:
+      return state;
+  }
+
+}
+
+export function profileEditedInfos(state = {
+  profileName: 'Rhuan Bello',
+  profileBio: 'Desenvolvedor Front-end 👨‍💻 Amante da sétima arte 🎬',
+  profileUsername: 'rhuanbello',
+  usersProfileImagesObj: {
+    profileImage: {
+      preview: 'https://i.imgur.com/dMd9k2n.jpg',
+      path: 'assets'
+    },
+    profileCover: {
+      preview: 'https://i.imgur.com/zCdvhG0.jpg',
+      path: 'assets'
+    },
+  }
+}, action: any) {
+  const { type, profileNameBio, usersProfileImagesObj } = action;
+
+  switch (type) {
+    case 'setProfileEditedInfos':
+      const { profileName, profileBio, profileUsername } = profileNameBio;
+
+      console.log(profileUsername)
+
+      const tempProfileEditedInfos = {
+        profileName: profileName,
+        profileBio: profileBio,
+        profileUsername: profileUsername,
+        usersProfileImagesObj: { ...usersProfileImagesObj }
+      }
+
+      return tempProfileEditedInfos;
+
+    default:
+      return state;
+  }
+
+
+
 }
