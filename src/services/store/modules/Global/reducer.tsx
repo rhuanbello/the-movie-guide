@@ -30,7 +30,7 @@ export function addedMoviesObj(state = {
       if (type === 'favorited') {
 
         if (indexFavorite === -1) {
-          favoriteMovies.push(movie);
+          favoriteMovies.unshift(movie);
         } else {
           favoriteMovies.splice(indexFavorite, 1);
         }
@@ -40,7 +40,7 @@ export function addedMoviesObj(state = {
       if (type === 'watched') {
 
         if (indexWatched === -1) {
-          watchedMovies.push({
+          watchedMovies.unshift({
             ...movie,
             createdAt: new Date()
           });
@@ -60,7 +60,7 @@ export function addedMoviesObj(state = {
         const indexWatched = tempWatchedMovies.findIndex(m => m.id === movie.id);
 
         if (indexRated === -1) {
-          tempRatedMovies.push({
+          tempRatedMovies.unshift({
             id: movie.id,
             title: movie.title,
             rate: rate
@@ -76,7 +76,7 @@ export function addedMoviesObj(state = {
         if (!rate) {
           tempWatchedMovies.splice(indexWatched, 1);
         } else if (indexWatched === -1) {
-          tempWatchedMovies.push({
+          tempWatchedMovies.unshift({
             ...movie,
             createdAt: new Date()
           });
@@ -152,8 +152,14 @@ export function moviesToRender(state: Array<moviesListObj> = [], action: any) {
 }
 
 export function usersProfileImagesObj(state = {
-  profileImage: {},
-  profileCover: {},
+  profileImage: {
+    preview: 'https://i.imgur.com/dMd9k2n.jpg',
+    path: 'assets'
+  },
+  profileCover: {
+    preview: 'https://i.imgur.com/zCdvhG0.jpg',
+    path: 'assets'
+  },
 }, action: any) {
   const { type, image, imageType } = action;
 
@@ -173,8 +179,14 @@ export function profileEditedInfos(state = {
   profileBio: 'Desenvolvedor Front-end 👨‍💻 Amante da sétima arte 🎬',
   profileUsername: 'rhuanbello',
   usersProfileImagesObj: {
-    profileImage: {},
-    profileCover: {}
+    profileImage: {
+      preview: 'https://i.imgur.com/dMd9k2n.jpg',
+      path: 'assets'
+    },
+    profileCover: {
+      preview: 'https://i.imgur.com/zCdvhG0.jpg',
+      path: 'assets'
+    },
   }
 }, action: any) {
   const { type, profileNameBio, usersProfileImagesObj } = action;

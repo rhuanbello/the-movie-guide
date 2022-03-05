@@ -1,6 +1,5 @@
-import { useEffect, useLayoutEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { personApi } from "../../services/requests/api";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { 
   Container, 
@@ -13,15 +12,20 @@ import {
 } from './styles';
 
 import { MoviesList } from "../../components/Movies/MoviesList";
-import { useSelector } from "react-redux";
 import { EditProfileModal } from '../../components/Global/EditProfileModal';
-import DefaultProfileImage from '../../assets/me-myself-and-irene.jpeg';
-import DefaultProfileCover from '../../assets/the-perks-of-being-wallflower.jpg';
 
 export default function MyProfile() {
   const [ openModal, setOpenModal ] = useState(false);
 
   const { addedMoviesObj, profileEditedInfos } = useSelector((state) => state);
+  const { watchedMovies, favoriteMovies } = addedMoviesObj;
+  const {
+    profileName,
+    profileBio,
+    profileUsername,
+    usersProfileImagesObj
+  } = profileEditedInfos;
+  const { profileImage, profileCover } = usersProfileImagesObj;
 
   const handleModalState = () => setOpenModal(!openModal);
 
@@ -35,20 +39,20 @@ export default function MyProfile() {
 
   }
 
-  const { watchedMovies, favoriteMovies } = addedMoviesObj;
-  const { profileName, profileBio, profileUsername, usersProfileImagesObj } = profileEditedInfos;
-  const { profileImage, profileCover } = usersProfileImagesObj;
-  
+  useEffect(() => {
+    console.log('addedMoviesObj', addedMoviesObj)
+  }, [addedMoviesObj]);
+
   return (
     <Container>
       <Cover
-        backdrop={profileCover?.preview || DefaultProfileCover}
+        backdrop={profileCover?.preview}
       >
         <ProfileHeader>
           <ProfileDetails>
             <img 
               draggable={false}
-              src={profileImage?.preview || DefaultProfileImage}
+              src={profileImage?.preview}
             />
             <div>
               <h2>{profileName}</h2>
@@ -92,6 +96,7 @@ export default function MyProfile() {
           <MoviesList 
             moviesToRender={favoriteMovies}
             isRecommendation={true}
+            isProfile={true}
           />
 
         </MoviesSection>
@@ -101,7 +106,10 @@ export default function MyProfile() {
         <MoviesSection>
           <h3>Assisti Recentemente</h3>
 
-          <MoviesList moviesToRender={watchedMovies} />
+          <MoviesList 
+            moviesToRender={watchedMovies} 
+            isProfile={true}
+          />
 
         </MoviesSection>
       )}

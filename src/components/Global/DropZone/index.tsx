@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { ProfileImage } from './styles';
 import { BiImageAdd } from "react-icons/bi";
 import { useDispatch } from 'react-redux';
-import { handleProfileCover, handleProfileImage } from '../../../services/store/modules/Global/actions';
+import { handleProfileImage } from '../../../services/store/modules/Global/actions';
 
 export const DropZone = ({ 
   width, 
-  onErrorImg, 
   rounded, 
   outlined,
   description,
@@ -18,7 +16,6 @@ export const DropZone = ({
   const dispatch = useDispatch();
   const { getRootProps, getInputProps } = useDropzone({
     maxFiles: 1,
-    maxSize: 400000,
     accept: 'image/png, image/jpeg',
     onDrop: (image) => {
       const draggedImage = image[0];
@@ -42,6 +39,7 @@ export const DropZone = ({
       <div {...getRootProps({ className: 'dropzone' })}>
         <input {...getInputProps()} />
         <img 
+          draggable={false}
           style={{
               borderRadius: rounded && '50%',
           }}

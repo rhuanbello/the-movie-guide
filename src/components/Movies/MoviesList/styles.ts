@@ -3,6 +3,7 @@ import styled from 'styled-components';
 interface ContentProps {
   isRecommendation: undefined | boolean;
   isHomepage: undefined | boolean;
+  isProfile: boolean;
 }
 
 export const Container = styled.ul`
@@ -17,15 +18,27 @@ export const Content = styled.ul<ContentProps>`
   gap: 32px;
   padding-bottom: 24px;
 
-  li > div {
-    outline: ${({isRecommendation}) => isRecommendation && 'none'};
-    
-    img {
-      width: ${({isRecommendation}) => isRecommendation && '150px'};
+  li {
 
+    p {
+      display: ${({isProfile}) => isProfile && 'none'};
+
+    }
+
+    div {
+      outline: ${({isRecommendation}) => isRecommendation && 'none'};
+    
+      img {
+        width: ${({isRecommendation}) => isRecommendation && '150px'};
+
+      }
     }
     
   } 
+
+
+    }
+  }
 
   @media(min-width: 500px) {
     grid-auto-flow: ${({isRecommendation}) => isRecommendation && 'column'};

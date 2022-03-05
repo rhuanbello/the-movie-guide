@@ -6,8 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { handleProfileEditedInfos } from '../../../services/store/modules/Global/actions';
 import { DropZone } from '../DropZone';
 import { Container, Content, HeaderModal, MainModal, SectionModal } from './styles';
-import DefaultProfileImage from '../../../assets/me-myself-and-irene.jpeg';
-import DefaultProfileCover from '../../../assets/the-perks-of-being-wallflower.jpg';
 
 export const EditProfileModal = ({ 
   openModal, 
@@ -46,6 +44,7 @@ export const EditProfileModal = ({
   }
   
   const handleIsProfileChanged = () => {
+
     const profileNameBioChanged = Object.values(profileNameBio)?.every(x => x?.length > 0);
     const usersProfileImagesObjChanged = Object.values(usersProfileImagesObj)?.every(x => x?.preview?.length > 0);
     return profileNameBioChanged && usersProfileImagesObjChanged;
@@ -82,17 +81,15 @@ export const EditProfileModal = ({
           <SectionModal>
             <div className="ProfileCover">
               <DropZone
-                imageToRender={profileCover.preview || DefaultProfileCover}
+                imageToRender={profileCover.preview}
                 imageType="profileCover"
-                onErrorImg={'https://1.bp.blogspot.com/-uUTfELqzsz4/YBStkz1UOcI/AAAAAAAB-74/2FV9QAYJ1yIaBwoUlqLIwjFGmi_WNpxNQCLcBGAsYHQ/w640-h360/Garota-Exemplar-1920-1080-Ru%25C3%25ADdo-Exemplar.jpg'}
                 width="100%"
               />
             </div>
             <div className="ProfileImage">
               <DropZone 
-                imageToRender={profileImage.preview || DefaultProfileImage}
+                imageToRender={profileImage.preview}
                 imageType="profileImage"
-                onErrorImg={'https://s.ltrbxd.com/static/img/avatar300.17f1d3b7.png'}
                 rounded
                 outlined
               />
