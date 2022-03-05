@@ -45,8 +45,7 @@ export const DropZone = ({
           style={{
               borderRadius: rounded && '50%',
           }}
-          src={imageToRender?.preview} 
-          onError={(e) => e.target.src = onErrorImg}
+          src={imageToRender} 
         />
         <div>
           {description && (

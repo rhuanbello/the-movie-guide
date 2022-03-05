@@ -14,6 +14,7 @@ interface HeaderProps {
 export const Cover = styled.header<HeaderProps>`
   display: flex;
   background: ${({ backdrop }) => `radial-gradient(99.21% 2931.1% at 99.21% 50%, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 48.75%, rgba(0, 0, 0, 0.6) 100%), linear-gradient(0deg, rgba(44, 52, 64, 0.4), rgba(44, 52, 64, 0.4)), url(${backdrop}) no-repeat center center`};
+  background-size: cover;
 
 `
 export const ProfileHeader = styled.div` 
@@ -67,8 +68,11 @@ export const ProfileDetails = styled.div`
 
   }
 
-  p {
-    margin: 10px 0;
+  p:first-of-type {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: var(--primary);
+
 
   }
    

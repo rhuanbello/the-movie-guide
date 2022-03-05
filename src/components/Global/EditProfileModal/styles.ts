@@ -12,7 +12,7 @@ export const Container = styled.main`
 export const Content = styled.div`
   background: var(--dark);
   margin: 0 auto;
-  height: 80%;
+  height: 85%;
   width: 50%;
   border-radius: 20px;
 
@@ -27,13 +27,12 @@ export const HeaderModal = styled.header<ContentProps>`
   top: 0;
   display: flex;
   width: 100%;
-  padding: 15px;
+  padding: 10px 15px;
   align-items: center;
   gap: 20px;
 
   h3 {
     font-size: 18px;
-
 
   }
 
@@ -99,9 +98,10 @@ export const SectionModal = styled.section`
 `
 
 export const MainModal = styled.main`
+  margin-top: 15px;
   padding: 25px;
   display: grid;
-  gap: 25px;
+  gap: 30px;
 
   input {
     color: white;

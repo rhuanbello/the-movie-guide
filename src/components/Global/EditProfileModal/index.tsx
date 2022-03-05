@@ -5,8 +5,9 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
 import { handleProfileEditedInfos } from '../../../services/store/modules/Global/actions';
 import { DropZone } from '../DropZone';
-
 import { Container, Content, HeaderModal, MainModal, SectionModal } from './styles';
+import DefaultProfileImage from '../../../assets/me-myself-and-irene.jpeg';
+import DefaultProfileCover from '../../../assets/the-perks-of-being-wallflower.jpg';
 
 export const EditProfileModal = ({ 
   openModal, 
@@ -18,17 +19,22 @@ export const EditProfileModal = ({
   const { profileImage, profileCover } = usersProfileImagesObj;
   const [ profileNameBio, setProfileNameBio ] = useState({
     profileName: '',
-    profileBio: ''
+    profileBio: '',
+    profileUsername: ''
   });
 
-  const { profileName, profileBio } = profileNameBio;
+  const { profileName, profileBio, profileUsername } = profileNameBio;
   
   useEffect(() => {
-    const { profileName, profileBio } = profileEditedInfos;
-    if (profileName && profileBio) {
+
+    console.log('profileImage', profileImage)
+
+    const { profileName, profileBio, profileUsername } = profileEditedInfos;
+    if (profileName && profileBio && profileUsername) {
       setProfileNameBio({
         profileName: profileName,
-        profileBio: profileBio
+        profileBio: profileBio,
+        profileUsername: profileUsername
       })
     }
   }, []);
@@ -76,7 +82,7 @@ export const EditProfileModal = ({
           <SectionModal>
             <div className="ProfileCover">
               <DropZone
-                imageToRender={profileCover}
+                imageToRender={profileCover.preview || DefaultProfileCover}
                 imageType="profileCover"
                 onErrorImg={'https://1.bp.blogspot.com/-uUTfELqzsz4/YBStkz1UOcI/AAAAAAAB-74/2FV9QAYJ1yIaBwoUlqLIwjFGmi_WNpxNQCLcBGAsYHQ/w640-h360/Garota-Exemplar-1920-1080-Ru%25C3%25ADdo-Exemplar.jpg'}
                 width="100%"
@@ -84,7 +90,7 @@ export const EditProfileModal = ({
             </div>
             <div className="ProfileImage">
               <DropZone 
-                imageToRender={profileImage}
+                imageToRender={profileImage.preview || DefaultProfileImage}
                 imageType="profileImage"
                 onErrorImg={'https://s.ltrbxd.com/static/img/avatar300.17f1d3b7.png'}
                 rounded
@@ -94,9 +100,6 @@ export const EditProfileModal = ({
           </SectionModal>
           <MainModal>
             <TextField 
-              inputProps={{
-                maxLength: 25,
-              }}
               color="success"
               label="Nome"
               defaultValue={profileName}
@@ -104,19 +107,35 @@ export const EditProfileModal = ({
               focused
               autoFocus
               onChange={(e) => handleProfileNameBio(e.target.value, 'profileName')}
+              inputProps={{
+                maxLength: 25,
+              }}
             />
             
-            <TextField 
+            <TextField
+              color="success"
+              label="Nome de Usuário"
+              defaultValue={profileUsername}
+              fullWidth
+              focused
+              onChange={(e) => handleProfileNameBio(e.target.value, 'profileUsername')}
               inputProps={{
-                maxLength: 65,
+                maxLength: 15,
               }}
+            />
+
+            <TextField 
               color="success"
               label="Bio"
               defaultValue={profileBio}
               fullWidth 
               focused
               onChange={(e) => handleProfileNameBio(e.target.value, 'profileBio')}
+              inputProps={{
+                maxLength: 65,
+              }}
             />
+            
           </MainModal>
         </Content>
       </Container>

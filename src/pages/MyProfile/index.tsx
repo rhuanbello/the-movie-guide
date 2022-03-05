@@ -15,6 +15,8 @@ import {
 import { MoviesList } from "../../components/Movies/MoviesList";
 import { useSelector } from "react-redux";
 import { EditProfileModal } from '../../components/Global/EditProfileModal';
+import DefaultProfileImage from '../../assets/me-myself-and-irene.jpeg';
+import DefaultProfileCover from '../../assets/the-perks-of-being-wallflower.jpg';
 
 export default function MyProfile() {
   const [ openModal, setOpenModal ] = useState(false);
@@ -34,29 +36,23 @@ export default function MyProfile() {
   }
 
   const { watchedMovies, favoriteMovies } = addedMoviesObj;
-  const { profileName, profileBio, usersProfileImagesObj } = profileEditedInfos;
+  const { profileName, profileBio, profileUsername, usersProfileImagesObj } = profileEditedInfos;
   const { profileImage, profileCover } = usersProfileImagesObj;
-
-  useEffect(() => {
-    console.log('All', profileEditedInfos)
-    const { profileName, profileBio, usersProfileImagesObj } = profileEditedInfos;
-    const { profileImage, profileCover } = usersProfileImagesObj;
-
-  }, [profileEditedInfos]);
   
   return (
     <Container>
       <Cover
-        backdrop={profileCover?.preview}
+        backdrop={profileCover?.preview || DefaultProfileCover}
       >
         <ProfileHeader>
           <ProfileDetails>
             <img 
               draggable={false}
-              src={profileImage?.preview}
+              src={profileImage?.preview || DefaultProfileImage}
             />
             <div>
               <h2>{profileName}</h2>
+              <p>{profileUsername.includes('@') ? profileUsername : '@' + profileUsername}</p>
               <p>{profileBio}</p>
             </div>
           </ProfileDetails>

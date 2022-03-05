@@ -169,8 +169,9 @@ export function usersProfileImagesObj(state = {
 }
 
 export function profileEditedInfos(state = {
-  profileName: '',
-  profileBio: '',
+  profileName: 'Rhuan Bello',
+  profileBio: 'Desenvolvedor Front-end 👨‍💻 Amante da sétima arte 🎬',
+  profileUsername: 'rhuanbello',
   usersProfileImagesObj: {
     profileImage: {},
     profileCover: {}
@@ -180,11 +181,14 @@ export function profileEditedInfos(state = {
 
   switch (type) {
     case 'setProfileEditedInfos':
-      const { profileName, profileBio } = profileNameBio;
+      const { profileName, profileBio, profileUsername } = profileNameBio;
+
+      console.log(profileUsername)
 
       const tempProfileEditedInfos = {
         profileName: profileName,
         profileBio: profileBio,
+        profileUsername: profileUsername,
         usersProfileImagesObj: { ...usersProfileImagesObj }
       }
 
