@@ -35,6 +35,7 @@ export default function Home() {
       )
       .then(({ data }) => {
         const { results } = data;
+        console.log('movies', data)
         dispatch(handleMoviesToRender(results))
       })
       .catch((error) => {

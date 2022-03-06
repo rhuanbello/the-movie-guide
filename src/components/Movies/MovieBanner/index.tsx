@@ -56,7 +56,17 @@ export const MovieBanner = ({ detailsLoading }: MovieBannerProps) => {
 
   useEffect(() => {
     console.count('Renderizou')
-  }, [movieDetails])
+  }, [movieDetails]);
+
+  const handleVoteAverage = (vote_average) => {
+    if (vote_average >= 70) {
+      return 'var(--primary)';
+    } else if (vote_average >= 50){
+      return '#FFC300';
+    } else {
+      return '#FF5733'
+    }
+  }
 
   return (
     <Container 
@@ -109,7 +119,7 @@ export const MovieBanner = ({ detailsLoading }: MovieBannerProps) => {
                 data={[
                   {
                     value: vote_average,
-                    color: vote_average >= 70 ? 'var(--primary)' : 'red' 
+                    color: handleVoteAverage(vote_average) 
                   },
                 ]}
                 totalValue={100}
@@ -125,7 +135,7 @@ export const MovieBanner = ({ detailsLoading }: MovieBannerProps) => {
                 }}
                 labelStyle={{ 
                   fontSize: 28, 
-                  fill: vote_average >= 70 ? 'var(--primary)' : 'red', 
+                  fill: handleVoteAverage(vote_average), 
                   fontWeight: 'bold',
                 }}
               />
