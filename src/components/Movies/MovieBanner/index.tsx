@@ -177,7 +177,7 @@ export const MovieBanner = ({ detailsLoading }: MovieBannerProps) => {
             {detailsLoading ? (
               <Skeleton variant="text" width="80%" height="80px" animation="wave" />
             ) : (
-              <p>{overview}</p>
+                <p>{overview?.length >= 300 ? overview?.substring(0, 300) + '...' : overview}</p>
             )}
           </article>
 

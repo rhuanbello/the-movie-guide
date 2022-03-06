@@ -58,10 +58,18 @@ export function movieDetails(state = [], action: any) {
 export function movieTrailer(state = '', action: any) {
   switch (action.type) {
     case 'setMovieTrailer': {
+      
       const { response } = action;
-      const trailersFiltered = [...response]
-        .map(({ key }) => ({ key }))
-      [0]?.key;
+      console.log('setMovieTrailer', response);
+
+      let trailersFiltered = '';
+
+      if (response.length > 0) {
+        trailersFiltered = [...response]
+          .map(({ key }) => ({ key }))
+        [0]?.key;
+
+      }
 
       return trailersFiltered;
 

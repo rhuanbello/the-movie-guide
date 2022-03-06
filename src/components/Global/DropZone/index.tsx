@@ -60,7 +60,7 @@ export const DropZone = ({
           preview: URL.createObjectURL(draggedImage)
         }
 
-        dispatch(handleProfileImage(profileImageObj, imageType))
+        dispatch(handleProfileImage(profileImageObj, imageType));
 
       });
     }

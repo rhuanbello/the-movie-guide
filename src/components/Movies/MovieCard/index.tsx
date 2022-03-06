@@ -73,7 +73,7 @@ export const MovieCard = ({ onClick, movie, isProfile }: MovieCardProps) => {
          
         </PosterContainer>
 
-        <p>{title}</p>
+        <p>{title?.length > 30 ? title?.substring(0, 30) + '...' : title}</p>
         <p>{moment(release_date).format('YYYY').toUpperCase()}</p>
         {isProfile && (
           <RateStars onChange={(e, rate) => {

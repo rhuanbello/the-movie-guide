@@ -16,7 +16,7 @@ export const Content = styled.ul<ContentProps>`
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
   height: ${({isHomepage}) => isHomepage && '130vh'};
   gap: 32px;
-  padding-bottom: 24px;
+  padding-bottom: ${({isProfile}) => !isProfile && '24px'};
 
   li {
 
@@ -26,7 +26,7 @@ export const Content = styled.ul<ContentProps>`
     }
 
     div {
-      outline: ${({isRecommendation}) => isRecommendation && 'none'};
+      outline: ${({ isRecommendation  }) => isRecommendation && 'none'};
     
       img {
         width: ${({isRecommendation}) => isRecommendation && '150px'};
@@ -36,13 +36,9 @@ export const Content = styled.ul<ContentProps>`
     
   } 
 
-
-    }
-  }
-
   @media(min-width: 500px) {
     grid-auto-flow: ${({isRecommendation}) => isRecommendation && 'column'};
-    overflow-x: ${({isRecommendation}) => isRecommendation && 'scroll'};
+    overflow-x: ${({isRecommendation}) => isRecommendation && 'auto'};
     
   }
   
