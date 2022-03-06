@@ -46,13 +46,13 @@ export default function MyProfile() {
   return (
     <Container>
       <Cover
-        backdrop={profileCover?.preview}
+        backdrop={profileCover?.base64}
       >
         <ProfileHeader>
           <ProfileDetails>
             <img 
               draggable={false}
-              src={profileImage?.preview}
+              src={profileImage?.base64}
             />
             <div>
               <h2>{profileName}</h2>

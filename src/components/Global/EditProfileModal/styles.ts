@@ -12,7 +12,7 @@ export const Container = styled.main`
 export const Content = styled.div`
   background: var(--dark);
   margin: 0 auto;
-  height: 85%;
+  min-height: 85%;
   width: 50%;
   border-radius: 20px;
 

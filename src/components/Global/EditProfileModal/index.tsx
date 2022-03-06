@@ -81,14 +81,14 @@ export const EditProfileModal = ({
           <SectionModal>
             <div className="ProfileCover">
               <DropZone
-                imageToRender={profileCover.preview}
+                imageToRender={profileCover.base64}
                 imageType="profileCover"
                 width="100%"
               />
             </div>
             <div className="ProfileImage">
               <DropZone 
-                imageToRender={profileImage.preview}
+                imageToRender={profileImage.base64}
                 imageType="profileImage"
                 rounded
                 outlined

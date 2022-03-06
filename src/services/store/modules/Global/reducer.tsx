@@ -153,10 +153,12 @@ export function moviesToRender(state: Array<moviesListObj> = [], action: any) {
 
 export function usersProfileImagesObj(state = {
   profileImage: {
+    base64: 'https://i.imgur.com/dMd9k2n.jpg',
     preview: 'https://i.imgur.com/dMd9k2n.jpg',
-    path: 'assets'
+    path: 'me-myself-and-irene.jpeg'
   },
   profileCover: {
+    base64: 'https://i.imgur.com/zCdvhG0.jpg',
     preview: 'https://i.imgur.com/zCdvhG0.jpg',
     path: 'assets'
   },
@@ -167,6 +169,7 @@ export function usersProfileImagesObj(state = {
     case 'setProfileImage':
       const tempUsersProfileImagesObj = { ...state };
       tempUsersProfileImagesObj[imageType] = { ...image };
+      console.log('retornando', tempUsersProfileImagesObj)
       return tempUsersProfileImagesObj;
     default:
       return state;
@@ -180,10 +183,12 @@ export function profileEditedInfos(state = {
   profileUsername: 'rhuanbello',
   usersProfileImagesObj: {
     profileImage: {
+      base64: 'https://i.imgur.com/dMd9k2n.jpg',
       preview: 'https://i.imgur.com/dMd9k2n.jpg',
-      path: 'assets'
+      path: 'me-myself-and-irene.jpeg'
     },
     profileCover: {
+      base64: 'https://i.imgur.com/zCdvhG0.jpg',
       preview: 'https://i.imgur.com/zCdvhG0.jpg',
       path: 'assets'
     },

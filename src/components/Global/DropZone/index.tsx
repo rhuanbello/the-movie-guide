@@ -13,19 +13,56 @@ export const DropZone = ({
   imageToRender,
   imageType,
 }) => {
+
+  const getBase64 = async (file) => {
+    console.log('file', file)
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+
+      reader.onload = () =>
+        resolve({
+          fileName: file.name,
+          base64: reader.result,
+        });
+      reader.onerror = reject;
+    });
+
+  }
+
   const dispatch = useDispatch();
   const { getRootProps, getInputProps } = useDropzone({
     maxFiles: 1,
     accept: 'image/png, image/jpeg',
     onDrop: (image) => {
       const draggedImage = image[0];
-      const profileImageObj = {
-        ...draggedImage,
-        preview: URL.createObjectURL(draggedImage)
-      }
 
-      dispatch(handleProfileImage(profileImageObj, imageType))
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
 
+        if (draggedImage) {
+          reader.readAsDataURL(draggedImage);
+        }
+
+        reader.onload = () =>
+          resolve({
+            base64: reader.result,
+          });
+        reader.onerror = reject;
+      }).then(({ base64 }) => {
+
+        const profileImageObj = {
+          ...draggedImage,
+          base64,
+          preview: URL.createObjectURL(draggedImage)
+        }
+
+        dispatch(handleProfileImage(profileImageObj, imageType))
+
+      });
     }
   });
 
