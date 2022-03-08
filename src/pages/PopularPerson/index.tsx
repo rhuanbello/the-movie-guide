@@ -70,7 +70,7 @@ export default function PopularPerson() {
               as={motion.li}
               animate={{ opacity: 1 }}
               initial={{ opacity: 0 }}
-              // transition={{ delay: i * .05 }}
+              transition={{ delay: i * .05 }}
               onClick={() => {
                 navigate(`/person/${id}`)
               }}

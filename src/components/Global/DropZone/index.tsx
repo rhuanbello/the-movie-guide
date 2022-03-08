@@ -2,7 +2,7 @@ import { useDropzone } from 'react-dropzone';
 import { ProfileImage } from './styles';
 import { BiImageAdd } from "react-icons/bi";
 import { useDispatch } from 'react-redux';
-import { handleProfileImage } from '../../../services/store/modules/Global/actions';
+import { handleProfileImage } from '../../../services/store/modules/MyProfile/actions';
 
 export const DropZone = ({ 
   width, 

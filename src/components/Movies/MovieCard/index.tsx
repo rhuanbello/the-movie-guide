@@ -21,9 +21,10 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDispatch, useSelector } from "react-redux";
 import { handleAddedMoviesObj } from "../../../services/store/modules/Global/actions";
+import { DefaultRootState } from "../../../services/store/interfaces";
 
-export const MovieCard = ({ onClick, movie, isProfile }: MovieCardProps) => {
-  const { addedMoviesObj } = useSelector((state) => state);
+export const MovieCard = ({ onClick, movie, isProfile, isPersonDetails, index }: MovieCardProps) => {
+  const { addedMoviesObj } = useSelector((state): DefaultRootState => state);
   const dispatch = useDispatch()
 
   const { 
@@ -50,7 +51,7 @@ export const MovieCard = ({ onClick, movie, isProfile }: MovieCardProps) => {
         layout
         animate={{ opacity: 1 }}
         initial={{ opacity: 0 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: isPersonDetails ? 0.3 : 1, delay: isPersonDetails && index * 0.3}}
         exit={{ opacity: 0 }}
       >
         
@@ -72,8 +73,8 @@ export const MovieCard = ({ onClick, movie, isProfile }: MovieCardProps) => {
           </DetailsButton>
          
         </PosterContainer>
-
-        <p>{title?.length > 30 ? title?.substring(0, 30) + '...' : title}</p>
+        
+        <p>{title?.length > 28 ? title?.substring(0, 28) + '...' : title}</p>
         <p>{moment(release_date).format('YYYY').toUpperCase()}</p>
         {isProfile && (
           <RateStars onChange={(e, rate) => {

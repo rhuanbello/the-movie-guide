@@ -13,6 +13,7 @@ export const MoviesList = ({
   isRecommendation,
   isHomepage,
   isProfile,
+  isPersonDetails,
   moviesToRender
 }: MoviesListProps ) => {
   const navigate = useNavigate();
@@ -50,10 +51,12 @@ export const MoviesList = ({
           isProfile={isProfile}
           isHomepage={isHomepage}
         >
-          {moviesToRender?.map((movie) => (
+          {moviesToRender?.map((movie, i) => (
             <MovieCard
+              isPersonDetails={isPersonDetails}
               isProfile={isProfile}
               key={movie.id}
+              index={i}
               movie={movie}
               onClick={(id: number) => {
                 navigate(`/movie/${id}`)

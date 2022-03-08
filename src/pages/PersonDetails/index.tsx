@@ -69,7 +69,7 @@ export default function PersonDetails() {
         <section>
           <h2>Filmografia</h2>
           <p>Você já viu {handlePersonMoviesWatched()} de {personMovieDetails?.moviesCount} filmes deste ator</p>
-          <MoviesList moviesToRender={personFilmography} />
+          <MoviesList moviesToRender={personFilmography} isPersonDetails={true} />
         </section>
       </Container>
     </>

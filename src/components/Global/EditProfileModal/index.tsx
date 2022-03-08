@@ -3,7 +3,7 @@ import { Modal, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
-import { handleProfileEditedInfos } from '../../../services/store/modules/Global/actions';
+import { handleProfileEditedInfos } from '../../../services/store/modules/MyProfile/actions';
 import { DropZone } from '../DropZone';
 import { Container, Content, HeaderModal, MainModal, SectionModal } from './styles';
 
