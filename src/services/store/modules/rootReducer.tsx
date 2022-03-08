@@ -40,4 +40,4 @@ export default combineReducers({
   personDetails,
   usersProfileImagesObj,
   profileEditedInfos
-}: DefaultRootState);
+});

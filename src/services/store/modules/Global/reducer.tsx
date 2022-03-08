@@ -1,12 +1,11 @@
-
-interface moviesListObj {
-  id: string;
-  title: string;
-  release_date: string;
-  poster_path: string;
-}
-
-import { addedMoviesObjProps, actionTypes } from './interfaces';
+import { 
+  addedMoviesObjProps, 
+  addedMoviesObjActionTypes, 
+  searchedMoviesPropsActionTypes, 
+  searchedMoviesProps, 
+  moviesToRenderProps,
+  moviesToRenderPropsActions
+} from './interfaces';
 
 export function addedMoviesObj(
   state: addedMoviesObjProps = {
@@ -14,10 +13,9 @@ export function addedMoviesObj(
     watchedMovies: [],
     ratedMovies: [],
   },
-  action: actionTypes
+  action: addedMoviesObjActionTypes
 ) {
   const { typeState, movie, type, rate } = action;
-
 
   switch (typeState) {
     case 'setAddedMoviesObj': {
@@ -93,7 +91,10 @@ export function addedMoviesObj(
   }
 }
 
-export function searchedMovies(state = [], action: any) {
+export function searchedMovies(
+  state: searchedMoviesProps[] = [], 
+  action: searchedMoviesPropsActionTypes
+) {
   const { type, response, setSearchLoading } = action;
 
   switch (type) {
@@ -150,10 +151,14 @@ export function searchedMovies(state = [], action: any) {
   }
 }
 
-export function moviesToRender(state: Array<moviesListObj> = [], action: any) {
+export function moviesToRender(
+  state: Array<moviesToRenderProps> = [], 
+  action: moviesToRenderPropsActions
+) {
   switch (action.type) {
     case 'filtering_movies_list': {
       const { response } = action;
+      console.log('Action', action)
 
       const moviesListFiltered = [...response].map(
         ({ title, release_date, poster_path, id }) => ({

@@ -1,12 +1,13 @@
 import { 
-  MoviesToRenderTypes, 
-  genresTypes, 
-  addedMoviesObjProps
+  addedMoviesObjProps,
+  searchedMoviesProps,
+  moviesToRenderProps
 } from '../modules/Global/interfaces';
 
 export interface DefaultRootState {
-  moviesToRender?: Array<MoviesToRenderTypes>;
-  moviesGenres?: Array<genresTypes>;
   addedMoviesObj: addedMoviesObjProps;
+  searchedMovies: searchedMoviesProps;
+  moviesToRender: Array<moviesToRenderProps>;
+
 
 }
