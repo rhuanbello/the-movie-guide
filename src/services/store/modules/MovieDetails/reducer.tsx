@@ -1,15 +1,14 @@
-interface moviesListObj {
-  id: string,
-  title: string,
-  release_date: string,
-  poster_path: string,
-}
+import { movieCreditsActionProps, movieCreditsProps, movieDetailsActionsProps, movieDetailsProps, movieRecommendationsActionsProps, movieRecommendationsProps, movieTrailerActionsProps } from "./interfaces";
 
-export function movieDetails(state = [], action: any) {
+export function movieDetails(
+  state: Array<movieDetailsProps> = [], 
+  action: movieDetailsActionsProps
+) {
   const { type, setDetailsLoading, response } = action;
-
+  
   switch (type) {
     case 'setMovieDetails': {
+      console.log('movieDetails action', action)
       const { crew } = response.credits;
 
       const crewArrayFilteredAndLimited = [...crew]
@@ -55,12 +54,14 @@ export function movieDetails(state = [], action: any) {
   }
 }
 
-export function movieTrailer(state = '', action: any) {
-  switch (action.type) {
+export function movieTrailer(
+  state: string = '', 
+  action: movieTrailerActionsProps 
+) {
+  const { type, response } = action;
+  switch (type) {
     case 'setMovieTrailer': {
-      
-      const { response } = action;
-      console.log('setMovieTrailer', response);
+      console.log('setMovieTrailer Type', action)
 
       let trailersFiltered = '';
 
@@ -79,24 +80,32 @@ export function movieTrailer(state = '', action: any) {
   }
 }
 
-export function movieRecommendations(state = [], action: any) {
-  switch (action.type) {
+export function movieRecommendations(
+  state: Array<movieRecommendationsProps> = [], 
+  action: movieRecommendationsActionsProps
+) {
+  const { type, response } = action;
+
+  switch (type) {
     case 'setMovieRecommendations': {
-      const { response } = action;
       const movieRecommendationsFiltered = [...response].map(({ poster_path, id, release_date, title }) => ({ poster_path, id, release_date, title }))
       
       return movieRecommendationsFiltered;
-
     }
     default:
       return state;
   }
 }
 
-export function movieCredits(state = [], action: any) {
-  switch (action.type) {
+export function movieCredits(
+  state: Array<movieCreditsProps> = [], 
+  action: movieCreditsActionProps
+) {
+  const { type, response } = action;
+
+  switch (type) {
     case 'setMovieCredits': {
-      const { response } = action;
+
       const castArrayFiltered = [...response]
         .map(({ original_name, profile_path, character, id }) => ({
           original_name,
@@ -104,8 +113,6 @@ export function movieCredits(state = [], action: any) {
           character,
           id
         }))
-
-      console.log('castArrayFiltered', castArrayFiltered)
 
       return castArrayFiltered;
 

@@ -12,12 +12,13 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { handlePopularPerson } from '../../services/store/modules/PopularPerson/actions'
+import { DefaultRootState } from "../../services/store/interfaces";
 
 export default function PopularPerson() {
   const { VITE_API_KEY } = import.meta.env;
   const navigate = useNavigate();
   const [pageCount, setPageCount] = useState(1)
-  const { popularPerson } = useSelector((state) => state);
+  const { popularPerson } = useSelector((state): DefaultRootState => state);
   const dispatch = useDispatch();
 
   const getPopularPerson = (page) => {

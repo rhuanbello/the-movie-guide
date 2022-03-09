@@ -13,10 +13,10 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { handleMoviesGenres } from '../../services/store/modules/Home/actions';
 import { handleMoviesToRender } from '../../services/store/modules/Global/actions';
+import { DefaultRootState } from '../../services/store/interfaces';
 
 export default function Home() {
   const { moviesToRender, selectedGenres } = useSelector((state: DefaultRootState) => state);
-
   const { VITE_API_KEY } = import.meta.env;
   const { page } = useParams();
   const { pathname } = useLocation();

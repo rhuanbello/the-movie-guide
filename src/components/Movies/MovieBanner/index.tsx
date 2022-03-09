@@ -17,9 +17,10 @@ import { FavoriteIcon, WatchIcon, RateStars } from '../../Global/MovieIcons';
 import { Skeleton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { cleaningPreviousState, handleAddedMoviesObj } from '../../../services/store/modules/Global/actions';
+import { DefaultRootState } from '../../../services/store/interfaces';
 
 export const MovieBanner = ({ detailsLoading }: MovieBannerProps) => {
-  const { movieDetails, addedMoviesObj } = useSelector((state) => state);
+  const { movieDetails, addedMoviesObj } = useSelector((state): DefaultRootState => state);
   const [value, setValue] = useState(0);
   const dispatch = useDispatch();
 

@@ -10,13 +10,14 @@ import { PersonCredits } from "../../components/Person/PersonCredits";
 import { MoviesList } from "../../components/Movies/MoviesList";
 
 import { Container } from './styles';
+import { DefaultRootState } from "../../services/store/interfaces";
 
 export default function PersonDetails() {
   const { VITE_API_KEY } = import.meta.env;
   const { id } = useParams();
   const [detailsLoading, setDetailsLoading] = useState(true);
   const dispatch = useDispatch();
-  const { personDetails, addedMoviesObj } = useSelector((state) => state);
+  const { personDetails, addedMoviesObj } = useSelector((state): DefaultRootState => state);
 
   useEffect(() => {
     console.log('personDetails', personDetails)

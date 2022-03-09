@@ -13,11 +13,12 @@ import {
 
 import { MoviesList } from "../../components/Movies/MoviesList";
 import { EditProfileModal } from '../../components/Global/EditProfileModal';
+import { DefaultRootState } from "../../services/store/interfaces";
 
 export default function MyProfile() {
   const [ openModal, setOpenModal ] = useState(false);
 
-  const { addedMoviesObj, profileEditedInfos } = useSelector((state) => state);
+  const { addedMoviesObj, profileEditedInfos } = useSelector((state): DefaultRootState => state);
   const { watchedMovies, favoriteMovies } = addedMoviesObj;
   const {
     profileName,

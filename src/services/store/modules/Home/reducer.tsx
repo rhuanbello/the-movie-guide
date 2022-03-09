@@ -1,18 +1,29 @@
-export function moviesGenres(state = [], action: any) {
-  switch (action.type) {
+import { moviesGenresActionsProps, moviesGenresProps, selectedGenresActionsProps } from "./interfaces";
+
+export function moviesGenres(
+  state: Array<moviesGenresProps> = [], 
+  action: moviesGenresActionsProps
+) {
+  const { type, response } = action;
+
+  switch (type) {
     case 'setGenres': {
-      console.log('Chegou genres', action.response)
-      return action.response;
+      return response;
     }
     default:
       return state;
   }
 }
 
-export function selectedGenres(state = [], action: any) {
-  switch (action.type) {
+export function selectedGenres(
+  state: Array<Number> = [], 
+  action: selectedGenresActionsProps
+) {
+  const { type, response } = action;
+
+  switch (type) {
     case 'setSelectedGenres': {
-      const { response } = action;
+
       const id = response;
       const filteredSelectedGenres = [...state];
       const genreIndex = state.findIndex(x => x === id);
@@ -25,7 +36,7 @@ export function selectedGenres(state = [], action: any) {
 
       }
 
-      return filteredSelectedGenres
+      return filteredSelectedGenres;
 
     }
     default:

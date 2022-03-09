@@ -3,6 +3,7 @@ import { Modal, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
+import { DefaultRootState } from '../../../services/store/interfaces';
 import { handleProfileEditedInfos } from '../../../services/store/modules/MyProfile/actions';
 import { DropZone } from '../DropZone';
 import { Container, Content, HeaderModal, MainModal, SectionModal } from './styles';
@@ -13,7 +14,7 @@ export const EditProfileModal = ({
   profileEditedInfos 
 }) => {
   const dispatch = useDispatch()
-  const { usersProfileImagesObj } = useSelector((state) => state);
+  const { usersProfileImagesObj } = useSelector((state): DefaultRootState => state);
   const { profileImage, profileCover } = usersProfileImagesObj;
   const [ profileNameBio, setProfileNameBio ] = useState({
     profileName: '',

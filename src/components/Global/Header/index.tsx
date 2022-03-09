@@ -23,11 +23,12 @@ import {
 
 import { searchedMovies } from './interfaces';
 import { handleSearchedTerm } from '../../../services/store/modules/Global/actions';
+import { DefaultRootState } from '../../../services/store/interfaces';
 
 export const Header = () => {
   const { VITE_API_KEY } = import.meta.env;
 
-  const { searchedMovies } = useSelector((state) => state);
+  const { searchedMovies } = useSelector((state): DefaultRootState => state);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
