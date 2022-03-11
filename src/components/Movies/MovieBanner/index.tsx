@@ -54,7 +54,6 @@ export const MovieBanner = ({ detailsLoading }: MovieBannerProps) => {
     setValue(finalRate)
   }, [addedMoviesObj, movieDetails])
 
-
   useEffect(() => {
     console.count('Renderizou')
   }, [movieDetails]);
@@ -74,7 +73,7 @@ export const MovieBanner = ({ detailsLoading }: MovieBannerProps) => {
       backdrop={imageBaseURL + 'w500' + backdrop_path}
     >
       <div>
-        <a href={homepage} target="_blank">
+        <a href={homepage} target="_blank" draggable={false}>
           <AnimatePresence>
             {detailsLoading ? (
               <Skeleton variant="rectangular" width="300px" height="400px" animation="wave" sx={{
@@ -82,6 +81,7 @@ export const MovieBanner = ({ detailsLoading }: MovieBannerProps) => {
               }} />
             ) : (
               <MoviePoster 
+                draggable={false}
                 as={motion.img}
                 src={imageBaseURL + 'w400' + poster_path} 
                 initial={{ y: -20, opacity: 0}}
@@ -131,6 +131,7 @@ export const MovieBanner = ({ detailsLoading }: MovieBannerProps) => {
                 startAngle={270}
                 style={{ 
                   width: 50, 
+                  height: 50,
                   backgroundColor: 'rgba(255, 255, 255, 0.1)', 
                   borderRadius: '50%' 
                 }}
@@ -141,6 +142,7 @@ export const MovieBanner = ({ detailsLoading }: MovieBannerProps) => {
                 }}
               />
               <p>Avaliação dos usuários</p>
+              <div>
                 <button
                   onClick={() => {
                     dispatch(handleAddedMoviesObj(movie, 'watched'))
@@ -153,28 +155,29 @@ export const MovieBanner = ({ detailsLoading }: MovieBannerProps) => {
                     defaultColor='var(--light)'
                   />
                 </button>
-              <button
-                onClick={() => {
-                  dispatch(handleAddedMoviesObj(movie, 'favorited'))
-                }}
-              >
-                <FavoriteIcon 
-                  size={20}
-                  noText
-                  isFavorite={addedMoviesObj.favoriteMovies.some(m => m.id === movie.id)}
-                  defaultColor='var(--light)'                
+                <button
+                  onClick={() => {
+                    dispatch(handleAddedMoviesObj(movie, 'favorited'))
+                  }}
+                >
+                  <FavoriteIcon 
+                    size={20}
+                    noText
+                    isFavorite={addedMoviesObj.favoriteMovies.some(m => m.id === movie.id)}
+                    defaultColor='var(--light)'                
+                  />
+                </button>
+                <button>
+                  <RateStars onChange={(e, rate) => {
+                    dispatch(handleAddedMoviesObj(movie, 'rated', rate))
+                  }}
+                  value={value}
+                  defaultColor='var(--light)'
+                  hoverX
+                  size={22}
                 />
-              </button>
-              <button>
-                <RateStars onChange={(e, rate) => {
-                  dispatch(handleAddedMoviesObj(movie, 'rated', rate))
-                }}
-                value={value}
-                defaultColor='var(--light)'
-                hoverX
-                size={22}
-              />
-              </button>
+                </button>
+              </div>
             </MovieBannerActions>
           )}
 

@@ -9,7 +9,7 @@ export const Container = styled.section<ContainerProps>`
   background: ${({ backdrop }) => `linear-gradient(0deg, rgba(44, 52, 64, 0.7), rgba(44, 52, 64, 0.7)), radial-gradient(100% 576% at 0% 50%, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.18) 50%, rgba(0, 0, 0, 0.6) 100%), url(${backdrop}) no-repeat center center`};
   background-size: cover;
   color: var(--text-light);
-  height: 65vh;
+  min-height: 60vh;
 
   & > div {
     width: 85vw;
@@ -18,9 +18,10 @@ export const Container = styled.section<ContainerProps>`
     display: flex;
     gap: 50px;
 
-    @media(max-width: 1200px) {
+    @media(max-width: 910px) {
       justify-content: center;
       width: 90vw;
+      flex-wrap: wrap;
       
     }
 
@@ -40,7 +41,7 @@ export const MoviePoster = styled.img`
     transform: scale(1.05);
   }
 
-  @media(max-width: 1200px) {
+  @media(max-width: 910px) {
     width: 35vw;
     margin-block: 0 20px;
     
@@ -116,6 +117,19 @@ export const MovieBannerActions = styled.div`
   align-items: center;
   gap: 20px;
   margin-top: 10px;
+  flex-wrap: wrap;
+  
+  @media(max-width: 480px) {
+    gap: 20px;
+    margin: 15px 0;
+
+  }
+
+  & > div {
+    display: flex;
+    gap: 20px;
+
+  }
 
   p {
     max-width: 100px;

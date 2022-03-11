@@ -14,7 +14,7 @@ export const Container = styled.ul`
 export const Content = styled.ul<ContentProps>`
   display: grid; 
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
-  height: ${({isHomepage}) => isHomepage && '140vh'};
+  min-height: ${({isHomepage}) => isHomepage && '140vh'};
   gap: 32px;
   padding-bottom: 24px;
 
