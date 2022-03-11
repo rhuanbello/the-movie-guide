@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Container = styled.ul`
-  
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -9,6 +8,8 @@ export const Container = styled.ul`
 `
 
 export const PersonInfo = styled.li`
+  width: 300px;
+
   h3 {
     font-size: 20px;
     margin-bottom: 5px;

@@ -1,13 +1,11 @@
 import styled from "styled-components";
 
 export const Container = styled.section`
-  /* display: flex;
-  gap: 50px; */
   padding-block: 100px 80px;
   width: 85vw;
   margin: 0 auto;
   display: grid;
-
+  gap: 50px;
   grid-template-columns: 1fr 2.5fr;
 
 `

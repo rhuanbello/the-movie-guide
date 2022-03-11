@@ -20,7 +20,8 @@ export default function PopularPerson() {
   const { VITE_API_KEY } = import.meta.env;
 
   const navigate = useNavigate();
-  const [pageCount, setPageCount] = useState(1)
+  const [pageCount, setPageCount] = useState(1);
+  const [scrollY, setScrollY] = useState<number | undefined>(0);
   const { popularPerson } = useSelector((state): DefaultRootState => state);
   const dispatch = useDispatch();
 
@@ -41,11 +42,10 @@ export default function PopularPerson() {
   useLayoutEffect(() => {
     const updatePosition = () => {
       const maxHeight = document.body.offsetHeight - 10;
-      const scrollY = window.innerHeight + window.scrollY;
+      const scrollYCalc = window.innerHeight + window.scrollY;
+      setScrollY(scrollYCalc);
 
-      console.log('max', scrollY)
-
-      if (scrollY >= maxHeight) {
+      if (scrollYCalc >= maxHeight) {
         setPageCount(pageCount => pageCount + 1);
     
       }
@@ -85,11 +85,10 @@ export default function PopularPerson() {
           </AnimatePresence>
         ))}
       </Cards>
-      {scrollY > 3000 && (
-        <ScrollBack 
-          onClick={() => scrollToTop()}
-        />
-      )}
+      <ScrollBack 
+        scrollY={scrollY}
+        onClick={() => scrollToTop()}
+      />
     </Container>
   );
 }
