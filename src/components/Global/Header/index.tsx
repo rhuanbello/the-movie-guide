@@ -23,18 +23,20 @@ import {
 
 import { searchedMovies } from './interfaces';
 import { handleSearchedTerm } from '../../../services/store/modules/Global/actions';
+import { DefaultRootState } from '../../../services/store/interfaces';
 
 export const Header = () => {
+  //@ts-ignore
   const { VITE_API_KEY } = import.meta.env;
 
-  const { searchedMovies } = useSelector((state) => state);
+  const { searchedMovies } = useSelector((state): DefaultRootState => state);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [dropDown, setDropDown] = useState('');
+  const [dropDown, setDropDown] = useState<any>('');
   const [searchedTerm, setSearchedTerm] = useState<string>('Vingadores');
-  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchLoading, setSearchLoading] = useState<boolean>(false);
 
   const menuItems = [
     { 
@@ -64,7 +66,7 @@ export const Header = () => {
       })
   }
 
-  const handleLoadingState = (searchedTerm) => {
+  const handleLoadingState = (searchedTerm: string) => {
     searchedTerm ? setSearchLoading(true) : setSearchLoading(false);
   }
 
@@ -148,8 +150,9 @@ export const Header = () => {
           clearOnEscape
           freeSolo
           noOptionsText={'Nenhum título encontrado.'}
+          //@ts-ignore
           groupBy={({ media_type }) => media_type === 'movie' ? 'Filmes' : 'Pessoas'}
-          options={searchedMovies.sort((a, b) => b.popularity - a.popularity)}
+          options={searchedMovies?.sort((a, b): any => b.popularity - a.popularity)}
           getOptionLabel={(item: searchedMovies | any) => item.title}
           renderInput={(params) => (
             <StyledTextField {...params}

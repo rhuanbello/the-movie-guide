@@ -1,9 +1,13 @@
-export function personDetails(state = {}, action: any) {
+import { personDetailsActionProps, personDetailsProps } from "./interfaces";
+
+export function personDetails(state: personDetailsProps = {} as personDetailsProps, action: personDetailsActionProps) {
   const { type, response, setDetailsLoading } = action;
 
   switch (type) {
     case 'setPersonDetails': {
       const data = response;
+
+      console.log('PersonDetails', action)
 
       const personBanner = {
         biography: data.biography,
@@ -41,6 +45,9 @@ export function personDetails(state = {}, action: any) {
       setTimeout(() => {
         setDetailsLoading(false);
       }, 800);
+
+      console.log('PersonDetails state', personDetailsObj)
+
 
       return personDetailsObj;
     }

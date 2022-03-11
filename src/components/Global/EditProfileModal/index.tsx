@@ -3,7 +3,8 @@ import { Modal, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
-import { handleProfileEditedInfos } from '../../../services/store/modules/Global/actions';
+import { DefaultRootState } from '../../../services/store/interfaces';
+import { handleProfileEditedInfos } from '../../../services/store/modules/MyProfile/actions';
 import { DropZone } from '../DropZone';
 import { Container, Content, HeaderModal, MainModal, SectionModal } from './styles';
 
@@ -13,7 +14,7 @@ export const EditProfileModal = ({
   profileEditedInfos 
 }) => {
   const dispatch = useDispatch()
-  const { usersProfileImagesObj } = useSelector((state) => state);
+  const { usersProfileImagesObj } = useSelector((state): DefaultRootState => state);
   const { profileImage, profileCover } = usersProfileImagesObj;
   const [ profileNameBio, setProfileNameBio ] = useState({
     profileName: '',
@@ -45,8 +46,9 @@ export const EditProfileModal = ({
   
   const handleIsProfileChanged = () => {
 
-    const profileNameBioChanged = Object.values(profileNameBio)?.every(x => x?.length > 0);
-    const usersProfileImagesObjChanged = Object.values(usersProfileImagesObj)?.every(x => x?.preview?.length > 0);
+    const profileNameBioChanged = Object?.values(profileNameBio)?.every(x => x?.length > 0);
+    //@ts-ignore
+    const usersProfileImagesObjChanged = Object?.values(usersProfileImagesObj)?.every((x): any => x?.preview?.length > 0);
     return profileNameBioChanged && usersProfileImagesObjChanged;
 
   }

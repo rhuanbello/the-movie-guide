@@ -1,4 +1,10 @@
-export function handleAddedMoviesObj(movie: any, type: string, rate?: number) {
+import { moviesToRenderResponse, movieTypes, searchedMoviesResponse } from "./interfaces";
+
+export function handleAddedMoviesObj(
+  movie: movieTypes, 
+  type: string, 
+  rate?: number | null
+) {
   return {
     typeState: 'setAddedMoviesObj',
     movie,
@@ -7,7 +13,10 @@ export function handleAddedMoviesObj(movie: any, type: string, rate?: number) {
   };
 }
 
-export function handleSearchedTerm(response, setSearchLoading) {
+export function handleSearchedTerm(
+  response: searchedMoviesResponse, 
+  setSearchLoading: Function
+) {
   return {
     type: 'setSearchedTerm',
     response,
@@ -15,7 +24,7 @@ export function handleSearchedTerm(response, setSearchLoading) {
   };
 }
 
-export function handleMoviesToRender(response: any) {
+export function handleMoviesToRender(response: moviesToRenderResponse) {
   return {
     type: 'filtering_movies_list',
     response,
@@ -26,22 +35,4 @@ export function cleaningPreviousState() {
   return {
     type: 'cleaningPreviousState',
   };
-}
-
-export function handleProfileImage(image, imageType) {
-  return {
-    type: 'setProfileImage',
-    image,
-    imageType
-  }
-
-}
-
-export function handleProfileEditedInfos(profileNameBio, usersProfileImagesObj) {
-  return {
-    type: 'setProfileEditedInfos',
-    profileNameBio,
-    usersProfileImagesObj
-  }
-
 }

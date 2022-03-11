@@ -1,6 +1,9 @@
 export interface MoviesListProps {
   isRecommendation?: boolean | undefined;
-  moviesToRender: Array<MoviesToRenderTypes>;
+  isHomepage?: boolean;
+  isProfile?: boolean;
+  isPersonDetails?: boolean;
+  moviesToRender: Array<MoviesToRenderTypes> | any;
 
 }
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 interface ContentProps {
   isRecommendation: undefined | boolean;
   isHomepage: undefined | boolean;
-  isProfile: boolean;
+  isProfile: boolean | undefined;
 }
 
 export const Container = styled.ul`
@@ -14,9 +14,9 @@ export const Container = styled.ul`
 export const Content = styled.ul<ContentProps>`
   display: grid; 
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
-  height: ${({isHomepage}) => isHomepage && '130vh'};
+  height: ${({isHomepage}) => isHomepage && '140vh'};
   gap: 32px;
-  padding-bottom: ${({isProfile}) => !isProfile && '24px'};
+  padding-bottom: 24px;
 
   li {
 

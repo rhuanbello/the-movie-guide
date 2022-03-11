@@ -1,5 +1,6 @@
 import { Skeleton } from '@mui/material';
 import { AnimatePresence, motion } from 'framer-motion';
+import { PersonBannerProps } from './interfaces';
 import {
   Container,
   PersonPoster,
@@ -9,7 +10,7 @@ import {
 export const PersonBanner = ({ 
   personBanner,
   detailsLoading
-}) => {
+}: PersonBannerProps) => {
 
   const { 
     biography,

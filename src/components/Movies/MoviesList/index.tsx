@@ -1,26 +1,21 @@
-import { MovieCard } from '../MovieCard'
 
+import { useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 
 import { MoviesListProps } from './interfaces';
-
-import { Container, Content, SectionTitle } from "./styles";
-
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { Container, Content, SectionTitle } from "./styles";
+import { MovieCard } from '../MovieCard'
 
 export const MoviesList = ({ 
   isRecommendation,
   isHomepage,
   isProfile,
+  isPersonDetails,
   moviesToRender
 }: MoviesListProps ) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
-  useEffect(() => {
-    handleSectionTitle();
-  }, [pathname])
 
   const handleSectionTitle = () => {
     let title = 'Filmes mais Populares';
@@ -36,6 +31,10 @@ export const MoviesList = ({
     return title;
   }
 
+  useEffect(() => {
+    handleSectionTitle();
+  }, [pathname])
+
   return (
     <>
       <Container>
@@ -50,10 +49,12 @@ export const MoviesList = ({
           isProfile={isProfile}
           isHomepage={isHomepage}
         >
-          {moviesToRender?.map((movie) => (
+          {moviesToRender?.map((movie, i) => (
             <MovieCard
+              isPersonDetails={isPersonDetails}
               isProfile={isProfile}
               key={movie.id}
+              index={i}
               movie={movie}
               onClick={(id: number) => {
                 navigate(`/movie/${id}`)

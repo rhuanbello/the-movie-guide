@@ -33,6 +33,7 @@ export const PageButton = styled.button<PageButtonsProps>`
   border-radius: 50%;
   transition: .2s ease-in-out;
   opacity: ${({ page, value }) => (value === -1 && Number.isNaN(page)) ? '0' : '1'};
+  cursor: ${({ page, value }) => (value === -1 && Number.isNaN(page)) && 'default'};
 
   &:hover {
     background-color: ${({ value }) => (value >= 1 && value <= 5) && 'var(--primary)'};

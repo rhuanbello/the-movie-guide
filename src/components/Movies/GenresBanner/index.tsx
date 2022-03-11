@@ -1,5 +1,3 @@
-import { genresBannerProps } from './interfaces';
-
 import { MdCancel } from "react-icons/md";
 
 import { 
@@ -9,7 +7,7 @@ import {
 } from './styles';
 
 import { useDispatch, useSelector } from "react-redux";
-import { DefaultRootState } from "../../../services/store/modules/Home/interfaces";
+import { DefaultRootState } from "../../../services/store/interfaces";
 import { handleSelectedGenres } from '../../../services/store/modules/Home/actions';
 
 export const GenresBanner = () => {
@@ -31,7 +29,7 @@ export const GenresBanner = () => {
               <GenreButton
                 key={id}
                 style={{
-                  backgroundColor: selectedGenres.some(selectedGenre => selectedGenre === id) ? 
+                  backgroundColor: selectedGenres?.some(selectedGenre => selectedGenre === id) ? 
                                     'var(--primary)' : 
                                     'var(--light)'
                 }}
@@ -41,7 +39,7 @@ export const GenresBanner = () => {
               >
                 {name}
                 
-                {selectedGenres.some(selectedGenre => selectedGenre === id) && (
+                {selectedGenres?.some(selectedGenre => selectedGenre === id) && (
                   <MdCancel
                     size={18}
                   />

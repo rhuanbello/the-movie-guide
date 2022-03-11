@@ -12,9 +12,10 @@ import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
+import { DefaultRootState } from '../../../services/store/interfaces';
 
 export const MovieCredits = () => {
-  const { movieCredits, movieTrailer } = useSelector((state) => state)
+  const { movieCredits, movieTrailer } = useSelector((state): DefaultRootState => state)
 
   const profile_baseURL = 'https://image.tmdb.org/t/p/w200';
   const youtube_baseURL = `https://www.youtube.com/embed/${movieTrailer}?controls=0?autoplay=1`;

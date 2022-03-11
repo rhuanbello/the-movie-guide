@@ -1,9 +1,16 @@
-export function popularPerson(state = [], action: any) {
+import { popularPersonActionProps, popularPersonProps } from "./interfaces";
+
+export function popularPerson(
+  state: popularPersonProps[] = [], 
+  action: popularPersonActionProps
+) {
   const { type, response } = action;
 
   switch (type) {
     case 'setPopularPerson': {
       const { results } = response;
+
+      console.log('Popular Person', action)
 
       const popularPersonFiltered = [...results].map(
         ({ name, profile_path, known_for, id }) => ({
@@ -20,6 +27,7 @@ export function popularPerson(state = [], action: any) {
         x.profile_path.length)
 
       const popularPersonList = [...state, ...popularPersonFiltered]
+      console.log('Popular Person State', popularPersonList)
 
       return popularPersonList;
     }

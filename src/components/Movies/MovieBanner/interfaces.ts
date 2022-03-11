@@ -1,7 +1,8 @@
-import { MovieDetailsTypes } from "../../pages/MovieDetails/interfaces";
+import { MovieDetailsTypes } from "../../../pages/MovieDetails/interfaces";
 
 export interface MovieBannerProps {
-  movieDetails: MovieDetailsTypes
+  movieDetails?: MovieDetailsTypes;
+  detailsLoading?: boolean;
 
 }
 

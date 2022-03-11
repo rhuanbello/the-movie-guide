@@ -3,10 +3,13 @@ import { combineReducers } from 'redux';
 import { 
   moviesToRender, 
   addedMoviesObj,
-  searchedMovies,
+  searchedMovies
+} from './Global/reducer';
+
+import { 
   usersProfileImagesObj,
   profileEditedInfos
-} from './Global/reducer';
+} from './MyProfile/reducer';
 
 import { 
   moviesGenres, 
