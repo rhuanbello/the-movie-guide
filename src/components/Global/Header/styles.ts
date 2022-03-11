@@ -163,14 +163,12 @@ export const SearchedOptions = styled.li<SearchedOptionsProps>`
 
     &:nth-of-type(2) {
       color: ${({ voteAverage }) => (
-        Number(voteAverage) > 7 ? 'green' : 'red'
+        Number(voteAverage) >= 7 ? 'var(--primary)' : 
+        Number(voteAverage) >= 5 ? '#FFC300' : '#FF5733'
       )}
 
     }
 
   }
 
-
 `
-
-

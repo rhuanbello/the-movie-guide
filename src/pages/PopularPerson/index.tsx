@@ -1,8 +1,7 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { personApi } from "../../services/requests/api";
-
-import { ScrollBack } from '../../components/Global/MovieIcons'
+import { ScrollBack } from '../../components/Global/MovieIcons';
 
 import { 
   Container, 
@@ -11,45 +10,32 @@ import {
 } from './styles';
 
 import { AnimatePresence, motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { handlePopularPerson } from '../../services/store/modules/PopularPerson/actions'
+import { DefaultRootState } from "../../services/store/interfaces";
+import { popularPersonProps } from "../../services/store/modules/PopularPerson/interfaces";
 
 export default function PopularPerson() {
+  //@ts-ignore
   const { VITE_API_KEY } = import.meta.env;
+
   const navigate = useNavigate();
-  const [popularPerson, setPopularPerson] = useState([]);
   const [pageCount, setPageCount] = useState(1)
+  const { popularPerson } = useSelector((state): DefaultRootState => state);
+  const dispatch = useDispatch();
 
-  const getPopularPerson = (page) => {
-
+  const getPopularPerson = (page: string | number | undefined) => {
     personApi
       .get(`popular?api_key=${VITE_API_KEY}&language=pt-BR&page=${page}`)
       .then(({ data }) => {
-        handlePopularPerson(data)
+        dispatch(handlePopularPerson(data))
       }).catch((error) => {
         console.log(error)
       })
   }
 
-  const handlePopularPerson = (data) => {
-    const popularPersonFiltered = [...data.results].map(
-      ({ name, profile_path, known_for, id }) => ({
-        id,
-        name,
-        profile_path,
-        movies: known_for
-          .map(({ original_title }) => ({ original_title }))
-          .filter(x => x.original_title !== undefined)
-          .map((x) => x.original_title)
-          .join(', ')
-      })
-    ).filter(x => x.movies.length &&
-                  x.profile_path.length)
-
-    setPopularPerson(popularPerson => [...popularPerson, ...popularPersonFiltered]);
-  };
-
   useEffect(() => {
     getPopularPerson(pageCount)
-    console.log(pageCount)
   }, [pageCount])
 
   useLayoutEffect(() => {
@@ -79,16 +65,15 @@ export default function PopularPerson() {
  
   return (
     <Container>
-
       <h2>Pessoas Populares</h2>
       <Cards>
-        {popularPerson.map(({ profile_path, id, name, movies }, i) => (
+        {popularPerson?.map(({ profile_path, id, name, movies }: any, i: number) => (
           <AnimatePresence>
             <PersonCard
               as={motion.li}
               animate={{ opacity: 1 }}
               initial={{ opacity: 0 }}
-              // transition={{ delay: i * 0.1}}
+              transition={{ duration: .3 }}
               onClick={() => {
                 navigate(`/person/${id}`)
               }}

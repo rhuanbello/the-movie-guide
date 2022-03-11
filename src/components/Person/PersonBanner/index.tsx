@@ -1,5 +1,6 @@
 import { Skeleton } from '@mui/material';
 import { AnimatePresence, motion } from 'framer-motion';
+import { PersonBannerProps } from './interfaces';
 import {
   Container,
   PersonPoster,
@@ -8,14 +9,15 @@ import {
 
 export const PersonBanner = ({ 
   personBanner,
-  setDetailsLoading,
   detailsLoading
-}) => {
+}: PersonBannerProps) => {
 
-  const { biography,
+  const { 
+    biography,
     homepage,
     name,
-    profile_path} = personBanner;
+    profile_path
+  } = personBanner || {};
 
   const imageBaseURL = 'https://image.tmdb.org/t/p/'
 

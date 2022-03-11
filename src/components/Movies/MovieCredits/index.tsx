@@ -11,16 +11,21 @@ import { AnimatePresence, motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
+import { DefaultRootState } from '../../../services/store/interfaces';
 
-export const MovieCredits = ({ movieCredits, movieTrailer }: movieCreditsProps) => {
+export const MovieCredits = () => {
+  const { movieCredits, movieTrailer } = useSelector((state): DefaultRootState => state)
+
   const profile_baseURL = 'https://image.tmdb.org/t/p/w200';
   const youtube_baseURL = `https://www.youtube.com/embed/${movieTrailer}?controls=0?autoplay=1`;
   const { ref, inView } = useInView();
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('mov', movieTrailer);
-  }, [movieTrailer]);
+    console.log('MovieCredits', movieCredits)
+    console.log('movieTrailer', movieTrailer)
+  }, [movieCredits]);
 
   return (
     <Container>

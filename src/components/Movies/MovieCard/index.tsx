@@ -19,8 +19,21 @@ import { RateStars } from "../../Global/MovieIcons";
 import { MovieCardProps } from './interfaces';
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
+import { useDispatch, useSelector } from "react-redux";
+import { handleAddedMoviesObj } from "../../../services/store/modules/Global/actions";
+import { DefaultRootState } from "../../../services/store/interfaces";
 
-export const  MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesObj}: MovieCardProps) => {
+export const MovieCard = ({ 
+  onClick, 
+  movie, 
+  isProfile, 
+  isPersonDetails, 
+  index 
+}: MovieCardProps) => {
+  const [value, setValue] = useState(0)
+  const [dropDown, setDropDown] = useState<any>(null);
+  const { addedMoviesObj } = useSelector((state): DefaultRootState => state);
+  const dispatch = useDispatch()
   
   const { 
     title, 
@@ -28,30 +41,32 @@ export const  MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesOb
     poster_path,
     id
   } = movie;
-
+  
   const moviePoster = `https://image.tmdb.org/t/p/w200/${poster_path}`;
-  const [value, setValue] = useState(0)
-  const [dropDown, setDropDown] = useState<boolean>(null);
+
   const onClose = () => setDropDown(null);
 
   useEffect(() => {
-    const finalRate = addedMoviesObj?.ratedMovies?.find(m => m.id === movie.id)?.rate || 0
+    const finalRate = addedMoviesObj?.ratedMovies?.find((m): any => m.id === movie.id)?.rate || 0
     setValue(finalRate)
   }, [addedMoviesObj])
 
   return (
     <AnimatePresence>
       <Movie 
+        //@ts-ignore
         as={motion.li} 
         layout
         animate={{ opacity: 1 }}
         initial={{ opacity: 0 }}
-        transition={{ duration: 2 }}
+        transition={{ duration: isPersonDetails ? 0.3 : 1, delay: isPersonDetails && index * 0.3}}
         exit={{ opacity: 0 }}
       >
-        <PosterContainer>
+        
+        <PosterContainer onMouseOver={() => {
+          console.log('eita')
+        }}>
           <img src={moviePoster} alt={title} onClick={() => onClick(id)}/>
-
           <DetailsButton
             style={{
               opacity: dropDown && '1',
@@ -66,12 +81,20 @@ export const  MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesOb
           </DetailsButton>
          
         </PosterContainer>
-
-        <p>{title}</p>
+        
+        <p>{title?.length > 28 ? title?.substring(0, 28) + '...' : title}</p>
         <p>{moment(release_date).format('YYYY').toUpperCase()}</p>
+        {isProfile && (
+          <RateStars onChange={(e, rate) => {
+            dispatch(handleAddedMoviesObj(movie, 'rated', rate))
+          }}
+            value={value}
+            isProfile={isProfile}
+          />
+        )}
 
       </Movie>
-
+      
       <Dropdown
         anchorEl={dropDown}
         open={dropDown}
@@ -79,7 +102,8 @@ export const  MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesOb
       >
         <MovieAction
           onClick={() => {
-            handleAddedMoviesObj(movie, 'watched');
+            console.log('assisti', movie)
+            dispatch(handleAddedMoviesObj(movie, 'watched'));
           }}
         >
           <WatchIcon
@@ -90,7 +114,7 @@ export const  MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesOb
         </MovieAction>
         <MovieAction
           onClick={() => { 
-            handleAddedMoviesObj(movie, 'favorited');
+            dispatch(handleAddedMoviesObj(movie, 'favorited'));
           }}
         >
           <FavoriteIcon
@@ -101,7 +125,7 @@ export const  MovieCard = ({ onClick, movie, handleAddedMoviesObj, addedMoviesOb
         </MovieAction>
         <MovieAction>
           <RateStars onChange={(e, rate) => {
-            handleAddedMoviesObj(movie, 'rated', rate)
+            dispatch(handleAddedMoviesObj(movie, 'rated', rate))
           }}
             value={value}
           />

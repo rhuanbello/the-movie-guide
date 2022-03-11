@@ -15,7 +15,8 @@ export interface genresTypes {
 export interface searchedMovies extends movieListTypes {
   backdrop_path: string;
   vote_average: number;
-  popularity: number;  
+  popularity: number; 
+  createdAt?: Date; 
 
 }
 

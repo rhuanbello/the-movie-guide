@@ -1,7 +1,6 @@
 import { Container, PageButton } from './styles';
 import {  FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
 
 export const Pagination = () => {
   const pageObj = [
@@ -56,8 +55,10 @@ export const Pagination = () => {
     let pageNumber = value;
 
     console.log('label', label)
+    console.log('value', value)
+    console.log('condition', Number.isNaN(page) && isNaN(label))
 
-    if (Number.isNaN(page) && isNaN(label)) pageNumber = 2;
+    if (Number.isNaN(page) && isNaN(label) && typeof label !== 'string') pageNumber = 2
     if (pageNumber === 0) pageNumber = page + 1;
     if (pageNumber === -1) pageNumber = page - 1;
 
@@ -96,19 +97,16 @@ export const Pagination = () => {
     )
   }
 
-  useEffect(() => {
-    // window.onscroll = () => { window.scroll(0, 0); };
-
-  }, [page])
-
 return (
   <Container>
     {pageObj.map(({ label, value }, index) => (
       <PageButton
         disabled={handleDisabledButtons(label)}
         key={index}
-        onClick={() => {
-          if (value === 1 || (value === -1 && page === 2)) {
+        onClick={(e) => {
+          if (value === -1 && Number.isNaN(page)) {
+            e.preventDefault();
+          } else if (value === 1 || (value === -1 && page === 2)) {
             handlePageRoot()
           } else {
             handlePagination(value, label);

@@ -1,6 +1,9 @@
 export interface MoviesListProps {
   isRecommendation?: boolean | undefined;
-  moviesToRender: Array<MoviesToRenderTypes>;
+  isHomepage?: boolean;
+  isProfile?: boolean;
+  isPersonDetails?: boolean;
+  moviesToRender: Array<MoviesToRenderTypes> | any;
 
 }
 
@@ -9,5 +12,10 @@ interface MoviesToRenderTypes {
   id: number;
   poster_path: string;
   release_date: string;
+
+}
+
+export interface DefaultRootState {
+  moviesToRender: Array<MoviesToRenderTypes>;
 
 }

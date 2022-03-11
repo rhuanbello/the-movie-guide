@@ -1,7 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
-import { genresBannerProps } from './interfaces';
-
 import { MdCancel } from "react-icons/md";
 
 import { 
@@ -9,58 +5,41 @@ import {
   Container, 
   GenreButton, 
 } from './styles';
-import { searchedMovies } from "../../../pages/Home/interfaces";
-import { useState } from "react";
 
-export const GenresBanner = ({ 
-  genres, 
-  selectedGenres, 
-  setSelectedGenres, 
-  setSearchedTerm, 
-  searchedMovies,
-  backDrop
-}: genresBannerProps) => {
+import { useDispatch, useSelector } from "react-redux";
+import { DefaultRootState } from "../../../services/store/interfaces";
+import { handleSelectedGenres } from '../../../services/store/modules/Home/actions';
 
-  const handleSelectedGenres = (id: number) => {
-    const filteredSelectedGenres = [...selectedGenres];
-    const genreIndex = selectedGenres.findIndex(x => x === id);
+export const GenresBanner = () => {
+  const { moviesGenres, selectedGenres } = useSelector((state): DefaultRootState => state);
+  const dispatch = useDispatch();
 
-    if (genreIndex === -1) {
-      filteredSelectedGenres.push(id);
-    
-    } else {
-      filteredSelectedGenres.splice(genreIndex, 1);
-  
-    }
-
-    localStorage.setItem('Genres', JSON.stringify(filteredSelectedGenres))
-    setSelectedGenres(filteredSelectedGenres);
-  }
-
-  const navigate = useNavigate();
+  const imageBaseURL = 'https://www.themoviedb.org/t/p/'
+  const cover = '/tNE9HGcFOH8EpCmzO7XCYwqguI0.jpg'
+  const backdropCover = imageBaseURL + 'original' + cover;
 
   return (
-    <Container backDrop={backDrop}>
-
+    <Container backDrop={backdropCover}>
       <div>
         <h1>Milhões de Filmes e Pessoas para Descobrir. Explore já.</h1>
         <div>
           <p>FILTRE POR:</p>
           <ButtonContainer>
-            {genres.map((genre) => (
+            {moviesGenres.map(({ id, name }) => (
               <GenreButton
-                key={genre.id}
+                key={id}
                 style={{
-                  backgroundColor: selectedGenres.some(g => g === genre.id) ? 'var(--primary)' : 'var(--light)',
-                  color: 'var(--dark)',
+                  backgroundColor: selectedGenres?.some(selectedGenre => selectedGenre === id) ? 
+                                    'var(--primary)' : 
+                                    'var(--light)'
                 }}
                 onClick={() => {
-                  handleSelectedGenres(genre.id);
+                  dispatch(handleSelectedGenres(id))
                 }}
               >
-                {genre.name}
+                {name}
                 
-                {selectedGenres.some(selectedGenre => selectedGenre === genre.id) && (
+                {selectedGenres?.some(selectedGenre => selectedGenre === id) && (
                   <MdCancel
                     size={18}
                   />

@@ -1,43 +1,34 @@
-import { useEffect, useLayoutEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { personApi } from "../../services/requests/api";
-
-import { ScrollBack } from '../../components/Global/MovieIcons'
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import { 
   Container, 
   Cover,
-  MoviesSection
+  MoviesSection,
+  ProfileDetails,
+  ProfileHeader,
+  ProfileMoviesCount,
+  ProfileSection
 } from './styles';
 
-import { AnimatePresence, motion } from "framer-motion";
 import { MoviesList } from "../../components/Movies/MoviesList";
+import { EditProfileModal } from '../../components/Global/EditProfileModal';
+import { DefaultRootState } from "../../services/store/interfaces";
 
 export default function MyProfile() {
-  const [moviesList, setMoviesList] = useState({
-    watchedMovies: [],
-    favoriteMovies: [],
-    ratedMovies: []
-  })
+  const [ openModal, setOpenModal ] = useState(false);
 
-  useEffect(() => {
-    const moviesFromLocalStorage = localStorage.getItem('MoviesList')
-
-    if (moviesFromLocalStorage) {
-      const moviesList = JSON.parse(moviesFromLocalStorage);
-      console.log('atualizou')
-      setMoviesList(moviesList)
-    }
-
-    console.log('att')
-
-  }, [localStorage.getItem('MoviesList')]);
-
+  const { addedMoviesObj, profileEditedInfos } = useSelector((state): DefaultRootState => state);
+  const { watchedMovies, favoriteMovies } = addedMoviesObj;
   const {
-    watchedMovies,
-    favoriteMovies,
-    ratedMovies
-  } = moviesList;
+    profileName,
+    profileBio,
+    profileUsername,
+    usersProfileImagesObj
+  } = profileEditedInfos;
+  const { profileImage, profileCover } = usersProfileImagesObj;
+
+  const handleModalState = () => setOpenModal(!openModal);
 
   const handleThisYearMoviesWatched = (watchedMovies) => {
     const thisYearCount = [...watchedMovies]?.filter(
@@ -51,61 +42,84 @@ export default function MyProfile() {
 
   return (
     <Container>
-
       <Cover
-        backdrop={'https://www.themoviedb.org/t/p/original/3GppgdtQeVKfN6JhvGIGWYVsItn.jpg'}
+        backdrop={profileCover?.base64}
       >
-
-        <div>
-          <div>
-            <img src="https://github.com/rhuanbello.png" />
+        <ProfileHeader>
+          <ProfileDetails>
+            <img 
+              draggable={false}
+              src={profileImage?.base64}
+            />
             <div>
-              <h2>Rhuan Bello</h2>
-              <p>Front-End Developer | INFJ-T não tenho nada à oferecer</p>
+              <h2>{profileName}</h2>
+              <p>{profileUsername.includes('@') ? profileUsername : '@' + profileUsername}</p>
+              <p>{profileBio}</p>
             </div>
-          </div>
-          <ul>
-            <li>
-              <p>{watchedMovies?.length}</p>
-              <span>Já vi</span>
-            </li>
-            <li>
-              <p>{handleThisYearMoviesWatched(watchedMovies)}</p>
-              <span>Neste ano</span>
-            </li>
-            <li>
-              <p>{favoriteMovies?.length}</p>
-              <span>Favoritos</span>
-            </li>
-          </ul>
-
-        </div>
-
-       
+          </ProfileDetails>
+          <ProfileSection>
+            <ProfileMoviesCount>
+              <li>
+                <p>{watchedMovies?.length}</p>
+                <span>Já vi</span>
+              </li>
+              <li>
+                <p>{handleThisYearMoviesWatched(watchedMovies)}</p>
+                <span>Neste ano</span>
+              </li>
+              <li>
+                <p>{favoriteMovies?.length}</p>
+                <span>Favoritos</span>
+              </li>
+            </ProfileMoviesCount>
+            <button
+              onClick={handleModalState}  
+            >
+              Editar Perfil
+            </button>
+            <EditProfileModal 
+              openModal={openModal}
+              handleModalState={handleModalState}
+              profileEditedInfos={profileEditedInfos}
+            />
+          </ProfileSection>
+        </ProfileHeader>
       </Cover>
 
-      <MoviesSection>
-        <h3>Filmes favoritos</h3>
+      {favoriteMovies.length > 0 && (
+        <MoviesSection>
+          <h3>Filmes favoritos</h3>
 
-        <MoviesList 
-          moviesToRender={favoriteMovies}
-          isRecommendation={true}
-          setMoviesList={setMoviesList}
-        />
+          <MoviesList 
+            moviesToRender={favoriteMovies}
+            isRecommendation={true}
+            isProfile={true}
+          />
 
-      </MoviesSection>
+        </MoviesSection>
+      )}
 
-      <MoviesSection>
-        <h3>Assisti Recentemente</h3>
+      {watchedMovies.length > 0 && (
+        <MoviesSection>
+          <h3>Assisti Recentemente</h3>
 
-        <MoviesList 
-          moviesToRender={watchedMovies}
-          setMoviesList={setMoviesList}
-        />
+          <MoviesList 
+            moviesToRender={watchedMovies} 
+            isProfile={true}
+          />
 
-      </MoviesSection>
-    
+        </MoviesSection>
+      )}
+
+      {favoriteMovies.length <= 0 && watchedMovies.length <= 0 && (
+        <MoviesSection>
+          <h3>Ops... não há nada por aqui.</h3>
+        </MoviesSection>
+      )}
+  
+        
     </Container>
   );
 }
+
 

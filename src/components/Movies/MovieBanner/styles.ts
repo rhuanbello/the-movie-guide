@@ -9,6 +9,7 @@ export const Container = styled.section<ContainerProps>`
   background: ${({ backdrop }) => `linear-gradient(0deg, rgba(44, 52, 64, 0.7), rgba(44, 52, 64, 0.7)), radial-gradient(100% 576% at 0% 50%, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.18) 50%, rgba(0, 0, 0, 0.6) 100%), url(${backdrop}) no-repeat center center`};
   background-size: cover;
   color: var(--text-light);
+  height: 65vh;
 
   & > div {
     width: 85vw;
@@ -16,7 +17,6 @@ export const Container = styled.section<ContainerProps>`
     padding-block: 72px 10px;
     display: flex;
     gap: 50px;
-    /* flex-wrap: wrap; */
 
     @media(max-width: 1200px) {
       justify-content: center;

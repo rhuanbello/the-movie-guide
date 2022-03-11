@@ -1,6 +1,9 @@
 export interface MovieCardProps {
   onClick: (value: number) => void;
   movie: movieListTypes;
+  isProfile: boolean | undefined;
+  isPersonDetails: boolean | undefined;
+  index: number;
 }
 
 interface movieListTypes {
