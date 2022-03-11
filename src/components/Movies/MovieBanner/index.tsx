@@ -162,7 +162,7 @@ export const MovieBanner = ({ detailsLoading }: MovieBannerProps) => {
                   size={20}
                   noText
                   isFavorite={addedMoviesObj.favoriteMovies.some(m => m.id === movie.id)}
-                  defaultColor='var(--light)' onClick={undefined} actionColor={undefined}                
+                  defaultColor='var(--light)'                
                 />
               </button>
               <button>

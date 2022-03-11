@@ -3,6 +3,7 @@ import { ProfileImage } from './styles';
 import { BiImageAdd } from "react-icons/bi";
 import { useDispatch } from 'react-redux';
 import { handleProfileImage } from '../../../services/store/modules/MyProfile/actions';
+import { DropZoneProps } from './interfaces';
 
 export const DropZone = ({ 
   width, 
@@ -12,8 +13,7 @@ export const DropZone = ({
   background,
   imageToRender,
   imageType,
-}) => {
-
+}: DropZoneProps) => {
   const getBase64 = async (file) => {
     console.log('file', file)
     new Promise((resolve, reject) => {
@@ -52,7 +52,7 @@ export const DropZone = ({
             base64: reader.result,
           });
         reader.onerror = reject;
-      }).then(({ base64 }) => {
+      }).then(({ base64 }: any) => {
 
         const profileImageObj = {
           ...draggedImage,

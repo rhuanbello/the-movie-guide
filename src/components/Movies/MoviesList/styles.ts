@@ -3,7 +3,7 @@ import styled from 'styled-components';
 interface ContentProps {
   isRecommendation: undefined | boolean;
   isHomepage: undefined | boolean;
-  isProfile: boolean;
+  isProfile: boolean | undefined;
 }
 
 export const Container = styled.ul`

@@ -10,10 +10,13 @@ import { cleaningPreviousState } from "../../services/store/modules/Global/actio
 import { handleMovieCast, handleMovieDetails, handleMovieRecommendations, handleMovieTrailer } from "../../services/store/modules/MovieDetails/actions";
 
 export default function MovieDetails() {
+  //@ts-ignore
+  const { VITE_API_KEY } = import.meta.env;
+  
   const { movieRecommendations } = useSelector((state): DefaultRootState => state);
 
   const dispatch = useDispatch();
-  const { VITE_API_KEY } = import.meta.env;
+
   const { id } = useParams();
   const [detailsLoading, setDetailsLoading] = useState(true);
   const [isRecommendation] = useState<boolean | undefined>(Boolean(movieRecommendations));
@@ -66,7 +69,7 @@ export default function MovieDetails() {
 
   return (
     <>
-      <MovieBanner detailsLoading={detailsLoading} setDetailsLoading={setDetailsLoading} />
+      <MovieBanner detailsLoading={detailsLoading} />
       <MovieCredits />
       <MoviesList moviesToRender={movieRecommendations} isRecommendation={isRecommendation} />
     </>

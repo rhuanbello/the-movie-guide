@@ -4,7 +4,9 @@ import StarIcon from '@mui/icons-material/Star';
 import { useState } from 'react';
 import { BsArrowUpShort } from 'react-icons/bs';
 
-export const DetailsIcon = ({ dropDown }) => {
+import { FavoriteIconProps, RateStarsProps, WatchIconProps } from './interfaces';
+
+export const DetailsIcon = ({ dropDown }: any) => {
   return (
     <>
       {dropDown ? (
@@ -27,7 +29,7 @@ export const FavoriteIcon = ({
   size, 
   isFavorite, 
   noText
-}) => {
+}: FavoriteIconProps) => {
   return (
     <button
       className="noFilter"
@@ -57,8 +59,8 @@ export const WatchIcon = ({
   actionColor, 
   size, 
   isWatched, 
-  noText 
-}) => {
+  noText,
+}: WatchIconProps) => {
   return (
     <button
       onClick={onClick}
@@ -83,8 +85,14 @@ export const WatchIcon = ({
   )
 }
 
-export const RateStars = ({ defaultColor, hoverX, onChange, value, isProfile }) => {
-  const [hover, setHover] = useState(-1);
+export const RateStars = ({ 
+  defaultColor, 
+  hoverX, 
+  onChange, 
+  value, 
+  isProfile 
+}: RateStarsProps) => {
+  const [hover, setHover] = useState<any>(-1);
 
   const labels: { [index: string]: string } = {
     0.5: 'Awful',
@@ -128,7 +136,7 @@ export const RateStars = ({ defaultColor, hoverX, onChange, value, isProfile }) 
   );
 }
 
-export const ScrollBack = ({ onClick }) => {
+export const ScrollBack = ({ onClick }: any) => {
   return (
     <button
       onClick={onClick}

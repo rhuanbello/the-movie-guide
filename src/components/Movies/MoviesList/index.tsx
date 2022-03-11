@@ -1,13 +1,11 @@
-import { MovieCard } from '../MovieCard'
 
+import { useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 
 import { MoviesListProps } from './interfaces';
-
-import { Container, Content, SectionTitle } from "./styles";
-
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { Container, Content, SectionTitle } from "./styles";
+import { MovieCard } from '../MovieCard'
 
 export const MoviesList = ({ 
   isRecommendation,
@@ -18,10 +16,6 @@ export const MoviesList = ({
 }: MoviesListProps ) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
-  useEffect(() => {
-    handleSectionTitle();
-  }, [pathname])
 
   const handleSectionTitle = () => {
     let title = 'Filmes mais Populares';
@@ -36,6 +30,10 @@ export const MoviesList = ({
 
     return title;
   }
+
+  useEffect(() => {
+    handleSectionTitle();
+  }, [pathname])
 
   return (
     <>

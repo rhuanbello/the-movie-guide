@@ -17,12 +17,12 @@ export interface movieTypes {
   id: number;
   poster_path: string;
   release_date: string;
-  createdAt: Date;
+  createdAt?: Date;
 
 }
 interface favoriteMoviesTypes {
   title: string;
-  createdAt: Date;
+  createdAt?: Date | undefined;
   id: number;
   poster_path: string;
   release_date: string;

@@ -23,30 +23,38 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleAddedMoviesObj } from "../../../services/store/modules/Global/actions";
 import { DefaultRootState } from "../../../services/store/interfaces";
 
-export const MovieCard = ({ onClick, movie, isProfile, isPersonDetails, index }: MovieCardProps) => {
+export const MovieCard = ({ 
+  onClick, 
+  movie, 
+  isProfile, 
+  isPersonDetails, 
+  index 
+}: MovieCardProps) => {
+  const [value, setValue] = useState(0)
+  const [dropDown, setDropDown] = useState<any>(null);
   const { addedMoviesObj } = useSelector((state): DefaultRootState => state);
   const dispatch = useDispatch()
-
+  
   const { 
     title, 
     release_date, 
     poster_path,
     id
   } = movie;
-
+  
   const moviePoster = `https://image.tmdb.org/t/p/w200/${poster_path}`;
-  const [value, setValue] = useState(0)
-  const [dropDown, setDropDown] = useState<boolean>(null);
+
   const onClose = () => setDropDown(null);
 
   useEffect(() => {
-    const finalRate = addedMoviesObj?.ratedMovies?.find(m => m.id === movie.id)?.rate || 0
+    const finalRate = addedMoviesObj?.ratedMovies?.find((m): any => m.id === movie.id)?.rate || 0
     setValue(finalRate)
   }, [addedMoviesObj])
 
   return (
     <AnimatePresence>
       <Movie 
+        //@ts-ignore
         as={motion.li} 
         layout
         animate={{ opacity: 1 }}

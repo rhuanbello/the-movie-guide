@@ -13,15 +13,18 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { handlePopularPerson } from '../../services/store/modules/PopularPerson/actions'
 import { DefaultRootState } from "../../services/store/interfaces";
+import { popularPersonProps } from "../../services/store/modules/PopularPerson/interfaces";
 
 export default function PopularPerson() {
+  //@ts-ignore
   const { VITE_API_KEY } = import.meta.env;
+
   const navigate = useNavigate();
   const [pageCount, setPageCount] = useState(1)
   const { popularPerson } = useSelector((state): DefaultRootState => state);
   const dispatch = useDispatch();
 
-  const getPopularPerson = (page) => {
+  const getPopularPerson = (page: string | number | undefined) => {
     personApi
       .get(`popular?api_key=${VITE_API_KEY}&language=pt-BR&page=${page}`)
       .then(({ data }) => {
@@ -62,16 +65,15 @@ export default function PopularPerson() {
  
   return (
     <Container>
-
       <h2>Pessoas Populares</h2>
       <Cards>
-        {popularPerson?.map(({ profile_path, id, name, movies }, i) => (
+        {popularPerson?.map(({ profile_path, id, name, movies }: any, i: number) => (
           <AnimatePresence>
             <PersonCard
               as={motion.li}
               animate={{ opacity: 1 }}
               initial={{ opacity: 0 }}
-              transition={{ delay: i * .05 }}
+              transition={{ duration: .3 }}
               onClick={() => {
                 navigate(`/person/${id}`)
               }}

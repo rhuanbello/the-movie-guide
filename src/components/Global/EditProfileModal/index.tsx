@@ -46,8 +46,9 @@ export const EditProfileModal = ({
   
   const handleIsProfileChanged = () => {
 
-    const profileNameBioChanged = Object.values(profileNameBio)?.every(x => x?.length > 0);
-    const usersProfileImagesObjChanged = Object.values(usersProfileImagesObj)?.every(x => x?.preview?.length > 0);
+    const profileNameBioChanged = Object?.values(profileNameBio)?.every(x => x?.length > 0);
+    //@ts-ignore
+    const usersProfileImagesObjChanged = Object?.values(usersProfileImagesObj)?.every((x): any => x?.preview?.length > 0);
     return profileNameBioChanged && usersProfileImagesObjChanged;
 
   }

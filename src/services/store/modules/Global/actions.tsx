@@ -3,7 +3,7 @@ import { moviesToRenderResponse, movieTypes, searchedMoviesResponse } from "./in
 export function handleAddedMoviesObj(
   movie: movieTypes, 
   type: string, 
-  rate: number
+  rate?: number | null
 ) {
   return {
     typeState: 'setAddedMoviesObj',

@@ -1,31 +1,30 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { GenresBanner } from '../../components/Movies/GenresBanner';
-import { MoviesList } from '../../components/Movies/MoviesList';
-import { Pagination } from '../../components/Global/Pagination';
-
-import { collectionApi, genreApi, movieApi } from '../../services/requests/api';
-
-import {
-  movieListTypes,
-  genresTypes,
-} from './interfaces';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { genreApi, movieApi } from '../../services/requests/api';
 import { handleMoviesGenres } from '../../services/store/modules/Home/actions';
 import { handleMoviesToRender } from '../../services/store/modules/Global/actions';
 import { DefaultRootState } from '../../services/store/interfaces';
 
+import { GenresBanner } from '../../components/Movies/GenresBanner';
+import { MoviesList } from '../../components/Movies/MoviesList';
+import { Pagination } from '../../components/Global/Pagination';
+
 export default function Home() {
-  const { moviesToRender, selectedGenres } = useSelector((state: DefaultRootState) => state);
+  //@ts-ignore
   const { VITE_API_KEY } = import.meta.env;
+  
+  const { moviesToRender, selectedGenres } = useSelector((state: DefaultRootState) => state);
   const { page } = useParams();
   const { pathname } = useLocation();
-
-  const [moviesList, setMoviesList] = useState<movieListTypes[]>([]);
-  const [isHomepage] = useState<boolean | undefined>(Boolean(moviesList));
   const dispatch = useDispatch();
 
-  const getMovies = (page: string | undefined, selectedGenres: Array<Number>, path: string) => {
+  const getMovies = (
+    page: string | undefined, 
+    selectedGenres: Array<Number> | undefined, 
+    path: string
+  ) => {
     const genresToRender = selectedGenres?.join(',');
     console.log(`get de ${path}/${page || 1}`)
 
@@ -35,7 +34,6 @@ export default function Home() {
       )
       .then(({ data }) => {
         const { results } = data;
-        console.log('movies', data)
         dispatch(handleMoviesToRender(results))
       })
       .catch((error) => {
@@ -57,10 +55,12 @@ export default function Home() {
 
   };
 
-  const handlePathname = (page, selectedGenres, pathname) => {
+  const handlePathname = (
+    page: string | undefined, 
+    selectedGenres: Array<Number> | undefined, 
+    pathname: string
+  ) => {
     let path = '';
-
-    console.log(pathname)
 
     if (pathname.includes('top-rated')) {
       path = 'top_rated'
@@ -86,7 +86,7 @@ export default function Home() {
   return (
     <>
       <GenresBanner />
-      <MoviesList isHomepage={isHomepage} moviesToRender={moviesToRender} />
+      <MoviesList isHomepage={true} moviesToRender={moviesToRender} />
       <Pagination />
     </>
   );

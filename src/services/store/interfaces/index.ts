@@ -11,16 +11,25 @@ import { moviesGenresProps } from '../modules/Home/interfaces';
 import { movieDetailsProps, 
   movieRecommendationsProps 
 } from '../modules/MovieDetails/interfaces';
-export interface DefaultRootState {
-  addedMoviesObj: addedMoviesObjProps;
-  searchedMovies: searchedMoviesProps;
-  moviesToRender: Array<moviesToRenderProps>;
-  moviesGenres: Array<moviesGenresProps>;
-  selectedGenres: Array<Number>;
-  movieDetails: movieDetailsProps;
-  movieTrailer: string;
-  movieRecommendations: Array<movieRecommendationsProps>;
-  movieCredits: Array<movieCreditsProps>;
 
+import { profileEditedInfosObjProps, 
+  usersProfileImagesObjProps 
+} from '../modules/MyProfile/interfaces';
+import { personDetailsProps } from '../modules/PersonDetails/interfaces';
+import { popularPersonProps } from '../modules/PopularPerson/interfaces';
+export interface DefaultRootState {
+  addedMoviesObj?: addedMoviesObjProps | any;
+  searchedMovies?: searchedMoviesProps | searchedMoviesProps[] | any;
+  moviesToRender?: Array<moviesToRenderProps> | any;
+  moviesGenres?: Array<moviesGenresProps> | any;
+  selectedGenres?: Array<Number> | undefined;
+  movieDetails?: movieDetailsProps | any;
+  movieTrailer?: string | any;
+  movieRecommendations?: Array<movieRecommendationsProps> | any;
+  movieCredits?: Array<movieCreditsProps> | any;
+  usersProfileImagesObj?: usersProfileImagesObjProps | any;
+  profileEditedInfos?: profileEditedInfosObjProps | any;
+  personDetails?: personDetailsProps | any;
+  popularPerson?: Array<popularPersonProps> | popularPersonProps | any;
 }
 
