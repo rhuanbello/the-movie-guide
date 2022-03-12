@@ -82,16 +82,18 @@ export const MovieCredits = () => {
             <Subtitle className="Trailer">
               Trailer
             </Subtitle>
-            <iframe 
-              className="IFrame"
-              src={youtube_baseURL} 
-              width="853"
-              height="480"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              title="Embedded youtube"
-            ></iframe>
+            <div className="TrailerContainer">
+              <iframe 
+                className="IFrame"
+                src={youtube_baseURL} 
+                width="853"
+                height="480"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title="Embedded youtube"
+              ></iframe>
+            </div>
           </motion.div>
         }
         <Subtitle className="Recommendations">Recomendações</Subtitle>

@@ -6,15 +6,24 @@ export const Container = styled.main`
   width: 100%;
   display: grid;
   place-items: center;
+  backdrop-filter: blur(2px);
+  transition: .2s;
   
 `
 
 export const Content = styled.div`
   background: var(--dark);
   margin: 0 auto;
-  min-height: 85%;
-  width: 50%;
+  min-height: 85vh;
+  min-width: 50vw;
   border-radius: 20px;
+  transition: .2s;
+
+  @media (max-width: 1100px) {
+    min-width: 70vw;
+
+  }
+
 
 `
 interface ContentProps {

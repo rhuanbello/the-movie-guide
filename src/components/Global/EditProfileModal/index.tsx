@@ -8,26 +8,23 @@ import { handleProfileEditedInfos } from '../../../services/store/modules/MyProf
 import { DropZone } from '../DropZone';
 import { Container, Content, HeaderModal, MainModal, SectionModal } from './styles';
 
-export const EditProfileModal = ({ 
-  openModal, 
-  handleModalState, 
-  profileEditedInfos 
+export const EditProfileModal = ({
+  openModal,
+  handleModalState,
+  profileEditedInfos
 }) => {
   const dispatch = useDispatch()
   const { usersProfileImagesObj } = useSelector((state): DefaultRootState => state);
   const { profileImage, profileCover } = usersProfileImagesObj;
-  const [ profileNameBio, setProfileNameBio ] = useState({
+  const [profileNameBio, setProfileNameBio] = useState({
     profileName: '',
     profileBio: '',
     profileUsername: ''
   });
 
   const { profileName, profileBio, profileUsername } = profileNameBio;
-  
+
   useEffect(() => {
-
-    console.log('profileImage', profileImage)
-
     const { profileName, profileBio, profileUsername } = profileEditedInfos;
     if (profileName && profileBio && profileUsername) {
       setProfileNameBio({
@@ -43,15 +40,18 @@ export const EditProfileModal = ({
     tempProfileNameBio[type] = value;
     setProfileNameBio(tempProfileNameBio);
   }
-  
-  const handleIsProfileChanged = () => {
 
+  const handleIsProfileChanged = () => {
     const profileNameBioChanged = Object?.values(profileNameBio)?.every(x => x?.length > 0);
     //@ts-ignore
     const usersProfileImagesObjChanged = Object?.values(usersProfileImagesObj)?.every((x): any => x?.preview?.length > 0);
     return profileNameBioChanged && usersProfileImagesObjChanged;
 
   }
+
+  const handleInputColor = (value) => (
+    value.length > 0 ? 'success' : 'error'
+  )
 
   return (
     <Modal
@@ -62,7 +62,9 @@ export const EditProfileModal = ({
         <Content>
           <HeaderModal profileChanged={handleIsProfileChanged()}>
             <button
-              onClick={handleModalState}
+              onClick={() => {
+                handleModalState();
+              }}
             >
               <AiOutlineClose />
             </button>
@@ -73,8 +75,8 @@ export const EditProfileModal = ({
               onClick={() => {
                 if (handleIsProfileChanged()) {
                   dispatch(handleProfileEditedInfos(profileNameBio, usersProfileImagesObj));
+                  handleModalState();
                 }
-                handleModalState();
               }}
             >
               Salvar
@@ -89,7 +91,7 @@ export const EditProfileModal = ({
               />
             </div>
             <div className="ProfileImage">
-              <DropZone 
+              <DropZone
                 imageToRender={profileImage.base64}
                 imageType="profileImage"
                 rounded
@@ -98,11 +100,11 @@ export const EditProfileModal = ({
             </div>
           </SectionModal>
           <MainModal>
-            <TextField 
-              color="success"
+            <TextField
+              color={handleInputColor(profileName)}
               label="Nome"
               defaultValue={profileName}
-              fullWidth 
+              fullWidth
               focused
               autoFocus
               onChange={(e) => handleProfileNameBio(e.target.value, 'profileName')}
@@ -110,9 +112,9 @@ export const EditProfileModal = ({
                 maxLength: 25,
               }}
             />
-            
+
             <TextField
-              color="success"
+              color={handleInputColor(profileUsername)}
               label="Nome de Usuário"
               defaultValue={profileUsername}
               fullWidth
@@ -123,18 +125,18 @@ export const EditProfileModal = ({
               }}
             />
 
-            <TextField 
-              color="success"
+            <TextField
+              color={handleInputColor(profileBio)}
               label="Bio"
               defaultValue={profileBio}
-              fullWidth 
+              fullWidth
               focused
               onChange={(e) => handleProfileNameBio(e.target.value, 'profileBio')}
               inputProps={{
                 maxLength: 65,
               }}
             />
-            
+
           </MainModal>
         </Content>
       </Container>
