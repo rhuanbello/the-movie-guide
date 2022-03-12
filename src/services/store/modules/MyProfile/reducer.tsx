@@ -21,7 +21,6 @@ export function usersProfileImagesObj(
 
   switch (type) {
     case 'setProfileImage':
-      console.log('action', state)
       const tempUsersProfileImagesObj: any = { ...state };
       tempUsersProfileImagesObj[imageType] = { ...image };
       return tempUsersProfileImagesObj;
@@ -43,8 +42,6 @@ export function profileEditedInfos(
   switch (type) {
     case 'setProfileEditedInfos':
       const { profileName, profileBio, profileUsername } = profileNameBio;
-
-      console.log('setProfileEditedInfos action', action)
 
       const tempProfileEditedInfos = {
         profileName: profileName,

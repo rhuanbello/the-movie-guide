@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
-import { MovieBanner } from '../../components/Movies/MovieBanner';
-import { MovieCredits } from '../../components/Movies/MovieCredits';
-import { MoviesList } from "../../components/Movies/MoviesList";
+
 import { movieApi } from "../../services/requests/api";
 import { DefaultRootState } from "../../services/store/interfaces";
 import { cleaningPreviousState } from "../../services/store/modules/Global/actions";
-import { handleMovieCast, handleMovieDetails, handleMovieRecommendations, handleMovieTrailer } from "../../services/store/modules/MovieDetails/actions";
+import { 
+  handleMovieCast, 
+  handleMovieDetails, 
+  handleMovieRecommendations, 
+  handleMovieTrailer 
+} from "../../services/store/modules/MovieDetails/actions";
+
+import { MovieBanner } from '../../components/Movies/MovieBanner';
+import { MovieCredits } from '../../components/Movies/MovieCredits';
+import { MoviesList } from "../../components/Movies/MoviesList";
 
 export default function MovieDetails() {
   //@ts-ignore

@@ -1,9 +1,12 @@
 import { useDropzone } from 'react-dropzone';
-import { ProfileImage } from './styles';
-import { BiImageAdd } from "react-icons/bi";
 import { useDispatch } from 'react-redux';
+
+import { BiImageAdd } from "react-icons/bi";
+
 import { handleProfileImage } from '../../../services/store/modules/MyProfile/actions';
 import { DropZoneProps } from './interfaces';
+
+import { ProfileImage } from './styles';
 
 export const DropZone = ({ 
   width, 
@@ -15,7 +18,6 @@ export const DropZone = ({
   imageType,
 }: DropZoneProps) => {
   const getBase64 = async (file) => {
-    console.log('file', file)
     new Promise((resolve, reject) => {
       const reader = new FileReader();
 

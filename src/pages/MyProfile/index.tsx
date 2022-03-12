@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
+import { DefaultRootState } from "../../services/store/interfaces";
+
+import { MoviesList } from "../../components/Movies/MoviesList";
+import { EditProfileModal } from '../../components/Global/EditProfileModal';
+
 import { 
   Container, 
   Cover,
@@ -10,10 +15,6 @@ import {
   ProfileMoviesCount,
   ProfileSection
 } from './styles';
-
-import { MoviesList } from "../../components/Movies/MoviesList";
-import { EditProfileModal } from '../../components/Global/EditProfileModal';
-import { DefaultRootState } from "../../services/store/interfaces";
 
 export default function MyProfile() {
   const [ openModal, setOpenModal ] = useState(false);

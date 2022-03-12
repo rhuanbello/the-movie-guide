@@ -7,8 +7,6 @@ export function personDetails(state: personDetailsProps = {} as personDetailsPro
     case 'setPersonDetails': {
       const data = response;
 
-      console.log('PersonDetails', action)
-
       const personBanner = {
         biography: data.biography,
         homepage: data.homepage,
@@ -45,9 +43,6 @@ export function personDetails(state: personDetailsProps = {} as personDetailsPro
       setTimeout(() => {
         setDetailsLoading(false);
       }, 800);
-
-      console.log('PersonDetails state', personDetailsObj)
-
 
       return personDetailsObj;
     }

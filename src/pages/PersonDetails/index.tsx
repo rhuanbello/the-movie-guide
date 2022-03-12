@@ -4,14 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { personApi } from "../../services/requests/api";
 import { handlePersonDetails } from "../../services/store/modules/PersonDetails/actions";
+import { DefaultRootState } from "../../services/store/interfaces";
 
 import { PersonBanner } from "../../components/Person/PersonBanner";
 import { PersonCredits } from "../../components/Person/PersonCredits";
 import { MoviesList } from "../../components/Movies/MoviesList";
 
 import { Container, ContainerPerson } from './styles';
-import { DefaultRootState } from "../../services/store/interfaces";
-import { personDetailsProps } from "../../services/store/modules/PersonDetails/interfaces";
 
 export default function PersonDetails() {
   //@ts-ignore
