@@ -43,7 +43,9 @@ export const Content = styled.ul<ContentProps>`
   }
   
   @media(max-width: 500px) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: ${({ isProfile }) => !isProfile && '1fr 1fr'};
+    grid-auto-flow: ${({isProfile}) => isProfile && 'column'};
+    overflow-x: ${({isProfile}) => isProfile && 'auto'};
     
   }
 

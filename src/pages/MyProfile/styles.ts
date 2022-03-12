@@ -16,6 +16,7 @@ export const Cover = styled.header<HeaderProps>`
   background: ${({ backdrop }) => `radial-gradient(99.21% 2931.1% at 99.21% 50%, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 48.75%, rgba(0, 0, 0, 0.6) 100%), linear-gradient(0deg, rgba(44, 52, 64, 0.4), rgba(44, 52, 64, 0.4)), url(${backdrop}) no-repeat center center`};
   background-size: cover;
 
+
 `
 export const ProfileHeader = styled.div` 
   display: flex;
@@ -24,7 +25,20 @@ export const ProfileHeader = styled.div`
   width: 85vw;
   margin: 0 auto;
   padding: 50px 0;
-  
+
+  @media (max-width: 880px) {
+    flex-wrap: wrap;
+    gap: 60px;
+    padding-bottom: 100px;
+
+    & > div:last-child {
+      button {
+        opacity: 1;
+      }
+    }
+
+  }
+
   &:hover {
     & > div:last-child {
       button {
@@ -40,6 +54,13 @@ export const ProfileDetails = styled.div`
   display: flex;
   gap: 30px;
   align-items: center;
+
+  @media (max-width: 880px) {
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 85vw;
+
+  }
 
   img {
     border-radius: 50%;
@@ -82,7 +103,17 @@ export const ProfileDetails = styled.div`
 export const ProfileSection = styled.div`
   display: flex;
   position: relative;
-  height: 100%;
+
+  @media (min-width: 880px) {
+    height: 100%;
+
+  }
+
+  
+  @media (max-width: 880px) {
+    width: 100%;
+
+  }
 
   button {
     transition: .2s;
@@ -101,6 +132,13 @@ export const ProfileSection = styled.div`
     font-size: 14px;
     align-self: center;
 
+    @media (max-width: 880px) {
+      bottom: -65px;
+      right: 30%;
+      width: 40%;
+
+    }
+
 
   }
 
@@ -111,6 +149,11 @@ export const ProfileMoviesCount = styled.ul`
   justify-content: center;
   align-items: center;
   gap: 50px;
+
+  @media (max-width: 880px) {
+    margin: 0 auto;
+
+  }
 
   li {
     display: flex;
