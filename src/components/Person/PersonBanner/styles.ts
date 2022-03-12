@@ -8,6 +8,17 @@ export const Container = styled.section`
   gap: 50px;
   grid-template-columns: 1fr 2.5fr;
 
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+    padding-block: 50px;
+
+    a {
+      margin: 0 auto;
+
+    }
+
+  }
+
 `
 
 export const PersonPoster = styled.img`
