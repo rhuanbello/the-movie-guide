@@ -6,11 +6,12 @@ export const Container = styled.div`
   justify-content: center;  
   padding: 80px 0;
   align-items: center;
-  /* width: 95vw; */
 
   @media(max-width: 500px) {
     padding-block: 0 40px;
-    
+    flex-wrap: wrap;
+
+
   }
 
 `
@@ -26,13 +27,12 @@ export const PageButton = styled.button<PageButtonsProps>`
   display: grid;
   place-items: center;
   color: var(--primary);
-  width: 30px;
   aspect-ratio: 1;
   font-size: 14px;
   font-weight: 700;
   border-radius: 50%;
   transition: .2s ease-in-out;
-  opacity: ${({ page, value }) => (value === -1 && Number.isNaN(page)) ? '0' : '1'};
+  display: ${({ page, value }) => (value === -1 && Number.isNaN(page)) ? 'none' : 'grid'};
   cursor: ${({ page, value }) => (value === -1 && Number.isNaN(page)) && 'default'};
 
   &:hover {
@@ -40,8 +40,11 @@ export const PageButton = styled.button<PageButtonsProps>`
     color: ${({ value }) => (value >= 1 && value <= 5) && 'var(--dark)'};
 
   }
-
   
+  &:not(:last-child) {
+    width: 30px;
+
+  }
 
 
 `

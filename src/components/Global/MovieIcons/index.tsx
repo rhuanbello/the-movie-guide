@@ -136,7 +136,7 @@ export const RateStars = ({
   );
 }
 
-export const ScrollBack = ({ onClick }: any) => {
+export const ScrollBack = ({ onClick, scrollY }: any) => {
   return (
     <button
       onClick={onClick}
@@ -152,7 +152,10 @@ export const ScrollBack = ({ onClick }: any) => {
         bottom: '30px',
         right: '30px',
         borderRadius: '50%',
-        padding: '7px'
+        padding: '7px',
+        transform: scrollY >= 3000 ? 'translateY(0)' : 'translateY(100px)',
+        opacity: scrollY >= 3000 ? '1' : '0',
+        transition: '.4s ease-in-out'
       }}
     >
       <BsArrowUpShort size={32} />      

@@ -9,7 +9,7 @@ import { PersonBanner } from "../../components/Person/PersonBanner";
 import { PersonCredits } from "../../components/Person/PersonCredits";
 import { MoviesList } from "../../components/Movies/MoviesList";
 
-import { Container } from './styles';
+import { Container, ContainerPerson } from './styles';
 import { DefaultRootState } from "../../services/store/interfaces";
 import { personDetailsProps } from "../../services/store/modules/PersonDetails/interfaces";
 
@@ -58,7 +58,7 @@ export default function PersonDetails() {
   }
 
   return (
-    <>
+    <ContainerPerson>
       <PersonBanner
         personBanner={personBanner}
         detailsLoading={detailsLoading}
@@ -71,7 +71,7 @@ export default function PersonDetails() {
           <MoviesList moviesToRender={personFilmography} isPersonDetails={true} />
         </section>
       </Container>
-    </>
+    </ContainerPerson>
   );
 }
 

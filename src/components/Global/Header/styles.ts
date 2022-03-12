@@ -10,9 +10,20 @@ export const Container = styled.header`
       margin: 0 auto;
       display: flex;
       align-items: center;
+      
+      @media(max-width: 950px) {
+        flex-wrap: wrap;
+        
+      }
 
     img {
       cursor: pointer;
+
+       @media(max-width: 610px) {
+        margin: 15px auto 0 auto;
+
+      }
+
     }
 
     & > nav {
@@ -20,6 +31,18 @@ export const Container = styled.header`
       gap: 15px;
       margin-inline: auto 40px;
       padding: 20px 0;
+
+      @media(max-width: 950px) {
+        margin-inline: auto 0;
+
+      }
+
+      @media(max-width: 610px) {
+        margin-inline: auto;
+
+      }
+  
+
 
     }
   }
@@ -103,8 +126,9 @@ export const StyledAutocomplete = styled(Autocomplete)`
     margin: 0;
     
 
-    @media(max-width: 850px) {
+    @media(max-width: 950px) {
       width: 90vw;
+      margin-bottom: 25px;
 
     }
 

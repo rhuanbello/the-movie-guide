@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.main`
-  padding-top: 70px;
+  padding-top: 100px;
   background-color: var(--background);
 
 `
@@ -15,6 +15,7 @@ export const Content = styled.div`
 
     iframe {
       width: 90vw;
+      height: 70vw;
 
     }
 
@@ -47,15 +48,6 @@ export const Cards = styled.ul`
   scroll-snap-type: x mandatory;
   gap: 16px;
   padding: 24px 0;
-
-  @media(max-width: 1000px) {
-
-    iframe {
-      width: 85vw;
-
-    }
-
-  }
 
   @media(max-width: 650px) {
     width: 95vw;
