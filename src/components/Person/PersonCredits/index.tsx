@@ -13,8 +13,6 @@ export const PersonCredits = ({ personDetails }) => {
     moviesCount
   } = personDetails || {};
 
-  console.log('also_known_as', also_known_as);
-
   const listOfPersonInfo = [
     {
       title: 'Gênero',

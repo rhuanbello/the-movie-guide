@@ -63,9 +63,7 @@ export const MovieCard = ({
         exit={{ opacity: 0 }}
       >
         
-        <PosterContainer onMouseOver={() => {
-          console.log('eita')
-        }}>
+        <PosterContainer>
           <img src={moviePoster} alt={title} onClick={() => onClick(id)}/>
           <DetailsButton
             style={{
@@ -102,7 +100,6 @@ export const MovieCard = ({
       >
         <MovieAction
           onClick={() => {
-            console.log('assisti', movie)
             dispatch(handleAddedMoviesObj(movie, 'watched'));
           }}
         >

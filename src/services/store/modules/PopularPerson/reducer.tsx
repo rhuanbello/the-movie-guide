@@ -10,8 +10,6 @@ export function popularPerson(
     case 'setPopularPerson': {
       const { results } = response;
 
-      console.log('Popular Person', action)
-
       const popularPersonFiltered = [...results].map(
         ({ name, profile_path, known_for, id }) => ({
           id,
@@ -27,8 +25,6 @@ export function popularPerson(
         x.profile_path.length)
 
       const popularPersonList = [...state, ...popularPersonFiltered]
-      console.log('Popular Person State', popularPersonList)
-
       return popularPersonList;
     }
     default:

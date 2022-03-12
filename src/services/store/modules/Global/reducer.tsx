@@ -158,7 +158,6 @@ export function moviesToRender(
   switch (action.type) {
     case 'filtering_movies_list': {
       const { response } = action;
-      console.log('Action', action)
 
       const moviesListFiltered = [...response].map(
         ({ title, release_date, poster_path, id }) => ({
@@ -168,8 +167,6 @@ export function moviesToRender(
           id,
         })
       );
-
-      console.log('Filtrou no redux', moviesListFiltered);
 
       return moviesListFiltered;
     }

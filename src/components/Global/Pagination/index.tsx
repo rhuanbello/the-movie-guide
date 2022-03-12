@@ -54,10 +54,6 @@ export const Pagination = () => {
   const handlePagination = (value: number, label) => {
     let pageNumber = value;
 
-    console.log('label', label)
-    console.log('value', value)
-    console.log('condition', Number.isNaN(page) && isNaN(label))
-
     if (Number.isNaN(page) && isNaN(label) && typeof label !== 'string') pageNumber = 2
     if (pageNumber === 0) pageNumber = page + 1;
     if (pageNumber === -1) pageNumber = page - 1;

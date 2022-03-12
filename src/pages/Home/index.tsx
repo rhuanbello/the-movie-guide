@@ -26,7 +26,6 @@ export default function Home() {
     path: string
   ) => {
     const genresToRender = selectedGenres?.join(',');
-    console.log(`get de ${path}/${page || 1}`)
 
     movieApi
       .get(

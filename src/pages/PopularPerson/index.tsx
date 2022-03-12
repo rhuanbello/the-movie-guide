@@ -1,6 +1,12 @@
 import { useEffect, useLayoutEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import { personApi } from "../../services/requests/api";
+import { handlePopularPerson } from '../../services/store/modules/PopularPerson/actions'
+import { DefaultRootState } from "../../services/store/interfaces";
+
+import { AnimatePresence, motion } from "framer-motion";
 import { ScrollBack } from '../../components/Global/MovieIcons';
 
 import { 
@@ -8,12 +14,6 @@ import {
   Cards,
   PersonCard
 } from './styles';
-
-import { AnimatePresence, motion } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
-import { handlePopularPerson } from '../../services/store/modules/PopularPerson/actions'
-import { DefaultRootState } from "../../services/store/interfaces";
-import { popularPersonProps } from "../../services/store/modules/PopularPerson/interfaces";
 
 export default function PopularPerson() {
   //@ts-ignore

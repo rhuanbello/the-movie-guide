@@ -8,7 +8,6 @@ export function movieDetails(
   
   switch (type) {
     case 'setMovieDetails': {
-      console.log('movieDetails action', action)
       const { crew } = response.credits;
 
       const crewArrayFilteredAndLimited = [...crew]
@@ -61,7 +60,6 @@ export function movieTrailer(
   const { type, response } = action;
   switch (type) {
     case 'setMovieTrailer': {
-      console.log('setMovieTrailer Type', action)
 
       let trailersFiltered = '';
 

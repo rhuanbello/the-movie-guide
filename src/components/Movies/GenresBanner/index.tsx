@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from "react-redux";
 import { MdCancel } from "react-icons/md";
 
 import { 
@@ -6,7 +7,6 @@ import {
   GenreButton, 
 } from './styles';
 
-import { useDispatch, useSelector } from "react-redux";
 import { DefaultRootState } from "../../../services/store/interfaces";
 import { handleSelectedGenres } from '../../../services/store/modules/Home/actions';
 

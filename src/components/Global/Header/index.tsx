@@ -57,7 +57,6 @@ export const Header = () => {
     searchApi
       .get(`multi?api_key=${VITE_API_KEY}&language=pt-BR&page=1&query=${searchedTerm}`)
       .then(({ data }) => {
-        console.log('data', data)
         const { results } = data;
         dispatch(handleSearchedTerm(results, setSearchLoading));
       })
