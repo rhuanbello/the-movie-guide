@@ -6,7 +6,6 @@ Você pode acessá-lo com este [link](https://the-movie-guide.vercel.app).
 
 ## ****💻 Sobre****
 
----
 
 The Movie Guide é uma aplicação que reune informações sobre artistas e produções, o site também permite que usuários pesquisem e avaliem seus **filmes** favoritos, além de mudar a foto, nome de usuário e outras informações de seu perfil.
 
@@ -14,7 +13,6 @@ O deploy para produção foi feito com Vercel, e está disponibilizado neste [en
 
 ## 🚀 Tecnologias
 
----
 
 The Movie Guide foi desenvolvido utilizando as seguintes tecnologias:
 
@@ -32,7 +30,6 @@ The Movie Guide foi desenvolvido utilizando as seguintes tecnologias:
 
 ## ****✨ Features****
 
----
 
 Algumas features que valem a pena destacar:
 
@@ -47,8 +44,6 @@ Algumas features que valem a pena destacar:
 
 ## Rodando o App
 
----
-
 Para executar o projeto, siga-os passos abaixo:
 
 ```jsx
@@ -62,13 +57,10 @@ O app estará disponível no endereço: [http://localhost:3000/](http://localhos
 
 ## 🎨 **Design de Interface**
 
----
 
 - A Interface do projeto foi desenvolvida utilizando o software Figma, você pode visualizar o layout através [desse link.](https://www.figma.com/file/Ki1aqCoScQ9kDV4YJ5ex1r/Movies-Guide?node-id=0%3A1)
 
 ## Estrutura de Componentes da Aplicação
-
----
 
 - pages
     - **Home**
@@ -96,7 +88,6 @@ O app estará disponível no endereço: [http://localhost:3000/](http://localhos
 
 ## **📝 Licença**
 
----
 
 Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://github.com/birobirobiro/nlw-heat-origin-v2/blob/main/.github/LICENSE.md) para mais detalhes.
 
