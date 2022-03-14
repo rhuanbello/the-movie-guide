@@ -6,19 +6,19 @@ import { searchApi } from '../../../services/requests/api';
 
 import Logo from '../../../assets/logo.svg';
 
-import { 
-  Container, 
-  SearchedOptions, 
-  StyledAutocomplete, 
-  StyledMenu, 
-  StyledMenuButton, 
-  StyledMenuItem, 
-  StyledTextField 
+import {
+  Container,
+  SearchedOptions,
+  StyledAutocomplete,
+  StyledMenu,
+  StyledMenuButton,
+  StyledMenuItem,
+  StyledTextField
 } from './styles';
 
-import { 
-  CircularProgress, 
-  Skeleton 
+import {
+  CircularProgress,
+  Skeleton
 } from '@mui/material';
 
 import { searchedMovies } from './interfaces';
@@ -27,7 +27,7 @@ import { DefaultRootState } from '../../../services/store/interfaces';
 
 export const Header = () => {
   //@ts-ignore
-  const { VITE_API_KEY } = import.meta.env;
+  const { VITE_API_KEY } = process.env;
 
   const { searchedMovies } = useSelector((state): DefaultRootState => state);
 
@@ -39,17 +39,17 @@ export const Header = () => {
   const [searchLoading, setSearchLoading] = useState<boolean>(false);
 
   const menuItems = [
-    { 
+    {
       menuButton: 'Filmes',
-      menuItems: ['Populares', 'Mais bem avaliados', 'Em cartaz', 'Próximos Lançamentos'] 
-    }, 
-    { 
+      menuItems: ['Populares', 'Mais bem avaliados', 'Em cartaz', 'Próximos Lançamentos']
+    },
+    {
       menuButton: 'Pessoas',
-      menuItems: ['Populares'] 
-    }, 
-    { 
+      menuItems: ['Populares']
+    },
+    {
       menuButton: 'Perfil',
-      menuItems: ['Meu Perfil'] 
+      menuItems: ['Meu Perfil']
     }
   ];
 
@@ -74,7 +74,7 @@ export const Header = () => {
     if (menuButton === 'Pessoas') {
       navigate('/person/popular')
       return;
-    } 
+    }
 
     switch (menuItem) {
       case 'Populares':
@@ -155,7 +155,7 @@ export const Header = () => {
           getOptionLabel={(item: searchedMovies | any) => item.title}
           renderInput={(params) => (
             <StyledTextField {...params}
-              size="small" 
+              size="small"
               placeholder='Busce por filmes ou pessoas...'
               onChange={(e) => setSearchedTerm(e.target.value)}
               InputProps={{
@@ -167,50 +167,51 @@ export const Header = () => {
                 },
                 endAdornment: (
                   <>
-                    {searchLoading ? 
-                      <CircularProgress 
+                    {searchLoading ?
+                      <CircularProgress
                         size={16}
-                        sx={{ 
-                          color: "var(--primary)", 
-                          marginRight: 4 
-                        }}  
-                      /> 
+                        sx={{
+                          color: "var(--primary)",
+                          marginRight: 4
+                        }}
+                      />
                       : null}
                     {params.InputProps.endAdornment}
                   </>
-                )}}
-              />
+                )
+              }}
+            />
           )}
-          renderOption={(props, {title, vote_average, release_date, poster_path}: searchedMovies | any) => (
+          renderOption={(props, { title, vote_average, release_date, poster_path }: searchedMovies | any) => (
             <SearchedOptions {...props} voteAverage={vote_average}>
+              <>
+                {searchLoading ? (
+                  <Skeleton variant="rectangular" width="15%" height="60px" animation="wave" sx={{
+                    borderRadius: '5px',
+                    marginLeft: '5px',
+                    padding: '5px'
+                  }} />
+                ) : (
+                  <img src={`https://image.tmdb.org/t/p/w200/${poster_path}`} alt="" />
+                )}
+                {searchLoading ? (
+                  <Skeleton variant="text" height="40px" width="100%" animation="wave" />
+                ) : (
                   <>
-                    {searchLoading ? (
-                      <Skeleton variant="rectangular" width="15%" height="60px" animation="wave" sx={{
-                        borderRadius: '5px',
-                        marginLeft: '5px',
-                        padding: '5px'
-                      }}/>
-                    ) : (
-                      <img src={`https://image.tmdb.org/t/p/w200/${poster_path}`} alt="" />
-                    )}
-                    {searchLoading ? (
-                      <Skeleton variant="text" height="40px" width="100%" animation="wave" />
-                    ) : (
-                      <>
-                      <span>{title}</span>
-                      <span>{vote_average && vote_average?.toString()?.replace('.', '') + '%'}</span>
-                      <span>{release_date?.split('-')[0] || ''}</span>
-                      </>
-                    )}
+                    <span>{title}</span>
+                    <span>{vote_average && vote_average?.toString()?.replace('.', '') + '%'}</span>
+                    <span>{release_date?.split('-')[0] || ''}</span>
                   </>
+                )}
+              </>
             </SearchedOptions>
           )}
-          onChange={(e, {media_type, id}: any) => {
+          onChange={(e, { media_type, id }: any) => {
             navigate(`/${media_type}/${id}`)
           }}
         />
       </div>
-      
+
     </Container>
   );
 }

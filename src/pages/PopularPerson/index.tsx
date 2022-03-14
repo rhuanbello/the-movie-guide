@@ -9,15 +9,15 @@ import { DefaultRootState } from "../../services/store/interfaces";
 import { AnimatePresence, motion } from "framer-motion";
 import { ScrollBack } from '../../components/Global/MovieIcons';
 
-import { 
-  Container, 
+import {
+  Container,
   Cards,
   PersonCard
 } from './styles';
 
 export default function PopularPerson() {
   //@ts-ignore
-  const { VITE_API_KEY } = import.meta.env;
+  const { VITE_API_KEY } = process.env;
 
   const navigate = useNavigate();
   const [pageCount, setPageCount] = useState(1);
@@ -47,7 +47,7 @@ export default function PopularPerson() {
 
       if (scrollYCalc >= maxHeight) {
         setPageCount(pageCount => pageCount + 1);
-    
+
       }
     }
     window.addEventListener('scroll', updatePosition);
@@ -62,7 +62,7 @@ export default function PopularPerson() {
   }
 
   const profile_baseURL = 'https://image.tmdb.org/t/p/';
- 
+
   return (
     <Container>
       <h2>Pessoas Populares</h2>
@@ -81,11 +81,11 @@ export default function PopularPerson() {
               <img src={profile_baseURL + 'w200' + profile_path} alt="" />
               <p>{name}</p>
               <p>{movies.length >= 65 ? movies.substring(0, 65) + '...' : movies}</p>
-          </PersonCard>      
+            </PersonCard>
           </AnimatePresence>
         ))}
       </Cards>
-      <ScrollBack 
+      <ScrollBack
         scrollY={scrollY}
         onClick={() => scrollToTop()}
       />

@@ -54,10 +54,6 @@ export const MovieBanner = ({ detailsLoading }: MovieBannerProps) => {
     setValue(finalRate)
   }, [addedMoviesObj, movieDetails])
 
-  useEffect(() => {
-    console.count('Renderizou')
-  }, [movieDetails]);
-
   const handleVoteAverage = (vote_average) => {
     if (vote_average >= 70) {
       return 'var(--primary)';

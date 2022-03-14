@@ -14,8 +14,8 @@ import { Container, ContainerPerson } from './styles';
 
 export default function PersonDetails() {
   //@ts-ignore
-  const { VITE_API_KEY } = import.meta.env;
-  
+  const { VITE_API_KEY } = process.env;
+
   const { id } = useParams();
   const [detailsLoading, setDetailsLoading] = useState(true);
   const dispatch = useDispatch();

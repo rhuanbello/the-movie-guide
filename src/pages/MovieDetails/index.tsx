@@ -5,11 +5,11 @@ import { useParams } from 'react-router-dom';
 import { movieApi } from "../../services/requests/api";
 import { DefaultRootState } from "../../services/store/interfaces";
 import { cleaningPreviousState } from "../../services/store/modules/Global/actions";
-import { 
-  handleMovieCast, 
-  handleMovieDetails, 
-  handleMovieRecommendations, 
-  handleMovieTrailer 
+import {
+  handleMovieCast,
+  handleMovieDetails,
+  handleMovieRecommendations,
+  handleMovieTrailer
 } from "../../services/store/modules/MovieDetails/actions";
 
 import { MovieBanner } from '../../components/Movies/MovieBanner';
@@ -18,8 +18,8 @@ import { MoviesList } from "../../components/Movies/MoviesList";
 
 export default function MovieDetails() {
   //@ts-ignore
-  const { VITE_API_KEY } = import.meta.env;
-  
+  const { VITE_API_KEY } = process.env;
+
   const { movieRecommendations } = useSelector((state): DefaultRootState => state);
 
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ export default function MovieDetails() {
         dispatch(handleMovieDetails(data, setDetailsLoading));
         dispatch(handleMovieTrailer(data.videos.results));
         dispatch(handleMovieCast(data.credits.cast));
-    
+
       })
       .catch((error) => {
         console.log(error);

@@ -13,7 +13,7 @@ import { Pagination } from '../../components/Global/Pagination';
 
 export default function Home() {
   //@ts-ignore
-  const { VITE_API_KEY } = import.meta.env;
+  const { VITE_API_KEY } = process.env;
   
   const { moviesToRender, selectedGenres } = useSelector((state: DefaultRootState) => state);
   const { page } = useParams();
