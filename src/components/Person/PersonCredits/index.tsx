@@ -13,12 +13,33 @@ export const PersonCredits = ({ personDetails }) => {
     moviesCount
   } = personDetails || {};
 
-  console.log('also_known_as', also_known_as);
+  let formattedGender;
+
+  switch(gender) {
+    case 0:
+      formattedGender = 'Não Especificado'
+      break;
+
+    case 1:
+      formattedGender = 'Feminino'
+      break;
+
+    case 2:
+      formattedGender = 'Masculino'
+      break;
+
+    case 3:
+      formattedGender = 'Não Binário'
+      break;
+
+    default:
+      break;
+  }
 
   const listOfPersonInfo = [
     {
       title: 'Gênero',
-      content: gender === '1' ? 'Masculino' : 'Feminino',
+      content: formattedGender,
     },
     {
       title: 'Data de Nascimento',
