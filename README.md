@@ -33,27 +33,57 @@ The Movie Guide foi desenvolvido utilizando as seguintes tecnologias:
 
 Algumas features que valem a pena destacar:
 
-- Upload de Imagens e alterar informações do usuário em “Meu Perfil”;
-- Pesquisa por título ou ator/atriz;
-- Avaliar filmes, adicionar aos favoritos ou à lista de já assistidos e recuperá-los em “Meu Perfil”;
-- Recomendações de filmes;
-- Filtro acumulativo de gêneros na Página Inicial;
-- Alterne entre filmes populares, filmes em cartaz, filmes em lançamento ou mais bem avaliados;
-- Scroll Infinito na página de Pessoas Populares;
-- Paginação na Página Inicial;
+✔ Upload de Imagens e alterar informações do usuário em “Meu Perfil”;<br />
+✔ Pesquisa por título ou ator/atriz;<br />
+✔ Avaliar filmes, adicionar aos favoritos ou à lista de já assistidos e recuperá-los em “Meu Perfil”;<br />
+✔ Recomendações de filmes;<br />
+✔ Filtro acumulativo de gêneros na Página Inicial;<br />
+✔ Alterne entre filmes populares, filmes em cartaz, filmes em lançamento ou mais bem avaliados;<br />
+✔ Scroll Infinito na página de Pessoas Populares;<br />
+✔ Paginação na Página Inicial;
 
-## Rodando o App
+## 👨‍💻 Rodando a Aplicação
+
 
 Para executar o projeto, siga-os passos abaixo:
 
-```jsx
-# Clonando o projeto
-$ git clone https://github.com/rhuanbello/the-movie-guide.git .
-# Instalando as dependências e iniciando o projeto
-$ yarn && yarn dev
+- Clonando o projeto
+
+```bash
+  git clone https://github.com/rhuanbello/the-movie-guide.git .
 ```
 
-O app estará disponível no endereço: [http://localhost:3000/](http://localhost:3000/)
+- Alternando para a branch de desenvolvimento
+
+```bash
+  git checkout develop
+```
+
+- Crie um arquivo .env na pasta raiz do projeto
+- Solicite uma chave para a `API` do TMDB neste [link](https://www.themoviedb.org/settings/api) e adicione ao arquivo .env criado
+
+```bash
+  VITE_API_KEY=SUA_CHAVE_AQUI
+```
+
+- Instalando as dependências
+
+```bash
+  yarn
+```
+
+- Execute a aplicação, o app estará disponível no endereço [http://localhost:3000/](http://localhost:3000/)
+
+```bash
+  yarn dev
+```
+
+## 👨‍💻 Contribuindo com a Aplicação
+
+
+- Crie um fork do projeto
+- Siga os passos acima
+- Faça pull requests para a branch `develop`
 
 ## 🎨 **Design de Interface**
 
@@ -61,6 +91,7 @@ O app estará disponível no endereço: [http://localhost:3000/](http://localhos
 - A Interface do projeto foi desenvolvida utilizando o software Figma, você pode visualizar o layout através [desse link.](https://www.figma.com/file/Ki1aqCoScQ9kDV4YJ5ex1r/Movies-Guide?node-id=0%3A1)
 
 ## Estrutura de Componentes da Aplicação
+
 
 - pages
     - **Home**
