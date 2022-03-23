@@ -13,33 +13,12 @@ export const PersonCredits = ({ personDetails }) => {
     moviesCount
   } = personDetails || {};
 
-  let formattedGender;
-
-  switch(gender) {
-    case 0:
-      formattedGender = 'Não Especificado'
-      break;
-
-    case 1:
-      formattedGender = 'Feminino'
-      break;
-
-    case 2:
-      formattedGender = 'Masculino'
-      break;
-
-    case 3:
-      formattedGender = 'Não Binário'
-      break;
-
-    default:
-      break;
-  }
+  const gendersList = ['Não Especificado', 'Feminino', 'Masculino', 'Não Binário']
 
   const listOfPersonInfo = [
     {
       title: 'Gênero',
-      content: formattedGender,
+      content: gendersList[gender],
     },
     {
       title: 'Data de Nascimento',
